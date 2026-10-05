@@ -5,6 +5,27 @@
 
 ---
 
+## 📅 [2026-10-05 07:02 IST] — गिट रिपॉजिटरी प्रारंभ, कमिट एवं गिटहब (`shri-vangmayam.github.io`) पर कोड पुश
+
+### 🎯 प्रयोक्ता निर्देश (User Directive):
+- SSH URL प्रदान किया गया: `git@github.com:shri-vangmayam/shri-vangmayam.github.io.git`।
+- प्रयोक्ता की सहमति अनुसार: १०० MB से अधिक बड़ी १२ PDFs को `.gitignore` में सुरक्षित रखते हुए शेष सभी कोड, २६२ स्तोत्र, डेटाबेस एवं मध्यम PDFs (<१०० MB) को गिट में जोड़ना।
+
+### 🛠️ की गई गतिविधियाँ एवं तकनीकी क्रियान्वयन:
+1. **गिट इनिशियलाइज़ेशन एवं शाखा संरेखण:**
+   - `shri_vangamayam/` डायरेक्टरी में `git init` किया गया।
+   - मुख्य शाखा का नाम `main` निर्धारित किया गया।
+   - रिमोट ओरिजिन: `git remote add origin git@github.com:shri-vangmayam/shri-vangmayam.github.io.git` स्थापित।
+2. **संरचना संरक्षण एवं स्टेजिंग:**
+   - `vedant_darshanam/darshanam/.gitkeep` जोड़कर ग्रन्थालय डायरेक्टरी संरचना संरक्षित की गई।
+   - `git add .` द्वारा समस्त वेब एप्लिकेशन (`index.html`, `styles.css`, `app.js`), डेटाबेस (`data/stotras.json`), २६२ स्तोत्र मार्कडाउन फ़ाइलें (`stuti_ganga/`), दस्तावेज़, और मध्यम PDFs को स्टेज किया गया।
+3. **प्रारम्भिक कमिट (Initial Commit):**
+   - संदेश: `"Initial commit: Shri Sanatan Vangmayam complete digital library"` के साथ कमिट सम्पन्न हुआ।
+4. **गिटहब पर पुश (Push to GitHub):**
+   - `git push -u origin main` निष्पादित किया गया (पृष्ठभूमि में अपलोड प्रगति में)।
+
+---
+
 ## 📅 [2026-10-05 06:27 IST] — मुख्य द्वार (Home Page) के परिचयात्मक विवरण का निर्दोष शास्त्रीय संपादन
 
 ### 🎯 प्रयोक्ता निर्देश (User Directive):
