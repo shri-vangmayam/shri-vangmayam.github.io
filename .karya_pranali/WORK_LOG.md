@@ -22,7 +22,9 @@
 3. **प्रारम्भिक कमिट (Initial Commit):**
    - संदेश: `"Initial commit: Shri Sanatan Vangmayam complete digital library"` के साथ कमिट सम्पन्न हुआ।
 4. **गिटहब पर पुश (Push to GitHub):**
-   - `git push -u origin main` निष्पादित किया गया (पृष्ठभूमि में अपलोड प्रगति में)।
+   - `git push -u origin main` सफलतापूर्वक सम्पन्न हुआ (सभी ३३१ ऑब्जेक्ट्स, २६२ स्तोत्र, डेटाबेस एवं मध्यम PDFs गिटहब पर १००% अपलोड)।
+5. **नियम फ़ाइल का संयोजन व पुश:**
+   - `.agents/rules/allowed_commands.md` जोड़कर मुख्य शाखा पर कमिट एवं पुश (`33ada98`) पूर्ण किया गया।
 
 ---
 
