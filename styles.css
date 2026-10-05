@@ -2521,6 +2521,18 @@ body.mode-wrap .shloka-line {
   border-color: rgba(168, 85, 247, 0.65);
 }
 
+/* Slide 4 Theme: Sacred Vermilion, Rose Lotus & Kumkum */
+.pillar-slide-card.slide-vrat {
+  background: linear-gradient(145deg, rgba(244, 63, 94, 0.14) 0%, rgba(36, 12, 22, 0.7) 45%, rgba(24, 10, 16, 0.95) 100%);
+  border-color: rgba(251, 113, 133, 0.32);
+}
+.pillar-slide-card.slide-vrat::before {
+  background: radial-gradient(circle, #fb7185, transparent 70%);
+}
+.pillar-slide-card.slide-vrat:hover {
+  border-color: rgba(251, 113, 133, 0.65);
+}
+
 /* Slide Header Row */
 .slide-header-row {
   display: flex;
@@ -2602,6 +2614,11 @@ body.mode-wrap .shloka-line {
 .emblem-darshan {
   border-color: rgba(168, 85, 247, 0.4);
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(18, 12, 40, 0.5));
+}
+
+.emblem-vrat {
+  border-color: rgba(251, 113, 133, 0.4);
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.25), rgba(36, 12, 22, 0.5));
 }
 
 .slide-title {
@@ -2754,6 +2771,18 @@ body.mode-wrap .shloka-line {
 .slide-cta-darshan:hover {
   background: linear-gradient(135deg, #8b5cf6, #7c3aed);
   box-shadow: 0 10px 28px rgba(139, 92, 246, 0.45);
+  transform: translateY(-2px);
+}
+
+.slide-cta-vrat {
+  background: linear-gradient(135deg, #e11d48, #be123c);
+  color: #ffffff;
+  border-color: rgba(251, 113, 133, 0.5);
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.35);
+}
+.slide-cta-vrat:hover {
+  background: linear-gradient(135deg, #f43f5e, #e11d48);
+  box-shadow: 0 10px 28px rgba(244, 63, 94, 0.5);
   transform: translateY(-2px);
 }
 
@@ -3392,6 +3421,251 @@ body.mode-wrap .shloka-line {
   background: var(--bg-card);
   border: 1px dashed var(--border-subtle);
   border-radius: var(--radius-md);
+}
+
+/* ==========================================================================
+   श्री व्रत-पूजनम् (Vrat & Puja Vidhi Dedicated Page & Modal)
+   ========================================================================== */
+.page-hero.vrat-page-hero {
+  border-color: rgba(251, 113, 133, 0.35);
+  background: radial-gradient(circle at 50% 15%, rgba(244, 63, 94, 0.12), transparent 70%), var(--bg-card);
+}
+
+/* Vrat Cards Grid */
+.vrat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+  margin-bottom: 60px;
+}
+
+.vrat-card-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.vrat-card-item:hover {
+  border-color: rgba(251, 113, 133, 0.65);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.5), 0 0 20px rgba(244, 63, 94, 0.2);
+  background: var(--bg-elevated);
+}
+
+.vrat-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.vrat-card-tag {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.03em;
+}
+
+.tag-navratri {
+  background: rgba(244, 63, 94, 0.16);
+  border: 1px solid rgba(251, 113, 133, 0.4);
+  color: #fb7185;
+}
+
+.tag-ekadashi {
+  background: rgba(245, 158, 11, 0.16);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+}
+
+.tag-shiv {
+  background: rgba(56, 189, 248, 0.16);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+
+.tag-parva {
+  background: rgba(168, 85, 247, 0.16);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #c084fc;
+}
+
+.vrat-card-num {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.vrat-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--text-main);
+  margin: 0 0 8px;
+  line-height: 1.3;
+  transition: color var(--transition-fast);
+}
+
+.vrat-card-item:hover .vrat-card-title {
+  color: #fb7185;
+}
+
+.vrat-card-mantra {
+  font-family: var(--font-sanskrit);
+  font-size: 0.92rem;
+  color: var(--accent-gold);
+  font-style: italic;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  opacity: 0.95;
+}
+
+.vrat-card-desc {
+  font-family: var(--font-hindi);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0 0 14px;
+}
+
+.vrat-card-action {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fb7185;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap var(--transition-fast);
+}
+
+.vrat-card-item:hover .vrat-card-action {
+  gap: 8px;
+}
+
+/* Vrat Detail Modal */
+.vrat-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.vrat-modal-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  max-width: 840px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 35px rgba(244, 63, 94, 0.25);
+  overflow: hidden;
+}
+
+.vrat-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+}
+
+.vrat-modal-tag {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fb7185;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.vrat-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--accent-gold);
+  margin: 0;
+}
+
+.vrat-modal-close {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.vrat-modal-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-main);
+  border-color: var(--accent-gold);
+}
+
+.vrat-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  font-family: var(--font-hindi);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.vrat-modal-body h4 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--accent-gold);
+  margin: 20px 0 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 6px;
+}
+
+.vrat-modal-body p {
+  margin: 0 0 14px;
+}
+
+.vrat-modal-mantra-box {
+  background: rgba(245, 197, 99, 0.06);
+  border-left: 4px solid var(--accent-gold);
+  padding: 12px 18px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--font-sanskrit);
+  font-size: 1.1rem;
+  color: var(--text-sanskrit);
+  margin: 16px 0;
+}
+
+.vrat-modal-list {
+  padding-left: 20px;
+  margin: 10px 0 16px;
+}
+
+.vrat-modal-list li {
+  margin-bottom: 8px;
 }
 
 /* ==========================================================================
