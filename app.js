@@ -1286,7 +1286,7 @@
         if (corpus === 'home') {
           window.location.hash = '#home';
         } else if (corpus === 'stuti_ganga') {
-          showToast('🌊 स्तुति-गंगा: २६२ पावन स्तोत्र, चालीसा एवं स्तुति संग्रह');
+          showToast('🌊 स्तुति-गंगा: शास्त्रीय स्तोत्र, चालीसा एवं स्तुति संग्रह');
           window.location.hash = '#stuti-ganga';
           openSidebar();
         } else if (corpus === 'ved_puranam') {
