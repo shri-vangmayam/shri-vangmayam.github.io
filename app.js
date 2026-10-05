@@ -300,7 +300,7 @@
       } else if (searchQuery) {
         titleEl.textContent = `🔍 खोज परिणाम — ${toDevanagari(filtered.length)} रचनाएं`;
       } else {
-        titleEl.textContent = `📖 सम्पूर्ण स्तुति-गंगा — २६२ पावन रचनाएं`;
+        titleEl.textContent = `📖 स्तुति-गंगा — पावन भावपूर्ण रचनाएं`;
       }
     }
 
