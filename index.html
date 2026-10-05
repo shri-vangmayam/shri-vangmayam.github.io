@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="sa" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>श्री वाङ्मयम् — स्तुति-गंगा</title>
+  <meta name="description" content="सनातन धर्म के समस्त २६२ पावन स्तोत्र, स्तुति, अष्टक, कवच, सहस्रनाम, चालीसा एवं वैदिक सूक्तों का प्रामाणिक देवनागरी पाठ एवं हिंदी भावार्थ।">
+  
+  <!-- Cache Prevention for Instant Updates -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- Favicon / Touch Icon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20width=%2232%22%20height=%2232%22><text y=%2226%22 font-size=%2226%22>🕉️</text></svg>">
+
+  <!-- Google Fonts: Tiro Devanagari Sanskrit, Rozha One, Noto Serif Devanagari, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Noto+Serif+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Rozha+One&family=Tiro+Devanagari+Sanskrit:ital@0;1&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app-container" class="app-container">
+    <!-- Header Container with Dual Navbars -->
+    <header class="app-header-container" id="app-header-container">
+      <!-- 1. Top Navbar (मुख्य नवबार) -->
+      <div class="app-header">
+        <div class="header-left">
+          <button id="sidebar-toggle-btn" class="icon-btn" aria-label="अनुक्रमणिका खोलें" title="अनुक्रमणिका (Sidebar)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="brand-identity" id="brand-identity-btn" role="button" tabindex="0" title="मुख्य द्वार (Home Page) पर जाएं" style="cursor: pointer;">
+            <div class="sacred-emblem">🕉️</div>
+            <div class="brand-text">
+              <h1 class="brand-title">श्री वाङ्मयम्</h1>
+            </div>
+          </div>
+
+          <!-- Corpus Navigation in Top Navbar (त्रिपक्षीय वाङ्मय स्तम्भ) -->
+          <nav class="corpus-nav-tabs" id="corpus-nav-tabs" aria-label="मुख्य वाङ्मय अनुभाग">
+            <button class="corpus-tab-btn active" data-corpus="home" title="मुख्य द्वार (Home Page)">🏠 मुख्य द्वार</button>
+            <button class="corpus-tab-btn" data-corpus="stuti_ganga" title="स्तुति-गंगा संग्रह (२६२ शास्त्रीय स्तोत्र, चालीसा, आरती एवं स्तुति)">🌊 स्तुति-गंगा</button>
+            <button class="corpus-tab-btn" data-corpus="ved_puranam" title="वेद एवं पुराण संग्रह (चतुर्वेद एवं २६ पुराण, उपपुराण व इतिहास ग्रन्थ)">🏛️ वेद-पुराणम्</button>
+            <button class="corpus-tab-btn" data-corpus="vedant_darshanam" title="वेदान्त एवं दर्शन संग्रह (प्रस्थानत्रयी, उपनिषद, षड्दर्शन एवं योगवासिष्ठ)">🪔 वेदान्त-दर्शनम्</button>
+          </nav>
+        </div>
+
+        <!-- Right: Reader Settings (A- 100% A+, अखंड पंक्ति ↔️, थीम स्विच 🌙) -->
+        <div class="header-right">
+          <!-- Font Size Controls (A- 100% A+) -->
+          <div class="font-controls">
+            <button id="font-decrease-btn" class="font-btn" title="अक्षर का आकार छोटा करें">A-</button>
+            <span id="font-size-indicator">100%</span>
+            <button id="font-increase-btn" class="font-btn" title="अक्षर का आकार बड़ा करें">A+</button>
+          </div>
+
+          <!-- Line Wrap / Pothi Mode Toggle (↔️) -->
+          <button id="line-wrap-toggle-btn" class="icon-btn line-wrap-toggle-btn" title="पंक्ति विन्यास: अखंड पंक्ति (बिना ब्रेक) या मोड़ें">
+            <span id="line-wrap-icon">↔️</span>
+          </button>
+
+          <!-- Theme Selector (🌙) -->
+          <div class="theme-dropdown-wrapper">
+            <button id="theme-toggle-btn" class="icon-btn" title="थीम बदलें">
+              <span id="current-theme-icon">🌙</span>
+            </button>
+            <div class="theme-menu" id="theme-menu">
+              <button class="theme-option" data-set-theme="dark">
+                <span>🌙</span> विलोम (Midnight)
+              </button>
+              <button class="theme-option" data-set-theme="vedic">
+                <span>📜</span> वेदी (Parchment)
+              </button>
+              <button class="theme-option" data-set-theme="light">
+                <span>☀️</span> धवल (Ivory Day)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Secondary Sub-Navbar (मुख्य नवबार के नीचे) -->
+      <nav class="sub-navbar" id="sub-navbar" aria-label="स्तोत्र नेविगेशन एवं उपकरण">
+        <!-- Sidebar Header Column: Always aligned above the sidebar -->
+        <div class="sub-nav-sidebar-col" id="sub-nav-sidebar-col">
+          <button class="sub-nav-index-btn" id="sub-nav-index-btn" title="अनुक्रमणिका (Sidebar) खोलें / बंद करें">
+            <span class="sub-nav-index-icon">📜</span>
+            <span class="sub-nav-index-title">स्तुति-गंगा अनुक्रमणिका : २६२ रचनाएं</span>
+          </button>
+        </div>
+
+        <!-- Main Content Column: Directly above Stotra Path (Unaffected by sidebar) -->
+        <div class="sub-nav-content-col" id="sub-nav-content-col">
+          <div class="sub-nav-title-wrap">
+            <button id="sub-home-btn" class="sub-icon-btn sub-home-btn" title="मुख्य द्वार (Home Page) पर जाएं" aria-label="मुख्य द्वार" style="margin-right: 8px;">
+              🏠
+            </button>
+            <h2 class="sub-nav-title" id="sub-nav-title">१.००१ श्री शिव नमामि स्तोत्रम् (कुल 12 श्लोक)</h2>
+          </div>
+
+          <!-- Right: Clean action logos -->
+          <div class="sub-nav-right" id="sub-nav-actions">
+            <a id="sub-youtube-btn" class="sub-icon-btn sub-youtube-btn" target="_blank" rel="noopener" style="display: none;" title="यूट्यूब पर पाठ श्रवण करें" aria-label="यूट्यूब पाठ">
+              ▶️
+            </a>
+            <button id="sub-copy-btn" class="sub-icon-btn" title="सम्पूर्ण पाठ कॉपी करें" aria-label="कॉपी का लोगो">
+              📋
+            </button>
+            <button id="sub-fav-btn" class="sub-icon-btn" title="पसंदीदा में जोड़ें" aria-label="स्टार का लोगो">
+              ⭐
+            </button>
+            <button id="sub-print-btn" class="sub-icon-btn" title="प्रिंट / PDF बनाएं" aria-label="प्रिंट का लोगो">
+              🖨️
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <div class="layout-body">
+      <!-- Left Sidebar: Table of Contents & Filters -->
+      <aside class="app-sidebar" id="app-sidebar">
+        <div class="sidebar-header">
+          <!-- Deity / Category Filter Pills -->
+          <div class="category-filter-pills" id="category-pills">
+            <button class="pill-btn active" data-cat="all">सभी (२६२)</button>
+            <button class="pill-btn" data-cat="श्री शिव">🔱 शिव (४०)</button>
+            <button class="pill-btn" data-cat="श्री विष्णु">🪷 विष्णु (३७)</button>
+            <button class="pill-btn" data-cat="श्री कृष्ण">🪈 कृष्ण (१०)</button>
+            <button class="pill-btn" data-cat="श्री राम">🏹 राम (१५)</button>
+            <button class="pill-btn" data-cat="श्री हनुमान">🚩 हनुमान (१२)</button>
+            <button class="pill-btn" data-cat="श्री गणेश">🐘 गणेश (१७)</button>
+            <button class="pill-btn" data-cat="श्री देवी / शक्ति">🌸 देवी / शक्ति (६६)</button>
+            <button class="pill-btn" data-cat="श्री सूर्य">☀️ सूर्य (१०)</button>
+            <button class="pill-btn" data-cat="श्री नृसिंह">🦁 नृसिंह (७)</button>
+            <button class="pill-btn" data-cat="श्री कार्तिकेय">🦚 कार्तिकेय (७)</button>
+            <button class="pill-btn" data-cat="श्री दत्तात्रेय">🕉️ दत्तात्रेय (६)</button>
+            <button class="pill-btn" data-cat="श्री भैरव">⚔️ भैरव (६)</button>
+            <button class="pill-btn" data-cat="नवग्रह">🪐 नवग्रह (१२)</button>
+            <button class="pill-btn" data-cat="वैदिक सूक्त">📜 वैदिक सूक्त (१४)</button>
+            <button class="pill-btn" data-cat="श्री गुरु">🪔 गुरु (२)</button>
+            <button class="pill-btn" data-cat="कुबेर">💰 कुबेर (१)</button>
+            <button class="pill-btn" data-cat="fav">⭐ पसंदीदा</button>
+          </div>
+        </div>
+
+        <!-- Stotra Nav List -->
+        <nav class="stotra-nav-list" id="stotra-list" aria-label="स्तोत्र सूची">
+          <!-- Dynamically populated via app.js -->
+        </nav>
+      </aside>
+
+      <!-- Sidebar Backdrop on Mobile -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+      <!-- Main Reader Area -->
+      <main class="reading-viewport" id="reading-viewport">
+        <!-- Loading State -->
+        <div id="loading-spinner" class="loading-container">
+          <div class="sacred-spinner">ॐ</div>
+          <p>क्षमा करें, श्री वाङ्मयम् के लोड होने की प्रक्रिया प्रगति में है. कृपया प्रतीक्षा करें...</p>
+        </div>
+
+        <!-- 1. Grand Homepage View (मुख्य द्वार) -->
+        <section id="home-view" class="home-view" style="display: none;">
+          <!-- Hero Banner -->
+          <div class="home-hero">
+            <div class="home-hero-badge">
+              <span class="sacred-om-badge">🕉️</span>
+              <span class="badge-text">श्री सनातन धर्म अखण्ड डिजिटल ग्रन्थालय</span>
+            </div>
+            <h1 class="home-hero-title">श्री सनातन वाङ्मयम्</h1>
+            <p class="home-hero-shloka">« ॐ असतो मा सद्गमय । तमसो मा ज्योतिर्गमय । मृत्योर्माऽमृतं गमय ॥ »</p>
+            <p class="home-hero-desc">
+              समस्त वेदों, पावन पुराणों, उपनिषदों, षड्दर्शनों तथा स्तुति-गंगा की पावन रचनाओं का प्रामाणिक एवं शुद्ध डिजिटल संकलन।
+            </p>
+          </div>
+
+          <!-- 3 Presentation Slides for the 3 Pillars (जैसे PPT की स्लाइड्स हों) -->
+          <div class="home-section-header">
+            <span class="slide-section-badge">✨ त्रिपक्षीय वाङ्मय स्तम्भ</span>
+            <h2 class="home-section-title">सनातन ज्ञान-परम्परा के तीन मुख्य आयाम</h2>
+            <p class="home-section-subtitle">जैसे-जैसे आप नीचे स्क्रॉल करेंगे, तीनों स्तम्भों का विस्तृत परिचय आपके समक्ष प्रकट होगा</p>
+          </div>
+
+          <div class="pillar-slides-container">
+            <!-- Slide 1: प्रथम स्तम्भ — श्री स्तुति-गंगा -->
+            <div class="pillar-slide-card slide-stuti" id="pillar-slide-stuti">
+              <div class="slide-header-row">
+                <div class="slide-pillar-tag">
+                  <span class="slide-tag-icon">🌊</span>
+                  <span class="slide-tag-text">प्रथम स्तम्भ · नित्य साधना एवं भक्ति</span>
+                </div>
+                <div class="slide-page-badge">स्लाइड ०१ / ०३</div>
+              </div>
+
+              <div class="slide-main-content">
+                <div class="slide-title-wrap">
+                  <div class="slide-emblem emblem-stuti">🌊</div>
+                  <div>
+                    <h3 class="slide-title">श्री स्तुति-गंगा</h3>
+                    <p class="slide-subtitle">२६२ शास्त्रीय स्तोत्र, अष्टक, कवच, सहस्रनाम, वैदिक सूक्त एवं सम्पूर्ण १९ चालीसा संग्रह</p>
+                  </div>
+                </div>
+
+                <div class="slide-shloka-banner">
+                  <span class="slide-shloka-quote">«</span>
+                  <p class="slide-shloka-text">नमो देव्यै महादेव्यै शिवायै सततं नमः । नमः प्रकृत्यै भद्रायै नियताः प्रणताः स्म ताम् ॥</p>
+                  <span class="slide-shloka-quote">»</span>
+                </div>
+
+                <p class="slide-desc">
+                  सनातन परम्परा के १६ शास्त्रीय देव-खण्डों में विभक्त पावन वाङ्मय। प्रत्येक स्तोत्र का प्रामाणिक पदच्छेद, अन्वय एवं शुद्ध हिंदी भावार्थ। अखंड अविरल पाठ, लयबद्ध श्रवण एवं व्यक्तिगत नित्य पारायण के लिए समर्पित आधुनिक डिजिटल साधन।
+                </p>
+
+                <!-- Features & Key Metrics Row -->
+                <div class="slide-features-row">
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">🌊</span>
+                    <span class="chip-text"><strong>२६२</strong> पावन रचनाएं</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">🔱</span>
+                    <span class="chip-text"><strong>१६</strong> शास्त्रीय देव-खण्ड</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">🚩</span>
+                    <span class="chip-text"><strong>१९</strong> सम्पूर्ण चालीसा संग्रह</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">📜</span>
+                    <span class="chip-text"><strong>१००%</strong> श्लोकवार हिंदी भावार्थ</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">🎙️</span>
+                    <span class="chip-text">अविरल मूल पाठ व पारायण</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-action-row">
+                <button class="slide-cta-btn slide-cta-stuti" id="slide-enter-stuti-btn">
+                  <span>🌊</span> स्तुति-गंगा में प्रवेश करें (२६२ रचनाएं) <span class="arrow-icon">→</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Slide 2: द्वितीय स्तम्भ — श्री वेद-पुराणम् -->
+            <div class="pillar-slide-card slide-puran" id="pillar-slide-puran">
+              <div class="slide-header-row">
+                <div class="slide-pillar-tag">
+                  <span class="slide-tag-icon">🏛️</span>
+                  <span class="slide-tag-text">द्वितीय स्तम्भ · अमर श्रुति एवं स्मृति</span>
+                </div>
+                <div class="slide-page-badge">स्लाइड ०२ / ०३</div>
+              </div>
+
+              <div class="slide-main-content">
+                <div class="slide-title-wrap">
+                  <div class="slide-emblem emblem-puran">🏛️</div>
+                  <div>
+                    <h3 class="slide-title">श्री वेद-पुराणम्</h3>
+                    <p class="slide-subtitle">४ पवित्र वेद संहिताएं एवं २६ पावन पुराण, उपपुराण व इतिहास ग्रन्थालय</p>
+                  </div>
+                </div>
+
+                <div class="slide-shloka-banner">
+                  <span class="slide-shloka-quote">«</span>
+                  <p class="slide-shloka-text">ऋचो यजूंषि सामानि यथैवाथर्वणानि च । पुराणं पञ्चमो वेदो भारतं चेति मे मतिः ॥</p>
+                  <span class="slide-shloka-quote">»</span>
+                </div>
+
+                <p class="slide-desc">
+                  सृष्टि के आदिम ईश्वरीय ज्ञान-प्रकाश चतुर्वेद संहिताएं (ऋक्, यजुः, साम, अथर्व) तथा महर्षि वेदव्यास प्रणीत १८ पावन महापुराण, २ उपपुराण (गणेश, नृसिंह) एवं १ इतिहास ग्रन्थ (हरिवंश)। प्रत्येक ग्रन्थ का प्रामाणिक संस्कृत मूल एवं हिंदी अनुवाद युक्त डिजिटल PDF संग्रह।
+                </p>
+
+                <!-- Features & Key Metrics Row -->
+                <div class="slide-features-row">
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">📜</span>
+                    <span class="chip-text"><strong>४</strong> चतुर्वेद संहिताएं (ऋक्, यजुः, साम, अथर्व)</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">🏛️</span>
+                    <span class="chip-text"><strong>२६</strong> पावन पुराण, उपपुराण व इतिहास ग्रन्थ</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">📖</span>
+                    <span class="chip-text"><strong>१८</strong> महापुराण + <strong>२</strong> उपपुराण + <strong>१</strong> इतिहास</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">📥</span>
+                    <span class="chip-text">प्रामाणिक श्लोकवार डिजिटल PDF</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">🔍</span>
+                    <span class="chip-text">त्वरित ग्रन्थ एवं विषय खोज सुविधा</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-action-row">
+                <button class="slide-cta-btn slide-cta-puran" id="slide-open-vedpuran-btn">
+                  <span>🏛️</span> वेद-पुराणम् ग्रन्थालय खोलें (२६ ग्रन्थ) <span class="arrow-icon">→</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Slide 3: तृतीय स्तम्भ — श्री वेदान्त-दर्शनम् -->
+            <div class="pillar-slide-card slide-darshan" id="pillar-slide-darshan">
+              <div class="slide-header-row">
+                <div class="slide-pillar-tag">
+                  <span class="slide-tag-icon">🪔</span>
+                  <span class="slide-tag-text">तृतीय स्तम्भ · ज्ञान, विवेक एवं मोक्ष प्रस्थान</span>
+                </div>
+                <div class="slide-page-badge">स्लाइड ०३ / ०३</div>
+              </div>
+
+              <div class="slide-main-content">
+                <div class="slide-title-wrap">
+                  <div class="slide-emblem emblem-darshan">🪔</div>
+                  <div>
+                    <h3 class="slide-title">श्री वेदान्त-दर्शनम्</h3>
+                    <p class="slide-subtitle">प्रस्थानत्रयी, १०८ उपनिषद, षड्दर्शन एवं मोक्षोपाय योगवासिष्ठ</p>
+                  </div>
+                </div>
+
+                <div class="slide-shloka-banner">
+                  <span class="slide-shloka-quote">«</span>
+                  <p class="slide-shloka-text">अयमात्मा ब्रह्म · तत्त्वमसि · प्रज्ञानं ब्रह्म · अहं ब्रह्मास्मि ॥</p>
+                  <span class="slide-shloka-quote">»</span>
+                </div>
+
+                <p class="slide-desc">
+                  सनातन तत्त्वज्ञान एवं आत्मविद्या का पराकाष्ठा शिखर। श्रुति-प्रस्थान (ईशादि १०८ उपनिषद), स्मृति-प्रस्थान (श्रीमद्भगवद्गीता) एवं न्याय-प्रस्थान (ब्रह्मसूत्र) सहित महर्षियों द्वारा संस्थापित छह आस्तिक दर्शन (न्याय, वैशेषिक, सांख्य, योग, मीमांसा, वेदान्त) एवं मोक्षोपाय महारामायण योगवासिष्ठ।
+                </p>
+
+                <!-- Features & Key Metrics Row -->
+                <div class="slide-features-row">
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">🪔</span>
+                    <span class="chip-text"><strong>प्रस्थानत्रयी</strong> (उपनिषद, गीता, ब्रह्मसूत्र)</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">🧘‍♂️</span>
+                    <span class="chip-text"><strong>षड्दर्शन</strong> (सांख्य, योग, न्याय, वैशेषिक...)</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">🕉️</span>
+                    <span class="chip-text"><strong>१०८+</strong> उपनिषद एवं अमर महावाक्य</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">📜</span>
+                    <span class="chip-text"><strong>योगवासिष्ठ</strong> महारामायण (मोक्षोपाय)</span>
+                  </div>
+                  <div class="slide-feature-chip">
+                    <span class="chip-icon">💡</span>
+                    <span class="chip-text">शाश्वत अद्वैत तत्त्वज्ञान एवं आत्म-साक्षात्कार</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-action-row">
+                <button class="slide-cta-btn slide-cta-darshan" id="slide-open-vedant-btn">
+                  <span>🪔</span> वेदान्त-दर्शनम् ग्रन्थालय खोलें (१३ ग्रन्थ) <span class="arrow-icon">→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vision / Dharma Seva Banner -->
+          <div class="home-vision-card">
+            <div class="vision-emblem">🕉️</div>
+            <div class="vision-content">
+              <h3 class="vision-title">आर्ष परम्परा एवं पावन संकल्प</h3>
+              <p class="vision-text">
+                « धर्मो रक्षति रक्षितः » — सनातन धर्म के पावन ज्ञान-स्रोतों का संरक्षण, डिजिटल प्रसार, भावी आर्ष गुरुकुल, साधना आश्रम एवं धर्म-सेवा कार्यों के प्रति समर्पित एक दूरदर्शी प्रकल्प।
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Dedicated Page View: स्तुति-गंगा (Stuti-Ganga Page) -->
+        <section id="stuti-ganga-view" class="corpus-page-view" style="display: none;">
+          <!-- Hero Header -->
+          <div class="page-hero stuti-page-hero">
+            <div class="page-hero-badge">
+              <span class="sacred-icon">🌊</span>
+              <span>नित्य साधना एवं अखण्ड भक्ति</span>
+            </div>
+            <h1 class="page-hero-title">श्री स्तुति-गंगा</h1>
+            <p class="page-hero-shloka">« नमो देव्यै महादेव्यै शिवायै सततं नमः । नमः प्रकृत्यै भद्रायै नियताः प्रणताः स्म ताम् ॥ »</p>
+            <p class="page-hero-desc">
+              सनातन परम्परा के १६ शास्त्रीय देव-खण्डों में २६२ स्तोत्र, अष्टक, कवच, सहस्रनाम, वैदिक सूक्त एवं सम्पूर्ण १९ चालीसा संग्रह। प्रत्येक रचना का प्रामाणिक श्लोकवार हिंदी भावार्थ व शुद्ध अविरल पाठ।
+            </p>
+
+            <!-- Real-Time Search Bar -->
+            <div class="page-search-wrap">
+              <span class="page-search-icon">🔍</span>
+              <input type="text" id="stuti-search-input" class="page-search-box" placeholder="स्तोत्र, चालीसा अथवा देवता खोजें (उदा. शिव ताण्डव, हनुमान चालीसा, महिषासुरमर्दिनी, विष्णु सहस्रनाम)..." aria-label="स्तोत्र खोजें">
+              <span class="page-search-count" id="stuti-count-indicator">२६२ पावन रचनाएं</span>
+            </div>
+
+            <!-- Quick Metrics Row -->
+            <div class="stuti-stats-summary-row">
+              <div class="stuti-summary-chip">
+                <span class="chip-num">२६२</span>
+                <span class="chip-lbl">पावन स्तोत्र व स्तुतियां</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">१६</span>
+                <span class="chip-lbl">शास्त्रीय देव-खण्ड</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">१९</span>
+                <span class="chip-lbl">सम्पूर्ण चालीसा संग्रह</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">१००%</span>
+                <span class="chip-lbl">श्लोकवार हिंदी भावार्थ</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: 16 Deva Khandas Explorer -->
+          <div class="page-section-header">
+            <h2 class="page-section-title">🌊 १६ शास्त्रीय देव-खण्ड (The 16 Sacred Deva-Khandas)</h2>
+            <p class="page-section-subtitle">किसी भी देव-खण्ड पर क्लिक करके उसकी रचनाएं देखें अथवा सीधे ड्रॉपडाउन से अभीष्ट स्तोत्र चुनें</p>
+          </div>
+
+          <div class="stuti-khandas-grid" id="stuti-khandas-grid">
+            <!-- Dynamically populated via app.js with quick-select dropdown in each card -->
+          </div>
+
+          <!-- Section 2: Stotra Selection Catalog -->
+          <div class="page-section-header" id="stuti-catalog-header">
+            <h2 class="page-section-title" id="stuti-catalog-title">📖 पावन स्तोत्र व चालीसा चयन</h2>
+            <p class="page-section-subtitle" id="stuti-catalog-subtitle">किसी भी रचना पर क्लिक करते ही सीधे उसका सम्पूर्ण पाठ, पदच्छेद व अन्वय सहित भावार्थ खुलेगा</p>
+          </div>
+
+          <!-- Deity Filter Pills Bar on Page -->
+          <div class="stuti-page-pills-bar" id="stuti-page-pills">
+            <button class="pill-btn active" data-page-cat="all">सभी (२६२)</button>
+            <button class="pill-btn" data-page-cat="श्री शिव">🔱 शिव (४०)</button>
+            <button class="pill-btn" data-page-cat="श्री विष्णु">🪷 विष्णु (३७)</button>
+            <button class="pill-btn" data-page-cat="श्री कृष्ण">🪈 कृष्ण (१०)</button>
+            <button class="pill-btn" data-page-cat="श्री राम">🏹 राम (१५)</button>
+            <button class="pill-btn" data-page-cat="श्री हनुमान">🚩 हनुमान (१२)</button>
+            <button class="pill-btn" data-page-cat="श्री गणेश">🐘 गणेश (१७)</button>
+            <button class="pill-btn" data-page-cat="श्री देवी / शक्ति">🌸 शक्ति (६६)</button>
+            <button class="pill-btn" data-page-cat="श्री सूर्य">☀️ सूर्य (१०)</button>
+            <button class="pill-btn" data-page-cat="श्री नृसिंह">🦁 नृसिंह (७)</button>
+            <button class="pill-btn" data-page-cat="श्री कार्तिकेय">🦚 कार्तिकेय (७)</button>
+            <button class="pill-btn" data-page-cat="श्री दत्तात्रेय">🕉️ दत्तात्रेय (६)</button>
+            <button class="pill-btn" data-page-cat="श्री भैरव">⚔️ भैरव (६)</button>
+            <button class="pill-btn" data-page-cat="नवग्रह">🪐 नवग्रह (१२)</button>
+            <button class="pill-btn" data-page-cat="वैदिक सूक्त">📜 वैदिक सूक्त (१४)</button>
+            <button class="pill-btn" data-page-cat="श्री गुरु">🪔 गुरु (२)</button>
+            <button class="pill-btn" data-page-cat="कुबेर">💰 कुबेर (१)</button>
+          </div>
+
+          <!-- Stotra Cards Grid -->
+          <div class="stuti-stotras-cards-grid" id="stuti-stotras-cards-grid">
+            <!-- Populated via JavaScript with real-time live search filter and category filtering -->
+          </div>
+        </section>
+
+        <!-- 3. Dedicated Page View: वेद-पुराणम् (Vedas & Puranas Page) -->
+        <section id="ved-puranam-view" class="corpus-page-view" style="display: none;">
+          <!-- Hero Header -->
+          <div class="page-hero">
+            <div class="page-hero-badge">
+              <span class="sacred-icon">🏛️</span>
+              <span>अमर सनातन ग्रन्थालय</span>
+            </div>
+            <h1 class="page-hero-title">श्री वेद-पुराणम्</h1>
+            <p class="page-hero-shloka">« ऋचो यजूंषि सामानि यथैवाथर्वणानि च । पुराणं पञ्चमो वेदो भारतं चेति मे मतिः ॥ »</p>
+            <p class="page-hero-desc">
+              सनातन धर्म की मूल ज्ञान-धरोहर चतुर्वेद संहिताएं (ऋक्, यजुः, साम, अथर्व) एवं सम्पूर्ण २६ पावन पुराण, उपपुराण व इतिहास ग्रन्थों का प्रामाणिक डिजिटल ग्रन्थालय।
+            </p>
+
+            <!-- Search / Filter Bar -->
+            <div class="page-search-wrap">
+              <span class="page-search-icon">🔍</span>
+              <input type="text" id="purana-search-input" class="page-search-box" placeholder="पुराण अथवा संहिता का नाम खोजें (उदा. भागवत, विष्णु, शिव, सामवेद)..." aria-label="पुराण खोजें">
+              <span class="page-search-count" id="purana-count-indicator">२६ पुराण ग्रन्थ</span>
+            </div>
+          </div>
+
+          <!-- Section 1: Vedas -->
+          <div class="page-section-header">
+            <h2 class="page-section-title">📜 चतुर्वेद संहिता संग्रह (The Four Vedas)</h2>
+            <p class="page-section-subtitle">सृष्टि के आदिम ईश्वरीय ज्ञान-प्रकाश की चतुर्विध पावन शाखाएं</p>
+          </div>
+
+          <div class="vedas-grid" id="vedas-grid">
+            <!-- Populated via JavaScript -->
+          </div>
+
+          <!-- Section 2: Puranas -->
+          <div class="page-section-header">
+            <h2 class="page-section-title">🪔 पावन पुराण संग्रह (२६ पुराण, उपपुराण एवं इतिहास ग्रन्थ)</h2>
+            <p class="page-section-subtitle">प्रत्येक ग्रन्थ का प्रामाणिक संस्कृत एवं हिंदी अनुवाद युक्त डिजिटल PDF संस्करण उपलब्ध है</p>
+          </div>
+
+          <div class="purana-grid" id="purana-cards-grid">
+            <!-- Populated via JavaScript with real-time live search filter -->
+          </div>
+        </section>
+
+        <!-- 3. Dedicated Page View: वेदान्त-दर्शनम् (Vedanta & Philosophy Page) -->
+        <section id="vedant-darshanam-view" class="corpus-page-view" style="display: none;">
+          <!-- Hero Header -->
+          <div class="page-hero">
+            <div class="page-hero-badge">
+              <span class="sacred-icon">🪔</span>
+              <span>ज्ञान, विवेक एवं मोक्ष-प्रस्थान</span>
+            </div>
+            <h1 class="page-hero-title">श्री वेदान्त-दर्शनम्</h1>
+            <p class="page-hero-shloka">« अयमात्मा ब्रह्म · तत्त्वमसि · प्रज्ञानं ब्रह्म · अहं ब्रह्मास्मि ॥ »</p>
+            <p class="page-hero-desc">
+              सनातन तत्त्वज्ञान का सर्वोच्च शिखर — प्रस्थानत्रयी (उपनिषद, श्रीमद्भगवद्गीता, ब्रह्मसूत्र), षड्दर्शन एवं मोक्षोपाय महारामायण योगवासिष्ठ का दार्शनिक संग्रह।
+            </p>
+
+            <!-- Search / Filter Bar -->
+            <div class="page-search-wrap">
+              <span class="page-search-icon">🔍</span>
+              <input type="text" id="darshan-search-input" class="page-search-box" placeholder="दर्शन अथवा ग्रन्थ खोजें (उदा. योग, सांख्य, गीता, उपनिषद)..." aria-label="दर्शन खोजें">
+              <span class="page-search-count" id="darshan-count-indicator">१३ दार्शनिक ग्रन्थ</span>
+            </div>
+          </div>
+
+          <!-- Section 1: Prasthanatrayi & Advaita Vedanta -->
+          <div class="page-section-header">
+            <h2 class="page-section-title">🕉️ प्रस्थानत्रयी एवं अद्वैत वेदान्त (Vedanta & Prasthanatrayi)</h2>
+            <p class="page-section-subtitle">श्रुति, स्मृति एवं न्याय के तीन आधारभूत प्रस्थान</p>
+          </div>
+
+          <div class="vedanta-grid" id="vedanta-cards-grid">
+            <!-- Populated via JavaScript -->
+          </div>
+
+          <!-- Section 2: Shad-Darshanas & Moksha Shastra -->
+          <div class="page-section-header">
+            <h2 class="page-section-title">⚖️ षड्दर्शन एवं मोक्ष-शास्त्र (Six Darshanas & Yogavasishtha)</h2>
+            <p class="page-section-subtitle">महर्षियों द्वारा प्रणीत छह आस्तिक दर्शन एवं अद्वैत ज्ञान-योग</p>
+          </div>
+
+          <div class="darshan-grid" id="darshan-cards-grid">
+            <!-- Populated via JavaScript with real-time search filter -->
+          </div>
+        </section>
+
+        <!-- 4. Stotra Content View -->
+        <article class="stotra-article" id="stotra-article" style="display: none;">
+
+
+
+          <!-- Section: Introduction & Significance -->
+          <section class="section-card intro-card" id="intro-section" style="display: none;">
+            <div class="card-header">
+              <span class="card-icon">🌺</span>
+              <h3>परिचय एवं महत्त्व</h3>
+            </div>
+            <div class="card-body markdown-body" id="intro-content"></div>
+          </section>
+
+          <!-- Section: Mukhya Stotra Path (Uninterrupted Sanskrit Chanting) -->
+          <section class="section-card parayan-card" id="parayan-section">
+            <div class="card-header mukhya-path-header">
+              <div class="header-left-title">
+                <span class="card-icon">🪔</span>
+                <div>
+                  <h3 class="mukhya-path-title" id="mukhya-path-title">01 श्री शिव नमामि स्तोत्रम् (कुल 12 श्लोक)</h3>
+                  <div class="mukhya-path-subtitle">अविरल मूल संस्कृत पाठ (नित्य पारायण)</div>
+                </div>
+              </div>
+              <div class="header-right-actions">
+                <!-- Dedicated Shloka Font Stepper -->
+                <div class="shloka-font-stepper" title="श्लोक फॉन्ट आकार बदलें">
+                  <button class="font-step-btn" id="shloka-font-dec" title="फॉन्ट छोटा करें (A−)">A−</button>
+                  <span class="font-step-indicator" id="shloka-font-val">100%</span>
+                  <button class="font-step-btn" id="shloka-font-inc" title="फॉन्ट बड़ा करें (A+)">A+</button>
+                  <button class="font-step-autofit" id="shloka-font-autofit" title="स्क्रीन के अनुसार स्वतः फिट करें">⚡ स्वतः फिट</button>
+                </div>
+                <button id="line-wrap-card-btn" class="card-action-btn line-wrap-action-btn" title="पंक्ति विन्यास बदलें (अखंड पंक्ति / स्वतः मोड़ें)">
+                  <span class="btn-icon">↔️</span> <span class="line-wrap-card-label">अखंड पंक्ति</span>
+                </button>
+                <button id="copy-mukhya-btn" class="card-action-btn" title="केवल मुख्य पाठ कॉपी करें">
+                  <span class="btn-icon">📋</span> <span class="btn-text">पाठ कॉपी</span>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="sanskrit-parayan-text" id="parayan-text"></div>
+            </div>
+          </section>
+
+          <!-- Section: Verses & Meanings Header Bar -->
+          <div class="verses-header-bar" id="verses-header-bar">
+            <div class="verses-header-left">
+              <span class="verses-header-icon">📖</span>
+              <div>
+                <h3 class="verses-heading">पदच्छेद, अन्वय एवं सरल भावार्थ</h3>
+                <span class="verses-subheading">प्रत्येक श्लोक का मूल पाठ एवं व्याख्या</span>
+              </div>
+            </div>
+            <div class="verses-header-right" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <div class="shloka-font-stepper" title="श्लोक फॉन्ट आकार बदलें">
+                <button class="font-step-btn" id="verse-font-dec" title="फॉन्ट छोटा करें (A−)">A−</button>
+                <span class="font-step-indicator" id="verse-font-val">100%</span>
+                <button class="font-step-btn" id="verse-font-inc" title="फॉन्ट बड़ा करें (A+)">A+</button>
+                <button class="font-step-autofit" id="verse-font-autofit" title="स्क्रीन के अनुसार स्वतः फिट करें">⚡ फिट</button>
+              </div>
+              <span class="card-badge" id="verses-total-badge">श्लोकवार अध्ययन</span>
+            </div>
+          </div>
+
+          <!-- Section: Verses & Meanings (Study Mode) -->
+          <section class="verses-container" id="verses-section">
+            <!-- Dynamically populated verse cards -->
+          </section>
+
+          <!-- Section: Notes & Variants -->
+          <section class="section-card notes-card" id="notes-section" style="display: none;">
+            <div class="card-header">
+              <span class="card-icon">📜</span>
+              <h3>पाठान्तर एवं टिप्पणियाँ</h3>
+            </div>
+            <div class="card-body markdown-body" id="notes-content"></div>
+          </section>
+
+          <!-- Bottom Navigation Cards -->
+          <nav class="stotra-bottom-nav" aria-label="अगला / पिछला स्तोत्र">
+            <button id="prev-stotra-card" class="bottom-nav-card prev-card">
+              <div class="nav-card-dir">← पिछला स्तोत्र</div>
+              <div class="nav-card-title" id="prev-stotra-title">---</div>
+            </button>
+            <button id="next-stotra-card" class="bottom-nav-card next-card">
+              <div class="nav-card-dir">अगला स्तोत्र →</div>
+              <div class="nav-card-title" id="next-stotra-title">---</div>
+            </button>
+          </nav>
+        </article>
+      </main>
+    </div>
+
+
+
+    <!-- Toast Notification Popup -->
+    <div id="toast-notification" class="toast-popup" role="status">श्लोक कॉपी हो गया!</div>
+
+    <!-- Floating Back to Top Button -->
+    <button id="back-to-top-btn" class="floating-top-btn" aria-label="ऊपर जाएं" title="पृष्ठ के शीर्ष पर जाएं">
+      ↑
+    </button>
+  </div>
+
+  <script src="data/stotras_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
