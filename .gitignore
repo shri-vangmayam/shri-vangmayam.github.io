@@ -15,18 +15,4 @@ __pycache__/
 *.tmp
 *.compressed.tmp
 
-# ==============================================================================
-# ⚠️ Large Purana & Darshanam PDFs (> 100 MB, exceeding GitHub limits)
-# These files will be linked via external cloud storage / GitHub Releases later.
-# ==============================================================================
-ved_puraanam/puranas/004_shri_shiv_mahapuran_bhag_01.pdf
-ved_puraanam/puranas/005_shri_shiv_mahapuran_bhag_02.pdf
-ved_puraanam/puranas/008_shri_narad_mahapuran.pdf
-ved_puraanam/puranas/011_shri_bhavishya_mahapuran.pdf
-ved_puraanam/puranas/013_shri_linga_mahapuran_khand_01.pdf
-ved_puraanam/puranas/016_shri_skanda_mahapuran.pdf
-ved_puraanam/puranas/020_shri_garuda_mahapuran.pdf
-ved_puraanam/puranas/021_shri_brahmanda_mahapuran_bhag_01.pdf
-ved_puraanam/puranas/023_shri_ganesh_puran.pdf
-ved_puraanam/puranas/026_shri_matsya_puran_another_edition.pdf
-vedant_darshanam/darshanam/001_sankshipt_yog_vasishtha.pdf
+
