@@ -1961,7 +1961,8 @@
               <span class="purana-card-sub">${d.desc} — <em>शीघ्र संकलित होगा</em></span>
             </div>
           </div>
-        `).join('');
+        `;
+        }).join('');
       }
     }
   }
