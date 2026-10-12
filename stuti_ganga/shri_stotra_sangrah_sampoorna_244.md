@@ -457,7 +457,7 @@
 
 ### ऑडियो
 
-[श्री शिव नमामि स्तोत्रम् — ऑडियो](../../ShriBhajanam/001_shri_shiv_namami_stotram/shri_shiv_namami_stotram_audio.mp3)
+[श्री शिव नमामि स्तोत्रम् — ऑडियो](../../ShriNaadGanga/001_shri_shiv_namami_stotram/shri_shiv_namami_stotram_audio.mp3)
 
 <br>
 

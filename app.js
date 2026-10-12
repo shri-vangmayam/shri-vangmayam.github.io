@@ -1777,6 +1777,40 @@
     { num: '26', title: 'श्री मत्स्य पुराण (विस्तृत संस्करण)', file: '026_shri_matsya_puran_another_edition.pdf', category: 'महापुराण (विस्तृत)' }
   ];
 
+  // ==========================================================================
+  // Cloudflare R2 Asset Configuration (assets.prajapati.page/shri-vangamayam-assets)
+  // ==========================================================================
+  const R2_ASSETS_BASE_URL = 'https://assets.prajapati.page/shri-vangamayam-assets';
+
+  // 16 Large Puranas (>25MB) hosted on Cloudflare R2
+  const R2_LARGE_PURANAS = new Set([
+    '002_shri_padma_mahapuran.pdf',
+    '003_shri_vishnu_mahapuran.pdf',
+    '004_shri_shiv_mahapuran_bhag_01.pdf',
+    '005_shri_shiv_mahapuran_bhag_02.pdf',
+    '010_shri_agni_mahapuran.pdf',
+    '014_shri_linga_mahapuran_khand_02.pdf',
+    '015_shri_varaha_mahapuran.pdf',
+    '016_shri_skanda_mahapuran.pdf',
+    '017_shri_vamana_mahapuran.pdf',
+    '018_shri_kurma_mahapuran.pdf',
+    '019_shri_matsya_mahapuran.pdf',
+    '020_shri_garuda_mahapuran.pdf',
+    '021_shri_brahmanda_mahapuran_bhag_01.pdf',
+    '024_shri_narasimha_puran.pdf',
+    '025_shri_harivamsha.pdf',
+    '026_shri_matsya_puran_another_edition.pdf'
+  ]);
+
+  function getPuranaPdfUrl(filename) {
+    // In local development environment, use local relative path
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return `ved_puraanam/puranas/${filename}`;
+    }
+    // In production (shri.prajapati.page), stream from Cloudflare R2
+    return `${R2_ASSETS_BASE_URL}/${filename}`;
+  }
+
   // Render Vedas & Puranas into Dedicated View
   function renderVedasAndPuranas(filterText = '') {
     const q = (filterText || '').trim().toLowerCase();
@@ -1824,8 +1858,9 @@
           let tagClass = '';
           if (p.category.includes('उपपुराण')) tagClass = 'tag-upapurana';
           else if (p.category.includes('इतिहास')) tagClass = 'tag-itihasa';
+          const pdfUrl = getPuranaPdfUrl(p.file);
           return `
-          <a class="purana-card-item" href="ved_puraanam/puranas/${p.file}" target="_blank" rel="noopener" title="${p.title} (${p.category}) PDF ग्रन्थ खोलें">
+          <a class="purana-card-item" href="${pdfUrl}" target="_blank" rel="noopener" title="${p.title} (${p.category}) PDF ग्रन्थ खोलें">
             <span class="purana-badge">${p.num}</span>
             <div class="purana-info">
               <span class="purana-card-title">${p.title}</span>
@@ -1906,8 +1941,12 @@
       if (filteredDarshan.length === 0) {
         DOM.darshanCardsGrid.innerHTML = `<div class="empty-purana-search">"<strong>${escapeHtml(filterText)}</strong>" से मेल खाता कोई दर्शन ग्रन्थ प्राप्त नहीं हुआ।</div>`;
       } else {
-        DOM.darshanCardsGrid.innerHTML = filteredDarshan.map(d => d.available ? `
-          <a class="purana-card-item" href="vedant_darshanam/darshanam/${d.file}" target="_blank" rel="noopener" title="${d.title} PDF खोलें">
+        DOM.darshanCardsGrid.innerHTML = filteredDarshan.map(d => {
+          const pdfUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? `vedant_darshanam/darshanam/${d.file}`
+            : `${R2_ASSETS_BASE_URL}/${d.file}`;
+          return d.available ? `
+          <a class="purana-card-item" href="${pdfUrl}" target="_blank" rel="noopener" title="${d.title} PDF खोलें">
             <span class="purana-badge">${d.num}</span>
             <div class="purana-info">
               <span class="purana-card-title">${d.title}</span>
