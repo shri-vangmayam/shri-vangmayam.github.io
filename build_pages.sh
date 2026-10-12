@@ -1,14 +1,16 @@
 #!/bin/bash
 # ==============================================================================
-# Cloudflare Pages Build Script for Shri Vangmayam
-# Removes assets larger than 24MB so Cloudflare Pages deployment succeeds.
-# Large assets (>25MB) are served directly from Cloudflare R2:
-# https://assets.prajapati.page/shri-vangamayam-assets/
+# Cloudflare Pages / Workers Build Script for Shri Vangmayam
+# 1. Removes .git directory so Wrangler does not scan 1GB pack history file
+# 2. Removes PDFs exceeding 24MB (served via Cloudflare R2)
 # ==============================================================================
 
-echo "=== Cloudflare Pages Pre-deployment Build ==="
-echo "Filtering out PDFs exceeding 24MB limit (served via Cloudflare R2)..."
+echo "=== Cloudflare Pre-deployment Build ==="
 
+echo "1. Removing .git and internal directories from deployment output..."
+rm -rf .git .karya_pranali .agents
+
+echo "2. Filtering out PDFs exceeding 24MB limit (served via Cloudflare R2)..."
 find . -type f -name "*.pdf" -size +24M -print -delete
 
-echo "Large assets filtered successfully. Ready for Cloudflare Pages!"
+echo "Clean build completed successfully. Ready for deployment!"

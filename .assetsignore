@@ -1,0 +1,7 @@
+.git
+.git/**
+.karya_pranali
+.karya_pranali/**
+.agents
+.agents/**
+build_pages.sh
