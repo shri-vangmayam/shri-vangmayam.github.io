@@ -14,5 +14,6 @@ __pycache__/
 *$py.class
 *.tmp
 *.compressed.tmp
-
-
+# Build & Deployment output
+dist/
+.wrangler/

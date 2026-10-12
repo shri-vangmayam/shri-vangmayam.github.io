@@ -1,16 +1,28 @@
 #!/bin/bash
 # ==============================================================================
 # Cloudflare Pages / Workers Build Script for Shri Vangmayam
-# 1. Removes .git directory so Wrangler does not scan 1GB pack history file
-# 2. Removes PDFs exceeding 24MB (served via Cloudflare R2)
+# Compiles clean static site into dist/ (keeping .git intact at root)
 # ==============================================================================
 
-echo "=== Cloudflare Pre-deployment Build ==="
+set -e
+echo "=== Cloudflare Build: Preparing clean distribution in dist/ ==="
 
-echo "1. Removing .git and internal directories from deployment output..."
-rm -rf .git .karya_pranali .agents
+# 1. Clean previous dist
+rm -rf dist
+mkdir -p dist
 
-echo "2. Filtering out PDFs exceeding 24MB limit (served via Cloudflare R2)..."
-find . -type f -name "*.pdf" -size +24M -print -delete
+# 2. Copy core website files
+cp index.html styles.css app.js dist/
+[ -f .nojekyll ] && cp .nojekyll dist/
 
-echo "Clean build completed successfully. Ready for deployment!"
+# 3. Copy content folders
+cp -r data dist/
+cp -r stuti_ganga dist/
+cp -r vedant_darshanam dist/
+cp -r ved_puraanam dist/
+
+# 4. Filter out PDFs exceeding 24MB (served via Cloudflare R2)
+echo "Filtering out PDFs exceeding 24MB limit from dist/..."
+find dist -type f -name "*.pdf" -size +24M -print -delete
+
+echo "Clean dist directory prepared successfully. Ready for deployment!"
