@@ -99,17 +99,23 @@ def process_body_lines(lines, internal_file_map):
     return "\n".join(processed).strip()
 
 def build_book(stotra_dir, start_num=1, end_num=41, output_file=None):
-    # Find all matching files
-    all_files = sorted(glob.glob(os.path.join(stotra_dir, "*.md")))
+    # Find all matching files (both root and subfolders)
+    all_files = sorted(glob.glob(os.path.join(stotra_dir, "*", "*.md")) + glob.glob(os.path.join(stotra_dir, "*.md")))
     selected_files = []
 
     for f in all_files:
         base = os.path.basename(f)
-        m = re.match(r"^(\d{3})_", base)
-        if m:
-            num = int(m.group(1))
-            if start_num <= num <= end_num:
-                selected_files.append((num, f))
+        dec_m = re.match(r"^(\d+)\.(\d{3})_", base)
+        if dec_m:
+            sec = int(dec_m.group(1))
+            sub = int(dec_m.group(2))
+            selected_files.append(((sec, sub), f))
+        else:
+            m = re.match(r"^(\d{3})_", base)
+            if m:
+                num = int(m.group(1))
+                if start_num <= num <= end_num:
+                    selected_files.append(((1, num), f))
 
     selected_files.sort(key=lambda x: x[0])
     total_stotras = len(selected_files)

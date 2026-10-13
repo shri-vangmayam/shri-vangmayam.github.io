@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Build Data for Shri Sanatan Vangamayam Web-Book.
-Parses Markdown files from 'stuti_ganga/' into structured JSON.
+Parses Markdown files from 'stuti_ganga/*/*.md' into structured JSON.
 Zero local audio files (audio redirects to user's YouTube channel).
 """
 
@@ -17,33 +17,51 @@ def to_devanagari(n, pad=2):
     s = f"{n:0{pad}d}"
     return "".join(DEVANAGARI_DIGITS[int(d)] for d in s)
 
-def get_deity(num, title):
-    if 1 <= num <= 41 or num == 249: return 'श्री शिव'
-    elif 42 <= num <= 77 or num == 262: return 'श्री विष्णु'
-    elif 78 <= num <= 86 or num == 254: return 'श्री कृष्ण'
-    elif 87 <= num <= 100 or num == 253: return 'श्री राम'
-    elif num == 101 or 194 <= num <= 201 or num == 255: return 'श्री सूर्य'
-    elif 102 <= num <= 112 or num == 247: return 'श्री हनुमान'
-    elif 113 <= num <= 128 or num == 250: return 'श्री गणेश'
-    elif 129 <= num <= 186 or num in (248, 251, 252, 256, 259, 260, 261, 263): return 'श्री देवी / शक्ति'
-    elif 187 <= num <= 193: return 'श्री नृसिंह'
-    elif 202 <= num <= 208: return 'श्री कार्तिकेय'
-    elif 209 <= num <= 214: return 'श्री दत्तात्रेय'
-    elif 215 <= num <= 219 or num == 258: return 'श्री भैरव'
-    elif 220 <= num <= 230 or num == 257: return 'नवग्रह'
-    elif 231 <= num <= 244: return 'वैदिक सूक्त'
-    elif num in (245, 246): return 'श्री गुरु'
-    elif num == 264: return 'कुबेर'
-    return 'अन्य'
+DEITY_SECTIONS = [
+    ('श्री शिव', 1),
+    ('श्री विष्णु', 2),
+    ('श्री कृष्ण', 3),
+    ('श्री राम', 4),
+    ('श्री हनुमान', 5),
+    ('श्री गणेश', 6),
+    ('श्री देवी / शक्ति', 7),
+    ('श्री सूर्य', 8),
+    ('श्री नृसिंह', 9),
+    ('श्री कार्तिकेय', 10),
+    ('श्री दत्तात्रेय', 11),
+    ('श्री भैरव', 12),
+    ('नवग्रह', 13),
+    ('वैदिक सूक्त', 14),
+    ('श्री गुरु', 15),
+    ('कुबेर', 16)
+]
+SEC_MAP = {name: num for name, num in DEITY_SECTIONS}
+REV_SEC_MAP = {num: name for name, num in DEITY_SECTIONS}
 
-def parse_stotra_file(fpath):
+def parse_stotra_file(fpath, legacy_map=None):
     with open(fpath, "r", encoding="utf-8") as f:
         content = f.read()
 
     base = os.path.basename(fpath)
-    num_match = re.match(r"^(\d{3})_", base)
-    num = int(num_match.group(1)) if num_match else 0
-    num_str = f"{num:03d}"
+    rel_folder = os.path.basename(os.path.dirname(fpath))
+
+    # Match decimal identifier like 1.001_...
+    dec_m = re.match(r"^(\d+)\.(\d{3})_", base)
+    if dec_m:
+        sec_num = int(dec_m.group(1))
+        sub_num = int(dec_m.group(2))
+        s_id = f"{sec_num}.{sub_num:03d}"
+        devanagari_num = f"{to_devanagari(sec_num, pad=1)}.{to_devanagari(sub_num, pad=3)}"
+        deity = REV_SEC_MAP.get(sec_num, "अन्य")
+    else:
+        # Fallback to legacy 3-digit match
+        num_m = re.match(r"^(\d{3})_", base)
+        num = int(num_m.group(1)) if num_m else 0
+        s_id = f"{num:03d}"
+        sec_num = 99
+        sub_num = num
+        devanagari_num = to_devanagari(num, 3 if num >= 100 else 2)
+        deity = "अन्य"
 
     # 1. Title
     t_m = re.search(r"^#\s+(.+)$", content, re.MULTILINE)
@@ -103,7 +121,7 @@ def parse_stotra_file(fpath):
 
     # 6. Notes / Variants
     variants = ""
-    var_m = re.search(r"##\s+पाठान्तर\s*\n([\s\S]*?)(?=\n##|\Z)", content)
+    var_m = re.search(r"##\s+पाठानन्तर\s*\n([\s\S]*?)(?=\n##|\Z)", content)
     if var_m:
         variants = var_m.group(1).strip()
 
@@ -129,17 +147,21 @@ def parse_stotra_file(fpath):
         cat = "नामावली"
 
     # Shloka count info
-    if "038_shri_rudram" in base:
+    if "shri_rudram" in base:
         shloka_info = "२ खण्ड (२२ अनुवाक)"
     else:
         shloka_info = str(len(verses)) if verses else "0"
 
-    deity = get_deity(num, title)
+    legacy_id = (legacy_map or {}).get(s_id, s_id)
 
     return {
-        "id": num_str,
-        "number": num,
-        "devanagari_num": to_devanagari(num, 3 if num >= 100 else 2),
+        "id": s_id,
+        "legacy_id": legacy_id,
+        "number": sub_num,
+        "sub_num": sub_num,
+        "section_num": sec_num,
+        "section_title": deity,
+        "devanagari_num": devanagari_num,
         "title": title,
         "deity": deity,
         "category": cat,
@@ -151,28 +173,9 @@ def parse_stotra_file(fpath):
         "verses": verses,
         "variants": variants,
         "shloka_count": shloka_info,
-        "base_file": base
+        "base_file": base,
+        "file_path": f"{rel_folder}/{base}"
     }
-
-DEITY_SECTIONS = [
-    ('श्री शिव', 1),
-    ('श्री विष्णु', 2),
-    ('श्री कृष्ण', 3),
-    ('श्री राम', 4),
-    ('श्री हनुमान', 5),
-    ('श्री गणेश', 6),
-    ('श्री देवी / शक्ति', 7),
-    ('श्री सूर्य', 8),
-    ('श्री नृसिंह', 9),
-    ('श्री कार्तिकेय', 10),
-    ('श्री दत्तात्रेय', 11),
-    ('श्री भैरव', 12),
-    ('नवग्रह', 13),
-    ('वैदिक सूक्त', 14),
-    ('श्री गुरु', 15),
-    ('कुबेर', 16)
-]
-SEC_MAP = {name: num for name, num in DEITY_SECTIONS}
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -180,35 +183,36 @@ def main():
     output_dir = os.path.join(script_dir, "data")
     os.makedirs(output_dir, exist_ok=True)
 
+    legacy_map = {}
+    legacy_file = os.path.join(output_dir, "legacy_map.json")
+    if os.path.exists(legacy_file):
+        try:
+            with open(legacy_file, "r", encoding="utf-8") as fp:
+                legacy_map = json.load(fp)
+        except Exception as e:
+            print(f"Notice: Could not load legacy_map.json: {e}")
+
+    # Discover stotra files inside section subfolders
     stotra_files = sorted([
-        f for f in glob.glob(os.path.join(stotra_dir, "*.md"))
-        if re.match(r"^\d{3}_", os.path.basename(f)) and not os.path.basename(f).startswith("000_")
+        f for f in glob.glob(os.path.join(stotra_dir, "*", "*.md"))
+        if re.match(r"^\d+\.\d{3}_", os.path.basename(f))
     ])
+
+    # If subfolders not found, fallback to root stuti_ganga/*.md
+    if not stotra_files:
+        stotra_files = sorted([
+            f for f in glob.glob(os.path.join(stotra_dir, "*.md"))
+            if not os.path.basename(f).startswith("000_") and not os.path.basename(f).startswith("shri_")
+        ])
 
     print(f"Parsing all {len(stotra_files)} stotra, chalisa and stuti files from stuti_ganga/...")
     parsed_stotras = []
     for f in stotra_files:
-        stotra = parse_stotra_file(f)
+        stotra = parse_stotra_file(f, legacy_map=legacy_map)
         parsed_stotras.append(stotra)
 
-    # 1. Map each stotra to section number
-    for s in parsed_stotras:
-        s["section_num"] = SEC_MAP.get(s["deity"], 99)
-        s["section_title"] = s["deity"]
-
-    # 2. Sort by section_num, then within section: classical (orig_num < 245) first, then chalisas (orig_num >= 245)
-    parsed_stotras.sort(key=lambda x: (x["section_num"], 1 if x["number"] >= 245 else 0, x["number"]))
-
-    # 3. Assign 1.001 sectional numbering (खण्ड-वार दशमलव प्रणाली)
-    sec_counts = {}
-    for s in parsed_stotras:
-        sec = s["section_num"]
-        sec_counts[sec] = sec_counts.get(sec, 0) + 1
-        sub = sec_counts[sec]
-        s["sub_num"] = sub
-        s["legacy_id"] = s["id"]
-        s["id"] = f"{sec}.{sub:03d}"
-        s["devanagari_num"] = f"{to_devanagari(sec, pad=1)}.{to_devanagari(sub, pad=3)}"
+    # Sort strictly by section_num, then sub_num
+    parsed_stotras.sort(key=lambda x: (x["section_num"], x["sub_num"]))
 
     stotras = parsed_stotras
 
