@@ -529,23 +529,7 @@
 
     hideAllCorpusViews();
     if (DOM.stutiGangaView) DOM.stutiGangaView.style.display = 'block';
-    if (DOM.subNav) DOM.subNav.style.display = 'flex';
-
-    // Sub-Navbar on Stuti-Ganga
-    if (DOM.subNavTitle) {
-      DOM.subNavTitle.textContent = 'श्री स्तुति-गंगा — १६ देव-खण्ड एवं २६२ पावन रचनाएं (Stuti-Ganga)';
-      DOM.subNavTitle.title = 'श्री स्तुति-गंगा';
-    }
-
-    // Hide stotra-specific action buttons
-    const subCopyBtn = document.getElementById('sub-copy-btn');
-    const subFavBtn = document.getElementById('sub-fav-btn');
-    const subPrintBtn = document.getElementById('sub-print-btn');
-    const subYtBtn = document.getElementById('sub-youtube-btn');
-    if (subCopyBtn) subCopyBtn.style.display = 'none';
-    if (subFavBtn) subFavBtn.style.display = 'none';
-    if (subPrintBtn) subPrintBtn.style.display = 'none';
-    if (subYtBtn) subYtBtn.style.display = 'none';
+    if (DOM.subNav) DOM.subNav.style.display = 'none';
 
     // Active tab in corpus navigation
     DOM.corpusTabs.forEach(t => {
@@ -568,9 +552,7 @@
     // Render Stotra Catalog
     renderStutiCatalog(state.activeCategory || 'all', DOM.stutiSearchInput ? DOM.stutiSearchInput.value : '');
 
-    // Automatically open sidebar containing the stotra list!
-    openSidebar();
-
+    closeSidebar();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -581,23 +563,7 @@
 
     hideAllCorpusViews();
     if (DOM.vedPuranamView) DOM.vedPuranamView.style.display = 'block';
-    if (DOM.subNav) DOM.subNav.style.display = 'flex';
-
-    // Sub-Navbar on Ved-Puranam
-    if (DOM.subNavTitle) {
-      DOM.subNavTitle.textContent = 'श्री वेद-पुराणम् — चतुर्वेद एवं २६ पुराण, उपपुराण व इतिहास ग्रन्थ (Vedas & Puranas)';
-      DOM.subNavTitle.title = 'श्री वेद-पुराणम्';
-    }
-
-    // Hide stotra-specific action buttons
-    const subCopyBtn = document.getElementById('sub-copy-btn');
-    const subFavBtn = document.getElementById('sub-fav-btn');
-    const subPrintBtn = document.getElementById('sub-print-btn');
-    const subYtBtn = document.getElementById('sub-youtube-btn');
-    if (subCopyBtn) subCopyBtn.style.display = 'none';
-    if (subFavBtn) subFavBtn.style.display = 'none';
-    if (subPrintBtn) subPrintBtn.style.display = 'none';
-    if (subYtBtn) subYtBtn.style.display = 'none';
+    if (DOM.subNav) DOM.subNav.style.display = 'none';
 
     // Active tab in corpus navigation
     DOM.corpusTabs.forEach(t => {
@@ -621,23 +587,7 @@
 
     hideAllCorpusViews();
     if (DOM.vedantDarshanamView) DOM.vedantDarshanamView.style.display = 'block';
-    if (DOM.subNav) DOM.subNav.style.display = 'flex';
-
-    // Sub-Navbar on Vedant-Darshanam
-    if (DOM.subNavTitle) {
-      DOM.subNavTitle.textContent = 'श्री वेदान्त-दर्शनम् — प्रस्थानत्रयी, उपनिषद एवं षड्दर्शन (Vedanta & Philosophy)';
-      DOM.subNavTitle.title = 'श्री वेदान्त-दर्शनम्';
-    }
-
-    // Hide stotra-specific action buttons
-    const subCopyBtn = document.getElementById('sub-copy-btn');
-    const subFavBtn = document.getElementById('sub-fav-btn');
-    const subPrintBtn = document.getElementById('sub-print-btn');
-    const subYtBtn = document.getElementById('sub-youtube-btn');
-    if (subCopyBtn) subCopyBtn.style.display = 'none';
-    if (subFavBtn) subFavBtn.style.display = 'none';
-    if (subPrintBtn) subPrintBtn.style.display = 'none';
-    if (subYtBtn) subYtBtn.style.display = 'none';
+    if (DOM.subNav) DOM.subNav.style.display = 'none';
 
     // Active tab in corpus navigation
     DOM.corpusTabs.forEach(t => {
@@ -661,23 +611,7 @@
 
     hideAllCorpusViews();
     if (DOM.vratPujanamView) DOM.vratPujanamView.style.display = 'block';
-    if (DOM.subNav) DOM.subNav.style.display = 'flex';
-
-    // Sub-Navbar on Vrat-Pujanam
-    if (DOM.subNavTitle) {
-      DOM.subNavTitle.textContent = 'श्री व्रत-पूजनम् — नवरात्र, एकादशी, प्रदोष व महापर्व पूजन-विधान (Vrat & Puja Vidhi)';
-      DOM.subNavTitle.title = 'श्री व्रत-पूजनम्';
-    }
-
-    // Hide stotra-specific action buttons
-    const subCopyBtn = document.getElementById('sub-copy-btn');
-    const subFavBtn = document.getElementById('sub-fav-btn');
-    const subPrintBtn = document.getElementById('sub-print-btn');
-    const subYtBtn = document.getElementById('sub-youtube-btn');
-    if (subCopyBtn) subCopyBtn.style.display = 'none';
-    if (subFavBtn) subFavBtn.style.display = 'none';
-    if (subPrintBtn) subPrintBtn.style.display = 'none';
-    if (subYtBtn) subYtBtn.style.display = 'none';
+    if (DOM.subNav) DOM.subNav.style.display = 'none';
 
     // Active tab in corpus navigation
     DOM.corpusTabs.forEach(t => {
@@ -706,21 +640,7 @@
 
     hideAllCorpusViews();
     if (DOM.kavyaView) DOM.kavyaView.style.display = 'block';
-    if (DOM.subNav) DOM.subNav.style.display = 'flex';
-
-    if (DOM.subNavTitle) {
-      DOM.subNavTitle.textContent = 'श्री काव्य-मंजूषा — २०० कालजयी राष्ट्रकाव्य एवं अमर संत-पद (Kavya)';
-      DOM.subNavTitle.title = 'श्री काव्य-मंजूषा';
-    }
-
-    const subCopyBtn = document.getElementById('sub-copy-btn');
-    const subFavBtn = document.getElementById('sub-fav-btn');
-    const subPrintBtn = document.getElementById('sub-print-btn');
-    const subYtBtn = document.getElementById('sub-youtube-btn');
-    if (subCopyBtn) subCopyBtn.style.display = 'none';
-    if (subFavBtn) subFavBtn.style.display = 'none';
-    if (subPrintBtn) subPrintBtn.style.display = 'none';
-    if (subYtBtn) subYtBtn.style.display = 'none';
+    if (DOM.subNav) DOM.subNav.style.display = 'none';
 
     DOM.corpusTabs.forEach(t => {
       t.classList.toggle('active', t.dataset.corpus === 'kavya');
@@ -746,21 +666,7 @@
 
     hideAllCorpusViews();
     if (DOM.itihasView) DOM.itihasView.style.display = 'block';
-    if (DOM.subNav) DOM.subNav.style.display = 'flex';
-
-    if (DOM.subNavTitle) {
-      DOM.subNavTitle.textContent = 'श्री इतिहास एवं गौरव — भारतीय शौर्य, महापुरुष व गौरव गाथाएं (History)';
-      DOM.subNavTitle.title = 'श्री इतिहास एवं गौरव';
-    }
-
-    const subCopyBtn = document.getElementById('sub-copy-btn');
-    const subFavBtn = document.getElementById('sub-fav-btn');
-    const subPrintBtn = document.getElementById('sub-print-btn');
-    const subYtBtn = document.getElementById('sub-youtube-btn');
-    if (subCopyBtn) subCopyBtn.style.display = 'none';
-    if (subFavBtn) subFavBtn.style.display = 'none';
-    if (subPrintBtn) subPrintBtn.style.display = 'none';
-    if (subYtBtn) subYtBtn.style.display = 'none';
+    if (DOM.subNav) DOM.subNav.style.display = 'none';
 
     DOM.corpusTabs.forEach(t => {
       t.classList.toggle('active', t.dataset.corpus === 'itihas');
@@ -786,21 +692,7 @@
 
     hideAllCorpusViews();
     if (DOM.bachpanView) DOM.bachpanView.style.display = 'block';
-    if (DOM.subNav) DOM.subNav.style.display = 'flex';
-
-    if (DOM.subNavTitle) {
-      DOM.subNavTitle.textContent = 'बचपन — संस्कार, प्रेरक कहानियां व बाल-साहित्य (Bal Kunj)';
-      DOM.subNavTitle.title = 'बचपन';
-    }
-
-    const subCopyBtn = document.getElementById('sub-copy-btn');
-    const subFavBtn = document.getElementById('sub-fav-btn');
-    const subPrintBtn = document.getElementById('sub-print-btn');
-    const subYtBtn = document.getElementById('sub-youtube-btn');
-    if (subCopyBtn) subCopyBtn.style.display = 'none';
-    if (subFavBtn) subFavBtn.style.display = 'none';
-    if (subPrintBtn) subPrintBtn.style.display = 'none';
-    if (subYtBtn) subYtBtn.style.display = 'none';
+    if (DOM.subNav) DOM.subNav.style.display = 'none';
 
     DOM.corpusTabs.forEach(t => {
       t.classList.toggle('active', t.dataset.corpus === 'bachpan');
@@ -826,21 +718,7 @@
 
     hideAllCorpusViews();
     if (DOM.hasyaView) DOM.hasyaView.style.display = 'block';
-    if (DOM.subNav) DOM.subNav.style.display = 'flex';
-
-    if (DOM.subNavTitle) {
-      DOM.subNavTitle.textContent = 'श्री विदूषक (हास्य) — सुरुचिपूर्ण व्यंग्य, विनोद व प्रहसन (Humor & Satire)';
-      DOM.subNavTitle.title = 'श्री विदूषक (हास्य)';
-    }
-
-    const subCopyBtn = document.getElementById('sub-copy-btn');
-    const subFavBtn = document.getElementById('sub-fav-btn');
-    const subPrintBtn = document.getElementById('sub-print-btn');
-    const subYtBtn = document.getElementById('sub-youtube-btn');
-    if (subCopyBtn) subCopyBtn.style.display = 'none';
-    if (subFavBtn) subFavBtn.style.display = 'none';
-    if (subPrintBtn) subPrintBtn.style.display = 'none';
-    if (subYtBtn) subYtBtn.style.display = 'none';
+    if (DOM.subNav) DOM.subNav.style.display = 'none';
 
     DOM.corpusTabs.forEach(t => {
       t.classList.toggle('active', t.dataset.corpus === 'hasya');
@@ -866,21 +744,7 @@
 
     hideAllCorpusViews();
     if (DOM.arogyaView) DOM.arogyaView.style.display = 'block';
-    if (DOM.subNav) DOM.subNav.style.display = 'flex';
-
-    if (DOM.subNavTitle) {
-      DOM.subNavTitle.textContent = 'आरोग्य — सनातन आयुर्वेद, त्रिदोष एवं प्राकृतिक स्वास्थ्य (Ayurveda)';
-      DOM.subNavTitle.title = 'आरोग्य';
-    }
-
-    const subCopyBtn = document.getElementById('sub-copy-btn');
-    const subFavBtn = document.getElementById('sub-fav-btn');
-    const subPrintBtn = document.getElementById('sub-print-btn');
-    const subYtBtn = document.getElementById('sub-youtube-btn');
-    if (subCopyBtn) subCopyBtn.style.display = 'none';
-    if (subFavBtn) subFavBtn.style.display = 'none';
-    if (subPrintBtn) subPrintBtn.style.display = 'none';
-    if (subYtBtn) subYtBtn.style.display = 'none';
+    if (DOM.subNav) DOM.subNav.style.display = 'none';
 
     DOM.corpusTabs.forEach(t => {
       t.classList.toggle('active', t.dataset.corpus === 'arogya');
@@ -1518,7 +1382,6 @@
         } else if (corpus === 'stuti_ganga') {
           showToast('🌊 स्तुति-गंगा: शास्त्रीय स्तोत्र, चालीसा एवं स्तुति संग्रह');
           window.location.hash = '#stuti-ganga';
-          openSidebar();
         } else if (corpus === 'ved_puranam') {
           showToast('🏛️ वेद-पुराणम्: चतुर्वेद एवं २६ पावन पुराण ग्रन्थालय');
           window.location.hash = '#ved-puranam';
@@ -1552,7 +1415,6 @@
     if (slideEnterStutiBtn) {
       slideEnterStutiBtn.addEventListener('click', () => {
         window.location.hash = '#stuti-ganga';
-        openSidebar();
       });
     }
 
@@ -1583,7 +1445,6 @@
       pillarSlideStuti.addEventListener('click', (e) => {
         if (!e.target.closest('button')) {
           window.location.hash = '#stuti-ganga';
-          openSidebar();
         }
       });
     }
