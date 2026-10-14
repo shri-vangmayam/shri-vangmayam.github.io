@@ -42,13 +42,6 @@
             </div>
           </div>
 
-          <!-- Corpus Navigation in Top Navbar (चार पावन स्तम्भ) -->
-          <nav class="corpus-nav-tabs" id="corpus-nav-tabs" aria-label="मुख्य वाङ्मय अनुभाग">
-            <button class="corpus-tab-btn" data-corpus="stuti_ganga" title="स्तुति-गंगा संग्रह (२६२ शास्त्रीय स्तोत्र, चालीसा, आरती एवं स्तुति)">🌊 स्तुति-गंगा</button>
-            <button class="corpus-tab-btn" data-corpus="ved_puranam" title="वेद एवं पुराण संग्रह (चतुर्वेद एवं २६ पुराण, उपपुराण व इतिहास ग्रन्थ)">🏛️ वेद-पुराणम्</button>
-            <button class="corpus-tab-btn" data-corpus="vedant_darshanam" title="वेदान्त एवं दर्शन संग्रह (प्रस्थानत्रयी, उपनिषद, षड्दर्शन एवं योगवासिष्ठ)">🪔 वेदान्त-दर्शनम्</button>
-            <button class="corpus-tab-btn" data-corpus="vrat_pujanam" title="पावन व्रत, पूजन-विधि एवं कथा ग्रन्थालय (नवरात्र, एकादशी, प्रदोष आदि)">🌸 व्रत-पूजनम्</button>
-          </nav>
         </div>
 
         <!-- Right: Reader Settings (A- 100% A+, अखंड पंक्ति ↔️, थीम स्विच 🌙) -->
@@ -84,6 +77,21 @@
           </div>
         </div>
       </div>
+
+      <!-- 2. Nav-Khanda Pillars Navbar (९ पावन स्तम्भ — नव-खण्ड नेवबार) -->
+      <nav class="corpus-navbar" id="corpus-navbar" aria-label="श्री वाङ्मयम् नव-खण्ड (९ पावन स्तम्भ)">
+        <div class="corpus-nav-scroll-container">
+          <button class="corpus-tab-btn" data-corpus="stuti_ganga" title="स्तुति-गंगा संग्रह (२६२ शास्त्रीय स्तोत्र, चालीसा, आरती एवं स्तुति)">🌊 स्तुति-गंगा</button>
+          <button class="corpus-tab-btn" data-corpus="ved_puranam" title="वेद एवं पुराण संग्रह (चतुर्वेद एवं २६ पुराण, उपपुराण व इतिहास ग्रन्थ)">🏛️ वेद-पुराणम्</button>
+          <button class="corpus-tab-btn" data-corpus="vedant_darshanam" title="वेदान्त एवं दर्शन संग्रह (प्रस्थानत्रयी, उपनिषद, षड्दर्शन एवं योगवासिष्ठ)">🪔 वेदान्त-दर्शनम्</button>
+          <button class="corpus-tab-btn" data-corpus="vrat_pujanam" title="पावन व्रत, पूजन-विधि एवं कथा ग्रन्थालय (नवरात्र, एकादशी, प्रदोष आदि)">🌸 व्रत-पूजनम्</button>
+          <button class="corpus-tab-btn" data-corpus="kavya" title="कालजयी राष्ट्रकाव्य, वीर-रस, प्रयाण-गीत एवं अमर संत-पद">📜 काव्य</button>
+          <button class="corpus-tab-btn" data-corpus="itihas" title="भारतीय शौर्य, अमर क्रान्तिकारी, महान योद्धा एवं इतिहास-गौरव">⚔️ इतिहास</button>
+          <button class="corpus-tab-btn" data-corpus="bachpan" title="बाल-संस्कार, नैतिक प्रेरक कहानियां एवं बाल-साहित्य">🌱 बचपन</button>
+          <button class="corpus-tab-btn" data-corpus="hasya" title="सुरुचिपूर्ण व्यंग्य, विनोद एवं हास्य-कटाक्ष">🎭 हास्य</button>
+          <button class="corpus-tab-btn" data-corpus="arogya" title="आरोग्य, आयुर्वेद संहिताएं, दिनचर्या, ऋतुचर्या एवं प्राकृतिक स्वास्थ्य">🌿 आरोग्य</button>
+        </div>
+      </nav>
 
       <!-- 2. Secondary Sub-Navbar (मुख्य नवबार के नीचे) -->
       <nav class="sub-navbar" id="sub-navbar" aria-label="स्तोत्र नेविगेशन एवं उपकरण">
@@ -670,6 +678,242 @@
           <div class="vrat-cards-grid" id="vrat-cards-grid">
             <!-- Dynamically populated via app.js with rich cards and click-to-read modal -->
           </div>
+        </section>
+
+        <!-- 5. Dedicated Page View: काव्य (Kavya - Rashtriya Kavya & Bhakti Pad) -->
+        <section id="kavya-view" class="corpus-page-view" style="display: none;">
+          <div class="page-hero kavya-page-hero">
+            <div class="page-hero-badge">
+              <span class="sacred-icon">📜</span>
+              <span>कालजयी राष्ट्रकाव्य, वीर-रस एवं अमर पद</span>
+            </div>
+            <h1 class="page-hero-title">श्री काव्य-मंजूषा</h1>
+            <p class="page-hero-shloka">« जननी जन्मभूमिश्च स्वर्गादपि गरीयसी ॥ »</p>
+            <p class="page-hero-desc">
+              भारतीय राष्ट्र चेतना, मध्यकालीन सिंहनाद, अमर क्रांतिवीरों के प्रयाण-गीत, स्वाधीनता के हुतात्मा, हिमालय-गंगा वंदना, एवं अमर संत-पद (सूर, तुलसी, मीरा, कबीर) का २०० कालजयी रचनाओं का महा-संकलन।
+            </p>
+
+            <div class="page-search-wrap">
+              <span class="page-search-icon">🔍</span>
+              <input type="text" id="kavya-search-input" class="page-search-box" placeholder="कविता, कवि अथवा खंड खोजें (उदा. हिमाद्रि तुंग, शिवाजी, झांसी की रानी, दिनकर, भूषण)..." aria-label="काव्य खोजें">
+              <span class="page-search-count" id="kavya-count-indicator">२०० अमर रचनाएं</span>
+            </div>
+
+            <div class="stuti-stats-summary-row">
+              <div class="stuti-summary-chip">
+                <span class="chip-num">२००</span>
+                <span class="chip-lbl">कालजयी राष्ट्रकाव्य</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">८</span>
+                <span class="chip-lbl">विशाल विषय-खंड</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">१००%</span>
+                <span class="chip-lbl">पब्लिक डोमेन / मुक्त</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stuti-page-pills-bar" id="kavya-page-pills">
+            <button class="pill-btn active" data-kavya-cat="all">सभी रचनाएं (२००)</button>
+            <button class="pill-btn" data-kavya-cat="khanda1">🚩 १. राष्ट्र-आह्वान (२५)</button>
+            <button class="pill-btn" data-kavya-cat="khanda2">⚔️ २. मध्यकालीन शौर्य (३०)</button>
+            <button class="pill-btn" data-kavya-cat="khanda3">🔥 ३. अमर क्रांतिवीर (३०)</button>
+            <button class="pill-btn" data-kavya-cat="khanda4">🏔️ ४. भूगोल व तीर्थ (३०)</button>
+            <button class="pill-btn" data-kavya-cat="khanda5">🌾 ५. कर्मवीर युवा (३०)</button>
+            <button class="pill-btn" data-kavya-cat="khanda6">🪔 ६. सनातन ज्ञान (२५)</button>
+            <button class="pill-btn" data-kavya-cat="khanda7">🛡️ ७. रीतिकालीन वीर-रस (१५)</button>
+            <button class="pill-btn" data-kavya-cat="khanda8">🇮🇳 ८. परमवीर विजय (१५)</button>
+            <button class="pill-btn" data-kavya-cat="bhakti">🪈 ९. अमर संत-पद</button>
+          </div>
+
+          <div class="kavya-cards-grid" id="kavya-cards-grid"></div>
+        </section>
+
+        <!-- 6. Dedicated Page View: इतिहास (Itihas - Shaurya & Gaurav Gatha) -->
+        <section id="itihas-view" class="corpus-page-view" style="display: none;">
+          <div class="page-hero itihas-page-hero">
+            <div class="page-hero-badge">
+              <span class="sacred-icon">⚔️</span>
+              <span>भारतीय शौर्य, महापुरुष एवं गौरव गाथाएं</span>
+            </div>
+            <h1 class="page-hero-title">श्री इतिहास एवं गौरव</h1>
+            <p class="page-hero-shloka">« यतो धर्मस्ततो जयः ॥ धर्मो रक्षति रक्षितः ॥ »</p>
+            <p class="page-hero-desc">
+              भारतवर्ष का सत्य, प्रामाणिक एवं गौरवशाली इतिहास — चक्रवर्ती सम्राट, मध्यकालीन धर्मयोद्धा (छत्रपति शिवाजी, महाराणा प्रताप, लचित बोरफुकन), अमर क्रान्तिकारी हुतात्मा और भारतीय संस्कृति का अविरल विजय-प्रवाह।
+            </p>
+
+            <div class="page-search-wrap">
+              <span class="page-search-icon">🔍</span>
+              <input type="text" id="itihas-search-input" class="page-search-box" placeholder="योद्धा, कालखंड अथवा घटना खोजें..." aria-label="इतिहास खोजें">
+              <span class="page-search-count" id="itihas-count-indicator">गौरवशाली अध्याय</span>
+            </div>
+
+            <div class="stuti-stats-summary-row">
+              <div class="stuti-summary-chip">
+                <span class="chip-num">५०००+</span>
+                <span class="chip-lbl">वर्ष अखण्ड सभ्यता</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">१००+</span>
+                <span class="chip-lbl">अमर महापुरुष</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">सत्यमेव</span>
+                <span class="chip-lbl">प्रामाणिक संदर्भ</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stuti-page-pills-bar" id="itihas-page-pills">
+            <button class="pill-btn active" data-itihas-cat="all">समस्त इतिहास</button>
+            <button class="pill-btn" data-itihas-cat="ancient">🏛️ प्राचीन भारत व वैदिक काल</button>
+            <button class="pill-btn" data-itihas-cat="medieval">⚔️ मध्यकालीन शौर्य व प्रतिकार</button>
+            <button class="pill-btn" data-itihas-cat="freedom">🔥 क्रान्तिवीर (१८५७–१९४७)</button>
+            <button class="pill-btn" data-itihas-cat="battles">🛡️ निर्णायक युद्ध व विजय</button>
+          </div>
+
+          <div class="itihas-cards-grid" id="itihas-cards-grid"></div>
+        </section>
+
+        <!-- 7. Dedicated Page View: बचपन (Bachpan - Sanskar & Bal Sahitya) -->
+        <section id="bachpan-view" class="corpus-page-view" style="display: none;">
+          <div class="page-hero bachpan-page-hero">
+            <div class="page-hero-badge">
+              <span class="sacred-icon">🌱</span>
+              <span>नन्हे संस्कार, प्रेरक कहानियां एवं बाल-साहित्य</span>
+            </div>
+            <h1 class="page-hero-title">बचपन</h1>
+            <p class="page-hero-shloka">« विद्या ददाति विनयं विनयाद्याति पात्रताम् ॥ »</p>
+            <p class="page-hero-desc">
+              बच्चों के कोमल मन में सनातन मूल्यों, नित्य प्रातः स्मरण श्लोकों, पंचतंत्र व जातक कथाओं की सीख, ध्रुव-प्रह्लाद-लव-कुश जैसे तेजस्वी बाल-चरित्रों और मधुर बाल कविताओं का सुरम्य उपवन।
+            </p>
+
+            <div class="page-search-wrap">
+              <span class="page-search-icon">🔍</span>
+              <input type="text" id="bachpan-search-input" class="page-search-box" placeholder="कहानी, श्लोक अथवा बाल कविता खोजें..." aria-label="बाल-साहित्य खोजें">
+              <span class="page-search-count" id="bachpan-count-indicator">बाल संस्कार वाटिका</span>
+            </div>
+
+            <div class="stuti-stats-summary-row">
+              <div class="stuti-summary-chip">
+                <span class="chip-num">५०+</span>
+                <span class="chip-lbl">प्रेरक बाल कथाएं</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">दैनिक</span>
+                <span class="chip-lbl">संस्कार व सरल श्लोक</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">सचित्र</span>
+                <span class="chip-lbl">मनोरंजक प्रस्तुति</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stuti-page-pills-bar" id="bachpan-page-pills">
+            <button class="pill-btn active" data-bachpan-cat="all">सभी बाल रचनाएं</button>
+            <button class="pill-btn" data-bachpan-cat="stories">📖 पंचतंत्र व नीति कथाएं</button>
+            <button class="pill-btn" data-bachpan-cat="sanskar">🪔 दैनिक श्लोक व संस्कार</button>
+            <button class="pill-btn" data-bachpan-cat="poems">🎵 मधुर बाल कविताएं</button>
+            <button class="pill-btn" data-bachpan-cat="characters">🌟 प्रेरक बाल-चरित्र</button>
+          </div>
+
+          <div class="bachpan-cards-grid" id="bachpan-cards-grid"></div>
+        </section>
+
+        <!-- 8. Dedicated Page View: हास्य (Hasya - Vyangya & Vinod) -->
+        <section id="hasya-view" class="corpus-page-view" style="display: none;">
+          <div class="page-hero hasya-page-hero">
+            <div class="page-hero-badge">
+              <span class="sacred-icon">🎭</span>
+              <span>सुरुचिपूर्ण व्यंग्य, विनोद एवं प्रहसन</span>
+            </div>
+            <h1 class="page-hero-title">श्री विदूषक (हास्य-विनोद)</h1>
+            <p class="page-hero-shloka">« हास्यं रसस्य जीवितम् — विशुद्ध आनंद एवं सामाजिक चेतना »</p>
+            <p class="page-hero-desc">
+              फूहड़पन से मुक्त, भारतीय साहित्यिक मर्यादा में रचित कालजयी हास्य-व्यंग्य, सामाजिक कुरीतियों पर तीक्ष्ण कटाक्ष, चुटीले दोहे और ज्ञानवर्धक प्रहसन।
+            </p>
+
+            <div class="page-search-wrap">
+              <span class="page-search-icon">🔍</span>
+              <input type="text" id="hasya-search-input" class="page-search-box" placeholder="व्यंग्य, हास्य रचना अथवा विषय खोजें..." aria-label="हास्य खोजें">
+              <span class="page-search-count" id="hasya-count-indicator">विशुद्ध विनोद</span>
+            </div>
+
+            <div class="stuti-stats-summary-row">
+              <div class="stuti-summary-chip">
+                <span class="chip-num">१००%</span>
+                <span class="chip-lbl">सुरुचिपूर्ण साहित्य</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">धारदार</span>
+                <span class="chip-lbl">सामाजिक व्यंग्य</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">आनंदमय</span>
+                <span class="chip-lbl">सकारात्मक विनोद</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stuti-page-pills-bar" id="hasya-page-pills">
+            <button class="pill-btn active" data-hasya-cat="all">समस्त हास्य-व्यंग्य</button>
+            <button class="pill-btn" data-hasya-cat="classic">📜 कालजयी व्यंग्य साहित्य</button>
+            <button class="pill-btn" data-hasya-cat="social">🎯 सामाजिक कुरीतियों पर कटाक्ष</button>
+            <button class="pill-btn" data-hasya-cat="play">🎪 ज्ञानवर्धक प्रहसन</button>
+            <button class="pill-btn" data-hasya-cat="couplets">✨ चुटीले व्यंग्य-दोहे</button>
+          </div>
+
+          <div class="hasya-cards-grid" id="hasya-cards-grid"></div>
+        </section>
+
+        <!-- 9. Dedicated Page View: आरोग्य (Arogya - Ayurveda & Health) -->
+        <section id="arogya-view" class="corpus-page-view" style="display: none;">
+          <div class="page-hero arogya-page-hero">
+            <div class="page-hero-badge">
+              <span class="sacred-icon">🌿</span>
+              <span>सनातन आयुर्वेद, त्रिदोष एवं प्राकृतिक स्वास्थ्य</span>
+            </div>
+            <h1 class="page-hero-title">आरोग्य</h1>
+            <p class="page-hero-shloka">« धर्मार्थकाममोक्षाणामारोग्यं मूलमुत्तमम् ॥ »</p>
+            <p class="page-hero-desc">
+              महर्षि चरक, सुश्रुत एवं वाग्भट की अमर संहिताओं पर आधारित प्राकृतिक आरोग्य — वात-पित्त-कफ त्रिदोष सन्तुलन, दिनचर्या विधान, ऋतुचर्या नियम, पावन जड़ी-बूटियां एवं सहज घरेलू उपचार।
+            </p>
+
+            <div class="page-search-wrap">
+              <span class="page-search-icon">🔍</span>
+              <input type="text" id="arogya-search-input" class="page-search-box" placeholder="रोग, जड़ी-बूटी, दिनचर्या अथवा त्रिदोष सूत्र खोजें..." aria-label="आरोग्य खोजें">
+              <span class="page-search-count" id="arogya-count-indicator">अमृत आरोग्य सूत्र</span>
+            </div>
+
+            <div class="stuti-stats-summary-row">
+              <div class="stuti-summary-chip">
+                <span class="chip-num">३</span>
+                <span class="chip-lbl">दोष सन्तुलन (वात-पित्त-कफ)</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">ऋतुचर्या</span>
+                <span class="chip-lbl">६ ऋतुओं का वैज्ञानिक आहार</span>
+              </div>
+              <div class="stuti-summary-chip">
+                <span class="chip-num">१००%</span>
+                <span class="chip-lbl">प्राकृतिक व अहिंसक</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stuti-page-pills-bar" id="arogya-page-pills">
+            <button class="pill-btn active" data-arogya-cat="all">समस्त आरोग्य सूत्र</button>
+            <button class="pill-btn" data-arogya-cat="tridosha">⚖️ त्रिदोष विज्ञान (वात-पित्त-कफ)</button>
+            <button class="pill-btn" data-arogya-cat="dincharya">☀️ दिनचर्या एवं रात्रिचर्या</button>
+            <button class="pill-btn" data-arogya-cat="ritucharya">🍃 ऋतुचर्या व मौसमी आहार</button>
+            <button class="pill-btn" data-arogya-cat="herbs">🌱 पावन औषधियां व जड़ी-बूटी</button>
+            <button class="pill-btn" data-arogya-cat="yoga">🧘 योग, प्राणायाम व ध्यान</button>
+          </div>
+
+          <div class="arogya-cards-grid" id="arogya-cards-grid"></div>
         </section>
 
         <!-- 4. Stotra Content View -->

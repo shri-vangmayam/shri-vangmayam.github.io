@@ -74,6 +74,37 @@
     slideOpenVratBtn: document.getElementById('slide-open-vrat-btn'),
     pillarSlideVrat: document.getElementById('pillar-slide-vrat'),
 
+    // Dedicated 5 New Pillars Views
+    kavyaView: document.getElementById('kavya-view'),
+    kavyaSearchInput: document.getElementById('kavya-search-input'),
+    kavyaCountIndicator: document.getElementById('kavya-count-indicator'),
+    kavyaPagePills: document.getElementById('kavya-page-pills'),
+    kavyaCardsGrid: document.getElementById('kavya-cards-grid'),
+
+    itihasView: document.getElementById('itihas-view'),
+    itihasSearchInput: document.getElementById('itihas-search-input'),
+    itihasCountIndicator: document.getElementById('itihas-count-indicator'),
+    itihasPagePills: document.getElementById('itihas-page-pills'),
+    itihasCardsGrid: document.getElementById('itihas-cards-grid'),
+
+    bachpanView: document.getElementById('bachpan-view'),
+    bachpanSearchInput: document.getElementById('bachpan-search-input'),
+    bachpanCountIndicator: document.getElementById('bachpan-count-indicator'),
+    bachpanPagePills: document.getElementById('bachpan-page-pills'),
+    bachpanCardsGrid: document.getElementById('bachpan-cards-grid'),
+
+    hasyaView: document.getElementById('hasya-view'),
+    hasyaSearchInput: document.getElementById('hasya-search-input'),
+    hasyaCountIndicator: document.getElementById('hasya-count-indicator'),
+    hasyaPagePills: document.getElementById('hasya-page-pills'),
+    hasyaCardsGrid: document.getElementById('hasya-cards-grid'),
+
+    arogyaView: document.getElementById('arogya-view'),
+    arogyaSearchInput: document.getElementById('arogya-search-input'),
+    arogyaCountIndicator: document.getElementById('arogya-count-indicator'),
+    arogyaPagePills: document.getElementById('arogya-page-pills'),
+    arogyaCardsGrid: document.getElementById('arogya-cards-grid'),
+
     // Corpus Tabs
     corpusTabs: document.querySelectorAll('.corpus-tab-btn'),
 
@@ -440,24 +471,32 @@
   // Alias for backward compatibility
   const renderHomeKhandas = renderStutiKhandas;
 
+  // Universal Hide Helper for All 9 Pillars & Article Views
+  function hideAllCorpusViews() {
+    if (DOM.loadingSpinner) DOM.loadingSpinner.style.display = 'none';
+    if (DOM.stotraArticle) DOM.stotraArticle.style.display = 'none';
+    if (DOM.homeView) DOM.homeView.style.display = 'none';
+    if (DOM.stutiGangaView) DOM.stutiGangaView.style.display = 'none';
+    if (DOM.vedPuranamView) DOM.vedPuranamView.style.display = 'none';
+    if (DOM.vedantDarshanamView) DOM.vedantDarshanamView.style.display = 'none';
+    if (DOM.vratPujanamView) DOM.vratPujanamView.style.display = 'none';
+    if (DOM.kavyaView) DOM.kavyaView.style.display = 'none';
+    if (DOM.itihasView) DOM.itihasView.style.display = 'none';
+    if (DOM.bachpanView) DOM.bachpanView.style.display = 'none';
+    if (DOM.hasyaView) DOM.hasyaView.style.display = 'none';
+    if (DOM.arogyaView) DOM.arogyaView.style.display = 'none';
+  }
+
   // Show Home View (मुख्य द्वार)
   function showHomeView() {
     state.currentStotra = null;
     document.title = 'श्री सनातन वाङ्मयम् — मुख्य द्वार (अखण्ड डिजिटल ग्रन्थालय)';
 
-    if (DOM.loadingSpinner) DOM.loadingSpinner.style.display = 'none';
-    if (DOM.stotraArticle) DOM.stotraArticle.style.display = 'none';
-    if (DOM.stutiGangaView) DOM.stutiGangaView.style.display = 'none';
-    if (DOM.vedPuranamView) DOM.vedPuranamView.style.display = 'none';
-    if (DOM.vedantDarshanamView) DOM.vedantDarshanamView.style.display = 'none';
-    if (DOM.vratPujanamView) DOM.vratPujanamView.style.display = 'none';
+    hideAllCorpusViews();
     if (DOM.homeView) DOM.homeView.style.display = 'block';
 
-    // Sub-Navbar on Home
-    if (DOM.subNavTitle) {
-      DOM.subNavTitle.textContent = 'श्री सनातन वाङ्मयम् — मुख्य द्वार (Digital Vedic Library)';
-      DOM.subNavTitle.title = 'श्री सनातन वाङ्मयम्';
-    }
+    // On Home view, sub-navbar is hidden so 9-pillars bar connects directly with presentation slides
+    if (DOM.subNav) DOM.subNav.style.display = 'none';
 
     // Hide stotra-specific action buttons on Home
     const subCopyBtn = document.getElementById('sub-copy-btn');
@@ -488,13 +527,9 @@
     state.currentStotra = null;
     document.title = 'श्री स्तुति-गंगा — १६ शास्त्रीय देव-खण्ड एवं २६२ पावन रचनाएं | श्री सनातन वाङ्मयम्';
 
-    if (DOM.loadingSpinner) DOM.loadingSpinner.style.display = 'none';
-    if (DOM.stotraArticle) DOM.stotraArticle.style.display = 'none';
-    if (DOM.homeView) DOM.homeView.style.display = 'none';
-    if (DOM.vedPuranamView) DOM.vedPuranamView.style.display = 'none';
-    if (DOM.vedantDarshanamView) DOM.vedantDarshanamView.style.display = 'none';
-    if (DOM.vratPujanamView) DOM.vratPujanamView.style.display = 'none';
+    hideAllCorpusViews();
     if (DOM.stutiGangaView) DOM.stutiGangaView.style.display = 'block';
+    if (DOM.subNav) DOM.subNav.style.display = 'flex';
 
     // Sub-Navbar on Stuti-Ganga
     if (DOM.subNavTitle) {
@@ -544,13 +579,9 @@
     state.currentStotra = null;
     document.title = 'श्री वेद-पुराणम् — चतुर्वेद एवं २६ पुराण, उपपुराण व इतिहास ग्रन्थालय | श्री सनातन वाङ्मयम्';
 
-    if (DOM.loadingSpinner) DOM.loadingSpinner.style.display = 'none';
-    if (DOM.stotraArticle) DOM.stotraArticle.style.display = 'none';
-    if (DOM.homeView) DOM.homeView.style.display = 'none';
-    if (DOM.stutiGangaView) DOM.stutiGangaView.style.display = 'none';
-    if (DOM.vedantDarshanamView) DOM.vedantDarshanamView.style.display = 'none';
-    if (DOM.vratPujanamView) DOM.vratPujanamView.style.display = 'none';
+    hideAllCorpusViews();
     if (DOM.vedPuranamView) DOM.vedPuranamView.style.display = 'block';
+    if (DOM.subNav) DOM.subNav.style.display = 'flex';
 
     // Sub-Navbar on Ved-Puranam
     if (DOM.subNavTitle) {
@@ -588,13 +619,9 @@
     state.currentStotra = null;
     document.title = 'श्री वेदान्त-दर्शनम् — प्रस्थानत्रयी, उपनिषद एवं षड्दर्शन | श्री सनातन वाङ्मयम्';
 
-    if (DOM.loadingSpinner) DOM.loadingSpinner.style.display = 'none';
-    if (DOM.stotraArticle) DOM.stotraArticle.style.display = 'none';
-    if (DOM.homeView) DOM.homeView.style.display = 'none';
-    if (DOM.stutiGangaView) DOM.stutiGangaView.style.display = 'none';
-    if (DOM.vedPuranamView) DOM.vedPuranamView.style.display = 'none';
-    if (DOM.vratPujanamView) DOM.vratPujanamView.style.display = 'none';
+    hideAllCorpusViews();
     if (DOM.vedantDarshanamView) DOM.vedantDarshanamView.style.display = 'block';
+    if (DOM.subNav) DOM.subNav.style.display = 'flex';
 
     // Sub-Navbar on Vedant-Darshanam
     if (DOM.subNavTitle) {
@@ -632,13 +659,9 @@
     state.currentStotra = null;
     document.title = 'श्री व्रत-पूजनम् — नवरात्र, एकादशी, प्रदोष एवं महापर्व पूजन-विधि व पावन कथाएं | श्री सनातन वाङ्मयम्';
 
-    if (DOM.loadingSpinner) DOM.loadingSpinner.style.display = 'none';
-    if (DOM.stotraArticle) DOM.stotraArticle.style.display = 'none';
-    if (DOM.homeView) DOM.homeView.style.display = 'none';
-    if (DOM.stutiGangaView) DOM.stutiGangaView.style.display = 'none';
-    if (DOM.vedPuranamView) DOM.vedPuranamView.style.display = 'none';
-    if (DOM.vedantDarshanamView) DOM.vedantDarshanamView.style.display = 'none';
+    hideAllCorpusViews();
     if (DOM.vratPujanamView) DOM.vratPujanamView.style.display = 'block';
+    if (DOM.subNav) DOM.subNav.style.display = 'flex';
 
     // Sub-Navbar on Vrat-Pujanam
     if (DOM.subNavTitle) {
@@ -676,7 +699,207 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Routing Handler (Home vs Stuti-Ganga vs Ved-Puranam vs Vedant-Darshanam vs Vrat-Pujanam vs Stotra)
+  // Show Kavya View (श्री काव्य-मंजूषा समर्पित पृष्ठ)
+  function showKavyaView() {
+    state.currentStotra = null;
+    document.title = 'श्री काव्य-मंजूषा — कालजयी राष्ट्रकाव्य, वीर-रस एवं अमर पद | श्री सनातन वाङ्मयम्';
+
+    hideAllCorpusViews();
+    if (DOM.kavyaView) DOM.kavyaView.style.display = 'block';
+    if (DOM.subNav) DOM.subNav.style.display = 'flex';
+
+    if (DOM.subNavTitle) {
+      DOM.subNavTitle.textContent = 'श्री काव्य-मंजूषा — २०० कालजयी राष्ट्रकाव्य एवं अमर संत-पद (Kavya)';
+      DOM.subNavTitle.title = 'श्री काव्य-मंजूषा';
+    }
+
+    const subCopyBtn = document.getElementById('sub-copy-btn');
+    const subFavBtn = document.getElementById('sub-fav-btn');
+    const subPrintBtn = document.getElementById('sub-print-btn');
+    const subYtBtn = document.getElementById('sub-youtube-btn');
+    if (subCopyBtn) subCopyBtn.style.display = 'none';
+    if (subFavBtn) subFavBtn.style.display = 'none';
+    if (subPrintBtn) subPrintBtn.style.display = 'none';
+    if (subYtBtn) subYtBtn.style.display = 'none';
+
+    DOM.corpusTabs.forEach(t => {
+      t.classList.toggle('active', t.dataset.corpus === 'kavya');
+    });
+
+    document.querySelectorAll('.stotra-nav-item').forEach(el => el.classList.remove('active'));
+
+    let activeCat = 'all';
+    if (DOM.kavyaPagePills) {
+      const activeBtn = DOM.kavyaPagePills.querySelector('.pill-btn.active');
+      if (activeBtn) activeCat = activeBtn.dataset.kavyaCat || 'all';
+    }
+    renderKavyaCards(activeCat, DOM.kavyaSearchInput ? DOM.kavyaSearchInput.value : '');
+
+    closeSidebar();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Show Itihas View (इतिहास एवं गौरव समर्पित पृष्ठ)
+  function showItihasView() {
+    state.currentStotra = null;
+    document.title = 'श्री इतिहास एवं गौरव — भारतीय शौर्य, महापुरुष व गौरव गाथाएं | श्री सनातन वाङ्मयम्';
+
+    hideAllCorpusViews();
+    if (DOM.itihasView) DOM.itihasView.style.display = 'block';
+    if (DOM.subNav) DOM.subNav.style.display = 'flex';
+
+    if (DOM.subNavTitle) {
+      DOM.subNavTitle.textContent = 'श्री इतिहास एवं गौरव — भारतीय शौर्य, महापुरुष व गौरव गाथाएं (History)';
+      DOM.subNavTitle.title = 'श्री इतिहास एवं गौरव';
+    }
+
+    const subCopyBtn = document.getElementById('sub-copy-btn');
+    const subFavBtn = document.getElementById('sub-fav-btn');
+    const subPrintBtn = document.getElementById('sub-print-btn');
+    const subYtBtn = document.getElementById('sub-youtube-btn');
+    if (subCopyBtn) subCopyBtn.style.display = 'none';
+    if (subFavBtn) subFavBtn.style.display = 'none';
+    if (subPrintBtn) subPrintBtn.style.display = 'none';
+    if (subYtBtn) subYtBtn.style.display = 'none';
+
+    DOM.corpusTabs.forEach(t => {
+      t.classList.toggle('active', t.dataset.corpus === 'itihas');
+    });
+
+    document.querySelectorAll('.stotra-nav-item').forEach(el => el.classList.remove('active'));
+
+    let activeCat = 'all';
+    if (DOM.itihasPagePills) {
+      const activeBtn = DOM.itihasPagePills.querySelector('.pill-btn.active');
+      if (activeBtn) activeCat = activeBtn.dataset.itihasCat || 'all';
+    }
+    renderItihasCards(activeCat, DOM.itihasSearchInput ? DOM.itihasSearchInput.value : '');
+
+    closeSidebar();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Show Bachpan View (बचपन - बाल संस्कार व कहानियां)
+  function showBachpanView() {
+    state.currentStotra = null;
+    document.title = 'बचपन — संस्कार, प्रेरक कहानियां व बाल-साहित्य | श्री सनातन वाङ्मयम्';
+
+    hideAllCorpusViews();
+    if (DOM.bachpanView) DOM.bachpanView.style.display = 'block';
+    if (DOM.subNav) DOM.subNav.style.display = 'flex';
+
+    if (DOM.subNavTitle) {
+      DOM.subNavTitle.textContent = 'बचपन — संस्कार, प्रेरक कहानियां व बाल-साहित्य (Bal Kunj)';
+      DOM.subNavTitle.title = 'बचपन';
+    }
+
+    const subCopyBtn = document.getElementById('sub-copy-btn');
+    const subFavBtn = document.getElementById('sub-fav-btn');
+    const subPrintBtn = document.getElementById('sub-print-btn');
+    const subYtBtn = document.getElementById('sub-youtube-btn');
+    if (subCopyBtn) subCopyBtn.style.display = 'none';
+    if (subFavBtn) subFavBtn.style.display = 'none';
+    if (subPrintBtn) subPrintBtn.style.display = 'none';
+    if (subYtBtn) subYtBtn.style.display = 'none';
+
+    DOM.corpusTabs.forEach(t => {
+      t.classList.toggle('active', t.dataset.corpus === 'bachpan');
+    });
+
+    document.querySelectorAll('.stotra-nav-item').forEach(el => el.classList.remove('active'));
+
+    let activeCat = 'all';
+    if (DOM.bachpanPagePills) {
+      const activeBtn = DOM.bachpanPagePills.querySelector('.pill-btn.active');
+      if (activeBtn) activeCat = activeBtn.dataset.bachpanCat || 'all';
+    }
+    renderBachpanCards(activeCat, DOM.bachpanSearchInput ? DOM.bachpanSearchInput.value : '');
+
+    closeSidebar();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Show Hasya View (श्री विदूषक - हास्य-विनोद)
+  function showHasyaView() {
+    state.currentStotra = null;
+    document.title = 'श्री विदूषक (हास्य) — सुरुचिपूर्ण व्यंग्य, विनोद व प्रहसन | श्री सनातन वाङ्मयम्';
+
+    hideAllCorpusViews();
+    if (DOM.hasyaView) DOM.hasyaView.style.display = 'block';
+    if (DOM.subNav) DOM.subNav.style.display = 'flex';
+
+    if (DOM.subNavTitle) {
+      DOM.subNavTitle.textContent = 'श्री विदूषक (हास्य) — सुरुचिपूर्ण व्यंग्य, विनोद व प्रहसन (Humor & Satire)';
+      DOM.subNavTitle.title = 'श्री विदूषक (हास्य)';
+    }
+
+    const subCopyBtn = document.getElementById('sub-copy-btn');
+    const subFavBtn = document.getElementById('sub-fav-btn');
+    const subPrintBtn = document.getElementById('sub-print-btn');
+    const subYtBtn = document.getElementById('sub-youtube-btn');
+    if (subCopyBtn) subCopyBtn.style.display = 'none';
+    if (subFavBtn) subFavBtn.style.display = 'none';
+    if (subPrintBtn) subPrintBtn.style.display = 'none';
+    if (subYtBtn) subYtBtn.style.display = 'none';
+
+    DOM.corpusTabs.forEach(t => {
+      t.classList.toggle('active', t.dataset.corpus === 'hasya');
+    });
+
+    document.querySelectorAll('.stotra-nav-item').forEach(el => el.classList.remove('active'));
+
+    let activeCat = 'all';
+    if (DOM.hasyaPagePills) {
+      const activeBtn = DOM.hasyaPagePills.querySelector('.pill-btn.active');
+      if (activeBtn) activeCat = activeBtn.dataset.hasyaCat || 'all';
+    }
+    renderHasyaCards(activeCat, DOM.hasyaSearchInput ? DOM.hasyaSearchInput.value : '');
+
+    closeSidebar();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Show Arogya View (आरोग्य - आयुर्वेद)
+  function showArogyaView() {
+    state.currentStotra = null;
+    document.title = 'आरोग्य — सनातन आयुर्वेद, त्रिदोष एवं प्राकृतिक स्वास्थ्य | श्री सनातन वाङ्मयम्';
+
+    hideAllCorpusViews();
+    if (DOM.arogyaView) DOM.arogyaView.style.display = 'block';
+    if (DOM.subNav) DOM.subNav.style.display = 'flex';
+
+    if (DOM.subNavTitle) {
+      DOM.subNavTitle.textContent = 'आरोग्य — सनातन आयुर्वेद, त्रिदोष एवं प्राकृतिक स्वास्थ्य (Ayurveda)';
+      DOM.subNavTitle.title = 'आरोग्य';
+    }
+
+    const subCopyBtn = document.getElementById('sub-copy-btn');
+    const subFavBtn = document.getElementById('sub-fav-btn');
+    const subPrintBtn = document.getElementById('sub-print-btn');
+    const subYtBtn = document.getElementById('sub-youtube-btn');
+    if (subCopyBtn) subCopyBtn.style.display = 'none';
+    if (subFavBtn) subFavBtn.style.display = 'none';
+    if (subPrintBtn) subPrintBtn.style.display = 'none';
+    if (subYtBtn) subYtBtn.style.display = 'none';
+
+    DOM.corpusTabs.forEach(t => {
+      t.classList.toggle('active', t.dataset.corpus === 'arogya');
+    });
+
+    document.querySelectorAll('.stotra-nav-item').forEach(el => el.classList.remove('active'));
+
+    let activeCat = 'all';
+    if (DOM.arogyaPagePills) {
+      const activeBtn = DOM.arogyaPagePills.querySelector('.pill-btn.active');
+      if (activeBtn) activeCat = activeBtn.dataset.arogyaCat || 'all';
+    }
+    renderArogyaCards(activeCat, DOM.arogyaSearchInput ? DOM.arogyaSearchInput.value : '');
+
+    closeSidebar();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Routing Handler (९ पावन स्तम्भ रूटिंग: Home vs Stuti-Ganga vs Ved-Puranam vs Vedant-Darshanam vs Vrat-Pujanam vs Kavya vs Itihas vs Bachpan vs Hasya vs Arogya vs Stotra)
   function handleRoute() {
     const hash = window.location.hash || '';
     if (!hash || hash === '#' || hash === '#home') {
@@ -689,6 +912,16 @@
       showVedantDarshanamView();
     } else if (hash === '#vrat-pujanam' || hash === '#vrat_pujanam') {
       showVratPujanamView();
+    } else if (hash === '#kavya') {
+      showKavyaView();
+    } else if (hash === '#itihas') {
+      showItihasView();
+    } else if (hash === '#bachpan') {
+      showBachpanView();
+    } else if (hash === '#hasya') {
+      showHasyaView();
+    } else if (hash === '#arogya') {
+      showArogyaView();
     } else if (hash.startsWith('#vrat-')) {
       const vratId = hash.replace('#vrat-', '');
       showVratPujanamView();
@@ -878,12 +1111,9 @@
     }
     if (!stotra) return;
 
-    if (DOM.homeView) DOM.homeView.style.display = 'none';
-    if (DOM.stutiGangaView) DOM.stutiGangaView.style.display = 'none';
-    if (DOM.vedPuranamView) DOM.vedPuranamView.style.display = 'none';
-    if (DOM.vedantDarshanamView) DOM.vedantDarshanamView.style.display = 'none';
-    if (DOM.vratPujanamView) DOM.vratPujanamView.style.display = 'none';
+    hideAllCorpusViews();
     if (DOM.stotraArticle) DOM.stotraArticle.style.display = 'block';
+    if (DOM.subNav) DOM.subNav.style.display = 'flex';
 
     // Show subnavbar action buttons
     const subCopyBtn = document.getElementById('sub-copy-btn');
@@ -1298,6 +1528,21 @@
         } else if (corpus === 'vrat_pujanam') {
           showToast('🌸 व्रत-पूजनम्: नवरात्र, एकादशी, प्रदोष एवं महापर्व पूजन-विधान');
           window.location.hash = '#vrat-pujanam';
+        } else if (corpus === 'kavya') {
+          showToast('📜 काव्य: कालजयी राष्ट्रकाव्य, वीर-रस एवं अमर पद');
+          window.location.hash = '#kavya';
+        } else if (corpus === 'itihas') {
+          showToast('⚔️ इतिहास: भारतीय शौर्य, अमर क्रान्तिकारी एवं गौरव गाथाएं');
+          window.location.hash = '#itihas';
+        } else if (corpus === 'bachpan') {
+          showToast('🌱 बचपन: बाल-संस्कार, प्रेरक कहानियां एवं बाल-साहित्य');
+          window.location.hash = '#bachpan';
+        } else if (corpus === 'hasya') {
+          showToast('🎭 हास्य: सुरुचिपूर्ण व्यंग्य, विनोद एवं हास्य-कटाक्ष');
+          window.location.hash = '#hasya';
+        } else if (corpus === 'arogya') {
+          showToast('🌿 आरोग्य: आयुर्वेद संहिताएं, दिनचर्या व प्राकृतिक स्वास्थ्य');
+          window.location.hash = '#arogya';
         }
       });
     });
@@ -1450,6 +1695,116 @@
         btn.classList.add('active');
         const cat = btn.dataset.vratCat || 'all';
         renderVratPujanam(cat, DOM.vratSearchInput ? DOM.vratSearchInput.value : '');
+      });
+    }
+
+    // Live Search & Category Filter Pills: काव्य (Kavya)
+    if (DOM.kavyaSearchInput) {
+      DOM.kavyaSearchInput.addEventListener('input', (e) => {
+        let activeCat = 'all';
+        if (DOM.kavyaPagePills) {
+          const activeBtn = DOM.kavyaPagePills.querySelector('.pill-btn.active');
+          if (activeBtn) activeCat = activeBtn.dataset.kavyaCat || 'all';
+        }
+        renderKavyaCards(activeCat, e.target.value);
+      });
+    }
+    if (DOM.kavyaPagePills) {
+      DOM.kavyaPagePills.addEventListener('click', (e) => {
+        const btn = e.target.closest('.pill-btn');
+        if (!btn) return;
+        DOM.kavyaPagePills.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.kavyaCat || 'all';
+        renderKavyaCards(cat, DOM.kavyaSearchInput ? DOM.kavyaSearchInput.value : '');
+      });
+    }
+
+    // Live Search & Category Filter Pills: इतिहास (Itihas)
+    if (DOM.itihasSearchInput) {
+      DOM.itihasSearchInput.addEventListener('input', (e) => {
+        let activeCat = 'all';
+        if (DOM.itihasPagePills) {
+          const activeBtn = DOM.itihasPagePills.querySelector('.pill-btn.active');
+          if (activeBtn) activeCat = activeBtn.dataset.itihasCat || 'all';
+        }
+        renderItihasCards(activeCat, e.target.value);
+      });
+    }
+    if (DOM.itihasPagePills) {
+      DOM.itihasPagePills.addEventListener('click', (e) => {
+        const btn = e.target.closest('.pill-btn');
+        if (!btn) return;
+        DOM.itihasPagePills.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.itihasCat || 'all';
+        renderItihasCards(cat, DOM.itihasSearchInput ? DOM.itihasSearchInput.value : '');
+      });
+    }
+
+    // Live Search & Category Filter Pills: बचपन (Bachpan)
+    if (DOM.bachpanSearchInput) {
+      DOM.bachpanSearchInput.addEventListener('input', (e) => {
+        let activeCat = 'all';
+        if (DOM.bachpanPagePills) {
+          const activeBtn = DOM.bachpanPagePills.querySelector('.pill-btn.active');
+          if (activeBtn) activeCat = activeBtn.dataset.bachpanCat || 'all';
+        }
+        renderBachpanCards(activeCat, e.target.value);
+      });
+    }
+    if (DOM.bachpanPagePills) {
+      DOM.bachpanPagePills.addEventListener('click', (e) => {
+        const btn = e.target.closest('.pill-btn');
+        if (!btn) return;
+        DOM.bachpanPagePills.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.bachpanCat || 'all';
+        renderBachpanCards(cat, DOM.bachpanSearchInput ? DOM.bachpanSearchInput.value : '');
+      });
+    }
+
+    // Live Search & Category Filter Pills: हास्य (Hasya)
+    if (DOM.hasyaSearchInput) {
+      DOM.hasyaSearchInput.addEventListener('input', (e) => {
+        let activeCat = 'all';
+        if (DOM.hasyaPagePills) {
+          const activeBtn = DOM.hasyaPagePills.querySelector('.pill-btn.active');
+          if (activeBtn) activeCat = activeBtn.dataset.hasyaCat || 'all';
+        }
+        renderHasyaCards(activeCat, e.target.value);
+      });
+    }
+    if (DOM.hasyaPagePills) {
+      DOM.hasyaPagePills.addEventListener('click', (e) => {
+        const btn = e.target.closest('.pill-btn');
+        if (!btn) return;
+        DOM.hasyaPagePills.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.hasyaCat || 'all';
+        renderHasyaCards(cat, DOM.hasyaSearchInput ? DOM.hasyaSearchInput.value : '');
+      });
+    }
+
+    // Live Search & Category Filter Pills: आरोग्य (Arogya)
+    if (DOM.arogyaSearchInput) {
+      DOM.arogyaSearchInput.addEventListener('input', (e) => {
+        let activeCat = 'all';
+        if (DOM.arogyaPagePills) {
+          const activeBtn = DOM.arogyaPagePills.querySelector('.pill-btn.active');
+          if (activeBtn) activeCat = activeBtn.dataset.arogyaCat || 'all';
+        }
+        renderArogyaCards(activeCat, e.target.value);
+      });
+    }
+    if (DOM.arogyaPagePills) {
+      DOM.arogyaPagePills.addEventListener('click', (e) => {
+        const btn = e.target.closest('.pill-btn');
+        if (!btn) return;
+        DOM.arogyaPagePills.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.arogyaCat || 'all';
+        renderArogyaCards(cat, DOM.arogyaSearchInput ? DOM.arogyaSearchInput.value : '');
       });
     }
 
@@ -2674,9 +3029,780 @@
     document.body.style.overflow = '';
   }
 
-  // Backward-compatibility: Redirect modals to dedicated pages
-  function showVedPuranModal() {
-    window.location.hash = '#ved-puranam';
+  // ==========================================================================
+  // ५ नव-खण्ड डेटा एवं प्रस्तुतिकरण: काव्य, इतिहास, बचपन, हास्य, आरोग्य
+  // ==========================================================================
+
+  // १. काव्य संकलन (Kavya List)
+  const kavyaList = [
+    {
+      id: 'kavya-001',
+      title: 'हिमाद्रि तुंग श्रृंग से प्रबुद्ध शुद्ध भारती',
+      author: 'महाकवि जयशंकर प्रसाद',
+      cat: 'khanda1',
+      badge: '🚩 खंड १: राष्ट्र-आह्वान',
+      icon: '🏔️',
+      desc: 'अमर प्रयाण-गीत एवं राष्ट्रगीत — मातृभूमि की स्वतंत्रता, स्वाभिमान एवं वीर सपूतों को रणभूमि में विजय का दिव्य आह्वान।',
+      tag: 'अमर प्रयाण-गीत'
+    },
+    {
+      id: 'kavya-002',
+      title: 'वर दे, वीणावादिनि वर दे!',
+      author: 'सूर्यकान्त त्रिपाठी "निराला"',
+      cat: 'khanda1',
+      badge: '🚩 खंड १: राष्ट्र-आह्वान',
+      icon: '🪕',
+      desc: 'नव-जागरण एवं ज्ञान-चेतना स्तुति — माँ सरस्वती से अज्ञान के अंधकार को मिटाकर भारत में अमर ज्योति व नव-प्रकाश का वरदान।',
+      tag: 'ज्ञान-चेतना स्तुति'
+    },
+    {
+      id: 'kavya-003',
+      title: 'खूब लड़ी मर्दानी वह तो झाँसी वाली रानी थी',
+      author: 'सुभद्रा कुमारी चौहान',
+      cat: 'khanda1',
+      badge: '🚩 खंड १: राष्ट्र-आह्वान',
+      icon: '⚔️',
+      desc: 'अमर वीर रस राष्ट्रकाव्य — बुंदेले हरबोलों के मुख से वीरांगना महारानी लक्ष्मीबाई के अदम्य शौर्य का अमर आख्यान।',
+      tag: 'अमर वीरगाथा'
+    },
+    {
+      id: 'kavya-004',
+      title: 'वीरों का कैसा हो वसंत',
+      author: 'सुभद्रा कुमारी चौहान',
+      cat: 'khanda1',
+      badge: '🚩 खंड १: राष्ट्र-आह्वान',
+      icon: '🌸',
+      desc: 'वीर रस राष्ट्र चेतना — दिग्दिगंत से गूंजता प्रश्न कि रणबांकुरों और मातृभूमि के रक्षकों के लिए सच्चा वसंत क्या है।',
+      tag: 'वीर रस चेतना'
+    },
+    {
+      id: 'kavya-005',
+      title: 'छत्रपति शिवाजी महाराज कवित्त (इन्द्र जिमि जम्भ पर...)',
+      author: 'महाकवि भूषण',
+      cat: 'khanda2',
+      badge: '⚔️ खंड २: मध्यकालीन शौर्य',
+      icon: '🚩',
+      desc: 'रीतिकालीन वीर रस सिंहनाद — म्लेच्छ वंश और अन्याय पर छत्रपति शिवाजी महाराज के प्रचंड प्रताप का कालजयी कवित्त।',
+      tag: 'वीर रस कवित्त'
+    },
+    {
+      id: 'kavya-006',
+      title: 'छत्रसाल दशक (निकसत तेते मयूखैं प्रलयभानु जैसी...)',
+      author: 'महाकवि भूषण',
+      cat: 'khanda2',
+      badge: '⚔️ खंड २: मध्यकालीन शौर्य',
+      icon: '🗡️',
+      desc: 'महाराजा छत्रसाल बुंदेला की तलवार का रौद्र रूप — म्यान से निकलती किरणें जैसे प्रलयकाल का सूर्य हों।',
+      tag: 'तलवार शौर्य कवित्त'
+    },
+    {
+      id: 'kavya-007',
+      title: 'सम्पूर्ण वन्दे मातरम् (समस्त ६ पावन पद)',
+      author: 'ऋषि बंकिम चन्द्र चट्टोपाध्याय',
+      cat: 'khanda1',
+      badge: '🚩 खंड १: राष्ट्र-आह्वान',
+      icon: '🇮🇳',
+      desc: 'राष्ट्रीय महामंत्र एवं मातृभूमि अर्चना — सुजलां सुफलां मलयजशीतलाम् शस्यश्यामलां मातरम् के सम्पूर्ण मूल ६ छंद।',
+      tag: 'राष्ट्रीय महामंत्र'
+    },
+    {
+      id: 'kavya-008',
+      title: 'भारत-भारती (हम कौन थे, क्या हो गए हैं...)',
+      author: 'राष्ट्रकवि मैथिलीशरण गुप्त',
+      cat: 'khanda1',
+      badge: '🚩 खंड १: राष्ट्र-आह्वान',
+      icon: '📜',
+      desc: 'राष्ट्र-जागरण एवं सांस्कृतिक गौरव — भारत के गौरवशाली अतीत का स्मरण और वर्तमान पीढ़ी को कर्तव्य-पथ पर जगाने का शंखनाद।',
+      tag: 'सांस्कृतिक जागरण'
+    },
+    {
+      id: 'kavya-009',
+      title: 'कर्मवीर (देखकर बाधा विविध, बहु विघ्न...)',
+      author: 'पं. अयोध्या सिंह उपाध्याय "हरिऔध"',
+      cat: 'khanda5',
+      badge: '🌾 खंड ५: कर्मवीर युवा',
+      icon: '💪',
+      desc: 'कर्मयोग एवं पुरुषार्थ चेतना काव्य — जो भाग्य के भरोसे नहीं बैठते, बल्कि कठिन से कठिन पर्वतों और वनों में मार्ग बना लेते हैं।',
+      tag: 'कर्मयोग चेतना'
+    },
+    {
+      id: 'kavya-010',
+      title: 'जागो फिर एक बार! (सवा लाख पर एक को चढ़ाऊँगा...)',
+      author: 'सूर्यकान्त त्रिपाठी "निराला"',
+      cat: 'khanda5',
+      badge: '🌾 खंड ५: कर्मवीर युवा',
+      icon: '🔥',
+      desc: 'अमर पौरुष व राष्ट्र-जागरण आह्वान — गुरु गोविंद सिंह जी का सिंहनाद और भारत की सुप्त शक्ति का नव-जागरण।',
+      tag: 'पौरुष आह्वान'
+    },
+    {
+      id: 'kavya-011',
+      title: 'पेशोला की प्रतिध्वनि (घास की रोटी खाई पर झुके नहीं...)',
+      author: 'महाकवि जयशंकर प्रसाद',
+      cat: 'khanda2',
+      badge: '⚔️ खंड २: मध्यकालीन शौर्य',
+      icon: '🏰',
+      desc: 'मेवाड़ शौर्य एवं स्वातंत्र्य प्रतिध्वनि — महाराणा प्रताप के अडिग स्वाभिमान और पिछोला झील की तरंगों में गूंजता गौरव।',
+      tag: 'मेवाड़ स्वाभिमान'
+    },
+    {
+      id: 'kavya-013',
+      title: 'पृथ्वीराज रासो (चार बाँस चौबीस गज, अँगुल अष्ट प्रमान...)',
+      author: 'महाकवि चंदबरदाई',
+      cat: 'khanda2',
+      badge: '⚔️ खंड २: मध्यकालीन शौर्य',
+      icon: '🎯',
+      desc: 'आदिकालीन वीरगाथा एवं शब्दभेदी बाण — "ता ऊपर सुल्तान है, मत चूको चौहान" का ऐतिहासिक पराक्रम।',
+      tag: 'शब्दभेदी वीरगाथा'
+    },
+    {
+      id: 'kavya-014',
+      title: 'मातृभूमि (नीलाम्बर परिधान हरित पट पर सुन्दर है...)',
+      author: 'राष्ट्रकवि मैथिलीशरण गुप्त',
+      cat: 'khanda4',
+      badge: '🏔️ खंड ४: भूगोल व तीर्थ',
+      icon: '🌿',
+      desc: 'मातृभूमि अर्चना एवं प्रकृति गौरव — भारत माता के पावन भूगोल, रत्नाकर समुद्र, मुकुट हिमालय और शेषनाग सिंहासन की अनुपम वंदना।',
+      tag: 'प्रकृति वंदना'
+    },
+    {
+      id: 'kavya-015',
+      title: 'अरुण यह मधुमय देश हमारा',
+      author: 'महाकवि जयशंकर प्रसाद',
+      cat: 'khanda4',
+      badge: '🏔️ खंड ४: भूगोल व तीर्थ',
+      icon: '🌅',
+      desc: 'भारत-वैभव एवं वैश्विक आश्रयदाता गौरव — जहाँ पहुँच अनजान क्षितिज को मिलता एक सहारा, ऐसा पावन स्वर्णिम देश।',
+      tag: 'भारत-वैभव'
+    },
+    {
+      id: 'kavya-016',
+      title: 'पुष्प की अभिलाषा (मुझे तोड़ लेना वनमाली...)',
+      author: 'पं. माखनलाल चतुर्वेदी',
+      cat: 'khanda1',
+      badge: '🚩 खंड १: राष्ट्र-आह्वान',
+      icon: '🌺',
+      desc: 'अमर राष्ट्र-समर्पण एवं वीरांजलि — देवों के सिर चढ़ने के बजाय उस पथ पर बिछने की इच्छा जिस पर शीश चढ़ाने वीर जाते हैं।',
+      tag: 'राष्ट्र-समर्पण'
+    },
+    {
+      id: 'kavya-017',
+      title: 'कैदी और कोकिला (क्या गाती हो? क्यों रह-रह जाती हो?)',
+      author: 'पं. माखनलाल चतुर्वेदी',
+      cat: 'khanda3',
+      badge: '🔥 खंड ३: अमर क्रांतिवीर',
+      icon: '⛓️',
+      desc: 'क्रांति-चेतना, कारागार वेदना व स्वाधीनता शंखनाद — ब्रिटिश जेल की काली कोठरी में स्वाधीनता सेनानी और कोयल का मार्मिक संवाद।',
+      tag: 'क्रांति-वेदना'
+    },
+    {
+      id: 'kavya-018',
+      title: 'कलम, आज उनकी जय बोल (अमर शहीदों को नमन)',
+      author: 'राष्ट्रकवि रामधारी सिंह "दिनकर" परंपरा',
+      cat: 'khanda3',
+      badge: '🔥 खंड ३: अमर क्रांतिवीर',
+      icon: '✍️',
+      desc: 'शहीद वंदना एवं ओजस्वी वीर रस — जिन्होंने बिना किसी नाम या मोल के देश पर अपना सर्वस्व न्योछावर कर दिया।',
+      tag: 'हुतात्मा वंदना'
+    },
+    {
+      id: 'kavya-019',
+      title: 'जवानी (द्वार बलि का खोल, चल भूडोल कर दे)',
+      author: 'पं. माखनलाल चतुर्वेदी',
+      cat: 'khanda3',
+      badge: '🔥 खंड ३: अमर क्रांतिवीर',
+      icon: '⚡',
+      desc: 'युवा चेतना, क्रांति-आह्वान एवं ओजस्वी वीर रस — राष्ट्र रक्षा हेतु युवाओं के शौर्य और बलिदान का प्रचंड आह्वान।',
+      tag: 'युवा क्रांति आह्वान'
+    },
+    {
+      id: 'kavya-186',
+      title: 'परमवीर मेजर सोमनाथ शर्मा गाथा',
+      author: 'श्री भव्य भारत काव्य संकलन',
+      cat: 'khanda8',
+      badge: '🇮🇳 खंड ८: परमवीर विजय',
+      icon: '🎖️',
+      desc: 'प्रथम परमवीर चक्र विजेता — बड़गाम हवाई अड्डे की रक्षा में अंतिम गोली और अंतिम सैनिक तक लड़ने का अमर संकल्प।',
+      tag: 'परमवीर चक्र गाथा'
+    },
+    {
+      id: 'kavya-190',
+      title: 'कैप्टन विक्रम बत्रा — कारगिल विजय (ये दिल मांगे मोर)',
+      author: 'श्री भव्य भारत काव्य संकलन',
+      cat: 'khanda8',
+      badge: '🇮🇳 खंड ८: परमवीर विजय',
+      icon: '🏔️',
+      desc: 'प्वाइंट ५१४० एवं प्वाइंट ४८७५ के अमर विजेता — तिरंगा लहराकर आऊँगा या तिरंगे में लिपटकर आऊँगा, पर आऊँगा अवश्य।',
+      tag: 'कारगिल शौर्य'
+    },
+    {
+      id: 'kavya-201',
+      title: 'गोस्वामी तुलसीदास — विनयपत्रिका एवं रामपद',
+      author: 'गोस्वामी तुलसीदास',
+      cat: 'bhakti',
+      badge: '🪈 ९. अमर संत-पद',
+      icon: '🪔',
+      desc: '« जाके प्रिय न राम बैदेही, तजिये ताहि कोटि बैरी सम, जद्यपि परम सनेही » — अनन्य शरणागति एवं प्रभु भक्ति के अमर पद।',
+      tag: 'अनन्य रामभक्ति'
+    },
+    {
+      id: 'kavya-202',
+      title: 'महाकवि सूरदास — वात्सल्य एवं बाल-लीला पद',
+      author: 'महाकवि सूरदास',
+      cat: 'bhakti',
+      badge: '🪈 ९. अमर संत-पद',
+      icon: '🪈',
+      desc: '« मैया मोरी मैं नहिं माखन खायो » एवं « जसोदा हरि पालने झुलावै » — वात्सल्य रस सम्राट सूरदास के अमृत पद।',
+      tag: 'वात्सल्य रस'
+    },
+    {
+      id: 'kavya-203',
+      title: 'भक्तिकवयित्री मीराबाई — प्रेम-दीवानी अमृत पद',
+      author: 'मीराबाई',
+      cat: 'bhakti',
+      badge: '🪈 ९. अमर संत-पद',
+      icon: '🌸',
+      desc: '« मेरो तो गिरधर गोपाल दूसरो न कोई » एवं « पायो जी मैंने राम रतन धन पायो » — गिरधर नागर के अनन्य प्रेम का समर्पण।',
+      tag: 'कृष्ण प्रेम रस'
+    },
+    {
+      id: 'kavya-204',
+      title: 'संत कबीरदास — साखी, सबद एवं चेतावनी पद',
+      author: 'संत कबीरदास',
+      cat: 'bhakti',
+      badge: '🪈 ९. अमर संत-पद',
+      icon: '✨',
+      desc: '« माला फेरत जुग भया » एवं « मोको कहाँ ढूँढे रे बन्दे, मैं तो तेरे पास में » — आत्म-साक्षात्कार एवं सत्य का निर्भीक उपदेश।',
+      tag: 'निर्गुण संतवाणी'
+    }
+  ];
+
+  function renderKavyaCards(category = 'all', searchQuery = '') {
+    if (!DOM.kavyaCardsGrid) return;
+    const q = (searchQuery || '').trim().toLowerCase();
+
+    const filtered = kavyaList.filter(item => {
+      if (category !== 'all' && item.cat !== category) return false;
+      if (!q) return true;
+      return item.title.toLowerCase().includes(q) ||
+             (item.author && item.author.toLowerCase().includes(q)) ||
+             (item.desc && item.desc.toLowerCase().includes(q)) ||
+             (item.tag && item.tag.toLowerCase().includes(q));
+    });
+
+    if (DOM.kavyaCountIndicator) {
+      DOM.kavyaCountIndicator.textContent = q || category !== 'all'
+        ? `${toDevanagari(filtered.length)} रचनाएं प्राप्त`
+        : `२०० कालजयी रचनाएं`;
+    }
+
+    if (filtered.length === 0) {
+      DOM.kavyaCardsGrid.innerHTML = `
+        <div class="empty-purana-search" style="grid-column: 1 / -1; padding: 2.5rem 1rem;">
+          📜 "<strong>${escapeHtml(searchQuery)}</strong>" से मेल खाती कोई कविता प्राप्त नहीं हुई।<br>
+          <span style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; display: block;">
+            अन्य शब्द से खोजें अथवा ऊपर दिए गए विषय-खंडों का चयन करें।
+          </span>
+        </div>
+      `;
+      return;
+    }
+
+    DOM.kavyaCardsGrid.innerHTML = filtered.map(item => `
+      <div class="pillar-card-item kavya-card" data-kavya-id="${item.id}" tabindex="0" role="button">
+        <div>
+          <div class="pillar-card-header">
+            <span class="pillar-card-icon">${item.icon || '📜'}</span>
+            <span class="pillar-card-badge">${item.badge}</span>
+          </div>
+          <h4 class="pillar-card-title">${item.title}</h4>
+          <div class="pillar-card-author">रचनाकार: ${item.author}</div>
+          <p class="pillar-card-desc">${item.desc}</p>
+        </div>
+        <div class="pillar-card-footer">
+          <span>${item.tag}</span>
+          <span class="pillar-card-cta">सम्पूर्ण पाठ पढ़ें →</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // २. इतिहास संकलन (Itihas List)
+  const itihasList = [
+    {
+      id: 'itihas-01',
+      title: 'चक्रवर्ती सम्राट विक्रमादित्य एवं भारत का स्वर्ण युग',
+      cat: 'ancient',
+      badge: '🏛️ प्राचीन भारत',
+      icon: '👑',
+      desc: 'उज्जयिनी के महान चक्रवर्ती सम्राट, न्याय के प्रतीक, विक्रम संवत के संस्थापक और कालिदास-वराहमिहिर जैसे नवरत्नों का गौरवशाली दरबार।',
+      tag: 'न्याय व स्वर्णयुग'
+    },
+    {
+      id: 'itihas-02',
+      title: 'छत्रपति शिवाजी महाराज एवं हिन्दवी स्वराज्य',
+      cat: 'medieval',
+      badge: '⚔️ मध्यकालीन शौर्य',
+      icon: '🚩',
+      desc: 'रायगढ़ की पावन धरा से मुग़ल सत्ता को चुनौती देकर हिन्दवी स्वराज्य की स्थापना, गुरिल्ला युद्धनीति (गनिमी कावा) और अष्टप्रधान व्यवस्था।',
+      tag: 'हिन्दवी स्वराज्य'
+    },
+    {
+      id: 'itihas-03',
+      title: 'महाराणा प्रताप एवं हल्दीघाटी का धर्मयुद्ध (१५७६)',
+      cat: 'medieval',
+      badge: '⚔️ मध्यकालीन शौर्य',
+      icon: '🏰',
+      desc: 'मेवाड़ के गौरव, अमर स्वाभिमान के प्रतीक, जिन्होंने घास की रोटियां खाना स्वीकार किया किन्तु मुग़ल आधिपत्य के सम्मुख शीश नहीं झुकाया।',
+      tag: 'अमर स्वाभिमान'
+    },
+    {
+      id: 'itihas-04',
+      title: 'लचित बोरफुकन एवं सरायघाट का महा-नौसैनिक युद्ध (१६७१)',
+      cat: 'medieval',
+      badge: '⚔️ मध्यकालीन शौर्य',
+      icon: '🛡️',
+      desc: 'असम के अहोम साम्राज्य के वीर सेनापति, जिन्होंने ब्रह्मपुत्र नदी पर मुग़ल नौसेना को धूल चटाकर पूर्वोत्तर को मुग़ल दासता से सदैव मुक्त रखा।',
+      tag: 'अजेय पूर्वोत्तर'
+    },
+    {
+      id: 'itihas-05',
+      title: '१८५७ का प्रथम स्वातंत्र्य समर — मंगल पांडे व रानी लक्ष्मीबाई',
+      cat: 'freedom',
+      badge: '🔥 क्रान्तिवीर',
+      icon: '⚔️',
+      desc: 'बैरकपुर की छावनी से मेरठ, झांसी, कानपुर और दिल्ली तक फैली स्वाधीनता की प्रथम ज्वाला, जिसने ब्रिटिश साम्राज्य की नींव हिला दी।',
+      tag: 'प्रथम स्वातंत्र्य समर'
+    },
+    {
+      id: 'itihas-06',
+      title: 'नेताजी सुभाष चन्द्र बोस एवं आज़ाद हिन्द फ़ौज',
+      cat: 'freedom',
+      badge: '🔥 क्रान्तिवीर',
+      icon: '🎖️',
+      desc: '« तुम मुझे खून दो, मैं तुम्हें आजादी दूंगा » और « दिल्ली चलो » के उद्घोष के साथ भारत की प्रथम निर्वासित स्वतंत्र सरकार की स्थापना।',
+      tag: 'आज़ाद हिन्द फ़ौज'
+    },
+    {
+      id: 'itihas-07',
+      title: 'सरदार वल्लभभाई पटेल एवं ५६२ रियासतों का ऐतिहासिक विलय',
+      cat: 'freedom',
+      badge: '🔥 अखंड भारत',
+      icon: '🇮🇳',
+      desc: 'लौह पुरुष का दृढ़ संकल्प, कूटनीति और पराक्रम जिसने जूनागढ़, हैदराबाद व कश्मीर सहित ५६२ रियासतों को मिलाकर आधुनिक अखंड भारत का निर्माण किया।',
+      tag: 'अखंड भारत शिल्पकार'
+    },
+    {
+      id: 'itihas-08',
+      title: 'अमर क्रान्तिकारी त्रिमूर्ति — भगत सिंह, सुखदेव एवं राजगुरु',
+      cat: 'freedom',
+      badge: '🔥 क्रान्तिवीर',
+      icon: '✨',
+      desc: 'लाहौर षड्यंत्र, असेम्बली बम कांड और हँसते-हँसते फांसी के फंदे को चूमने वाले अमर शहीदों की चेतना जिसने देश के जन-जन को झकझोर दिया।',
+      tag: 'सर्वोच्च बलिदान'
+    }
+  ];
+
+  function renderItihasCards(category = 'all', searchQuery = '') {
+    if (!DOM.itihasCardsGrid) return;
+    const q = (searchQuery || '').trim().toLowerCase();
+
+    const filtered = itihasList.filter(item => {
+      if (category !== 'all' && item.cat !== category) return false;
+      if (!q) return true;
+      return item.title.toLowerCase().includes(q) ||
+             (item.desc && item.desc.toLowerCase().includes(q)) ||
+             (item.tag && item.tag.toLowerCase().includes(q));
+    });
+
+    if (DOM.itihasCountIndicator) {
+      DOM.itihasCountIndicator.textContent = q || category !== 'all'
+        ? `${toDevanagari(filtered.length)} अध्याय प्राप्त`
+        : `गौरवशाली अध्याय`;
+    }
+
+    if (filtered.length === 0) {
+      DOM.itihasCardsGrid.innerHTML = `
+        <div class="empty-purana-search" style="grid-column: 1 / -1; padding: 2.5rem 1rem;">
+          ⚔️ "<strong>${escapeHtml(searchQuery)}</strong>" से मेल खाती कोई ऐतिहासिक गाथा प्राप्त नहीं हुई।<br>
+          <span style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; display: block;">
+            अन्य शब्द से खोजें अथवा ऊपर दिए गए कालखंडों का चयन करें।
+          </span>
+        </div>
+      `;
+      return;
+    }
+
+    DOM.itihasCardsGrid.innerHTML = filtered.map(item => `
+      <div class="pillar-card-item itihas-card" data-itihas-id="${item.id}" tabindex="0" role="button">
+        <div>
+          <div class="pillar-card-header">
+            <span class="pillar-card-icon">${item.icon || '⚔️'}</span>
+            <span class="pillar-card-badge">${item.badge}</span>
+          </div>
+          <h4 class="pillar-card-title">${item.title}</h4>
+          <p class="pillar-card-desc">${item.desc}</p>
+        </div>
+        <div class="pillar-card-footer">
+          <span>${item.tag}</span>
+          <span class="pillar-card-cta">विस्तृत गाथा पढ़ें →</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ३. बचपन संकलन (Bachpan List)
+  const bachpanList = [
+    {
+      id: 'bachpan-01',
+      title: 'पंचतंत्र कथा: हंस और बातूनी कछुआ',
+      cat: 'stories',
+      badge: '📖 पंचतंत्र कथा',
+      icon: '🐢',
+      desc: 'संकट के समय मौन रहने और मित्रों की बात पर भरोसा करने का मूल्यवान पाठ। बुद्धिमान वही है जो समय देखकर बोले।',
+      tag: 'संयम एवं विवेक'
+    },
+    {
+      id: 'bachpan-02',
+      title: 'पंचतंत्र कथा: चतुर खरगोश और अहंकारी शेर',
+      cat: 'stories',
+      badge: '📖 पंचतंत्र कथा',
+      icon: '🐇',
+      desc: '« बुद्धिर्बलं तस्य बलोऽपि निर्बलः » — छोटे से खरगोश ने अपनी तीक्ष्ण बुद्धि से वन के राजा क्रूर शेर को कुएं में गिरा दिया।',
+      tag: 'बुद्धि ही बल है'
+    },
+    {
+      id: 'bachpan-03',
+      title: 'नित्य प्रातः स्मरण श्लोक (सरल अर्थ सहित)',
+      cat: 'sanskar',
+      badge: '🪔 बाल संस्कार',
+      icon: '☀️',
+      desc: '« कराग्रे वसते लक्ष्मीः करमध्ये सरस्वती » एवं « समुद्रवसने देवि पर्वतस्तनमण्डिते » — उठते ही हथेलियों व धरती माता को नमन।',
+      tag: 'प्रातः स्मरण'
+    },
+    {
+      id: 'bachpan-04',
+      title: 'भोजन मंत्र एवं शांति पाठ',
+      cat: 'sanskar',
+      badge: '🪔 बाल संस्कार',
+      icon: '🥣',
+      desc: '« अन्नं ब्रह्म रसो विष्णुः भोक्ता देवो महेश्वरः » — भोजन से पूर्व ईश्वर को धन्यवाद और अन्नदाता के प्रति कृतज्ञता।',
+      tag: 'अन्न वंदना'
+    },
+    {
+      id: 'bachpan-05',
+      title: 'बाल चरित्र: भक्त ध्रुव की अडिग तपस्या',
+      cat: 'characters',
+      badge: '🌟 प्रेरक चरित्र',
+      icon: '⭐',
+      desc: 'मात्र ५ वर्ष की आयु में दृढ़ संकल्प और अटूट विश्वास से भगवान नारायण को प्रसन्न कर आकाश में ध्रुव तारे जैसा अचल पद पाने की गाथा।',
+      tag: 'दृढ़ संकल्प'
+    },
+    {
+      id: 'bachpan-06',
+      title: 'बाल चरित्र: वीर बालक अभिमन्यु',
+      cat: 'characters',
+      badge: '🌟 प्रेरक चरित्र',
+      icon: '🛡️',
+      desc: 'माता सुभद्रा के गर्भ में ही चक्रव्यूह भेदन सीखने वाले १६ वर्षीय महापराक्रमी वीर अभिमन्यु का अदम्य साहस और कर्तव्य निष्ठा।',
+      tag: 'वीरता व कर्तव्य'
+    },
+    {
+      id: 'bachpan-07',
+      title: 'सुरीली बाल कविता: चंदा मामा दूर के',
+      cat: 'poems',
+      badge: '🎵 बाल कविता',
+      icon: '🌙',
+      desc: '« चंदा मामा दूर के, पुए पकाएं बूर के... आप खाएं थाली में, मुन्ने को दें प्याली में » — भारतीय वात्सल्य की सबसे लोकप्रिय बाल कविता।',
+      tag: 'मधुर बाल गीत'
+    },
+    {
+      id: 'bachpan-08',
+      title: 'नीति सुभाषित: विद्या ददाति विनयं',
+      cat: 'sanskar',
+      badge: '🪔 बाल संस्कार',
+      icon: '📜',
+      desc: '« विद्या ददाति विनयं विनयाद्याति पात्रताम् । पात्रत्वाद्धनमाप्नोति धनाद्धर्मं ततः सुखम् ॥ » — शिक्षा, संस्कार और जीवन का आधार।',
+      tag: 'नीति सुभाषित'
+    }
+  ];
+
+  function renderBachpanCards(category = 'all', searchQuery = '') {
+    if (!DOM.bachpanCardsGrid) return;
+    const q = (searchQuery || '').trim().toLowerCase();
+
+    const filtered = bachpanList.filter(item => {
+      if (category !== 'all' && item.cat !== category) return false;
+      if (!q) return true;
+      return item.title.toLowerCase().includes(q) ||
+             (item.desc && item.desc.toLowerCase().includes(q)) ||
+             (item.tag && item.tag.toLowerCase().includes(q));
+    });
+
+    if (DOM.bachpanCountIndicator) {
+      DOM.bachpanCountIndicator.textContent = q || category !== 'all'
+        ? `${toDevanagari(filtered.length)} बाल रचनाएं प्राप्त`
+        : `बाल संस्कार वाटिका`;
+    }
+
+    if (filtered.length === 0) {
+      DOM.bachpanCardsGrid.innerHTML = `
+        <div class="empty-purana-search" style="grid-column: 1 / -1; padding: 2.5rem 1rem;">
+          🌱 "<strong>${escapeHtml(searchQuery)}</strong>" से मेल खाती कोई बाल रचना प्राप्त नहीं हुई।<br>
+          <span style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; display: block;">
+            अन्य शब्द से खोजें अथवा ऊपर दिए गए वर्गों का चयन करें।
+          </span>
+        </div>
+      `;
+      return;
+    }
+
+    DOM.bachpanCardsGrid.innerHTML = filtered.map(item => `
+      <div class="pillar-card-item bachpan-card" data-bachpan-id="${item.id}" tabindex="0" role="button">
+        <div>
+          <div class="pillar-card-header">
+            <span class="pillar-card-icon">${item.icon || '🌱'}</span>
+            <span class="pillar-card-badge">${item.badge}</span>
+          </div>
+          <h4 class="pillar-card-title">${item.title}</h4>
+          <p class="pillar-card-desc">${item.desc}</p>
+        </div>
+        <div class="pillar-card-footer">
+          <span>${item.tag}</span>
+          <span class="pillar-card-cta">पढ़ें व सुनाएं →</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ४. हास्य संकलन (Hasya List)
+  const hasyaList = [
+    {
+      id: 'hasya-01',
+      title: 'भोलानाथ का जीव (हरिशंकर परसाई परम्परा)',
+      cat: 'classic',
+      badge: '📜 कालजयी व्यंग्य',
+      icon: '📑',
+      desc: 'यमदूतों को चकमा देकर सरकारी दफ्तर की पेंशन फाइलों में जा अटका भोलानाथ का जीव — लालफीताशाही और व्यवस्था पर अमर कटाक्ष।',
+      tag: 'व्यवस्था पर कटाक्ष'
+    },
+    {
+      id: 'hasya-02',
+      title: 'जीप पर सवार इल्लियां (शरद जोशी परम्परा)',
+      cat: 'classic',
+      badge: '📜 कालजयी व्यंग्य',
+      icon: '🚙',
+      desc: 'फसल की इल्लियां खत्म करने निकली सरकारी जीपों और अफसरों का हास्यास्पद यथार्थ — कागजी प्रगति और धरातल की असलियत।',
+      tag: 'कागजी अफसरशाही'
+    },
+    {
+      id: 'hasya-03',
+      title: 'राग दरबारी के अमर प्रसंग (श्रीलाल शुक्ल)',
+      cat: 'classic',
+      badge: '📜 कालजयी व्यंग्य',
+      icon: '🏛️',
+      desc: 'शिवपालगंज का छंगामल विद्यालय, वैद्यजी की बैठक और ग्रामीण राजनीति की ऐसी विसंगतियां जो हँसाते-हँसाते सोचने पर विवश कर दें।',
+      tag: 'राजनीतिक विनोद'
+    },
+    {
+      id: 'hasya-04',
+      title: 'आधुनिक विवाह एवं दिखावे का प्रपंच',
+      cat: 'social',
+      badge: '🎯 सामाजिक व्यंग्य',
+      icon: '💍',
+      desc: 'डेस्टिनेशन वेडिंग, प्री-वेडिंग शूट, और ५०० व्यंजनों के बीच खोया भारतीय संस्कारों का वास्तविक मर्म — आडंबर पर तीखा कटाक्ष।',
+      tag: 'आडंबर पर चोट'
+    },
+    {
+      id: 'hasya-05',
+      title: 'सोशल मीडिया का "रील-युग" और लाइक-मोह',
+      cat: 'social',
+      badge: '🎯 सामाजिक व्यंग्य',
+      icon: '📱',
+      desc: 'सड़क पर गिरते आदमी को उठाने के बजाय वीडियो बनाने वाले आधुनिक बुद्धिजीवियों और १५ सेकंड की प्रसिद्धि की अंधी दौड़ पर प्रहसन।',
+      tag: 'डिजिटल भटकाव'
+    },
+    {
+      id: 'hasya-06',
+      title: 'कलयुग महिमा: व्यंग्य दोहावली',
+      cat: 'couplets',
+      badge: '✨ चुटीले दोहे',
+      icon: '🎭',
+      desc: '« साधु भूखे ज्ञान के, चेले भूखे मान । दोनों मिलकर खेल रहे, कलयुग का मैदान ॥ » — समकालीन विसंगतियों पर चुटीले हास्य दोहे।',
+      tag: 'हास्य दोहे'
+    }
+  ];
+
+  function renderHasyaCards(category = 'all', searchQuery = '') {
+    if (!DOM.hasyaCardsGrid) return;
+    const q = (searchQuery || '').trim().toLowerCase();
+
+    const filtered = hasyaList.filter(item => {
+      if (category !== 'all' && item.cat !== category) return false;
+      if (!q) return true;
+      return item.title.toLowerCase().includes(q) ||
+             (item.desc && item.desc.toLowerCase().includes(q)) ||
+             (item.tag && item.tag.toLowerCase().includes(q));
+    });
+
+    if (DOM.hasyaCountIndicator) {
+      DOM.hasyaCountIndicator.textContent = q || category !== 'all'
+        ? `${toDevanagari(filtered.length)} व्यंग्य प्राप्त`
+        : `विशुद्ध विनोद`;
+    }
+
+    if (filtered.length === 0) {
+      DOM.hasyaCardsGrid.innerHTML = `
+        <div class="empty-purana-search" style="grid-column: 1 / -1; padding: 2.5rem 1rem;">
+          🎭 "<strong>${escapeHtml(searchQuery)}</strong>" से मेल खाती कोई रचना प्राप्त नहीं हुई।<br>
+          <span style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; display: block;">
+            अन्य शब्द से खोजें अथवा ऊपर दिए गए वर्गों का चयन करें।
+          </span>
+        </div>
+      `;
+      return;
+    }
+
+    DOM.hasyaCardsGrid.innerHTML = filtered.map(item => `
+      <div class="pillar-card-item hasya-card" data-hasya-id="${item.id}" tabindex="0" role="button">
+        <div>
+          <div class="pillar-card-header">
+            <span class="pillar-card-icon">${item.icon || '🎭'}</span>
+            <span class="pillar-card-badge">${item.badge}</span>
+          </div>
+          <h4 class="pillar-card-title">${item.title}</h4>
+          <p class="pillar-card-desc">${item.desc}</p>
+        </div>
+        <div class="pillar-card-footer">
+          <span>${item.tag}</span>
+          <span class="pillar-card-cta">आनंद लें →</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ५. आरोग्य संकलन (Arogya List)
+  const arogyaList = [
+    {
+      id: 'arogya-01',
+      title: 'वात, पित्त, कफ त्रिदोष रहस्य एवं प्रकृति ज्ञान',
+      cat: 'tridosha',
+      badge: '⚖️ त्रिदोष विज्ञान',
+      icon: '🌿',
+      desc: 'आयुर्वेद का मूल सिद्धांत: समदोषः समाग्निश्च समधातुमलक्रियः। अपनी शारीरिक प्रकृति पहचानें और त्रिदोष संतुलन से १०० वर्ष निरोगी रहें।',
+      tag: 'त्रिदोष सन्तुलन'
+    },
+    {
+      id: 'arogya-02',
+      title: 'ब्राह्ममुहूर्त एवं आदर्श दिनचर्या विधान',
+      cat: 'dincharya',
+      badge: '☀️ दिनचर्या विधान',
+      icon: '🌅',
+      desc: 'महर्षि वाग्भट "अष्टांग हृदय" के अमर सूत्र: सूर्योदय से पूर्व जागरण, उषापान (ताम्रपात्र जल), दंतधावन, नस्य एवं अभ्यंग स्नान का वैज्ञानिक विधान।',
+      tag: 'उषापान व दिनचर्या'
+    },
+    {
+      id: 'arogya-03',
+      title: 'षड्ऋतु चर्या एवं मौसमी खान-पान के नियम',
+      cat: 'ritucharya',
+      badge: '🍃 ऋतुचर्या नियम',
+      icon: '🌦️',
+      desc: 'ग्रीष्म, वर्षा, शरद, हेमंत, शिशिर एवं वसंत ऋतु में वात-पित्त-कफ का संचय और शमन। भोजन के तुरंत बाद जल पीना विष समान क्यों है? जानिए नियम।',
+      tag: 'मौसमी आहार विज्ञान'
+    },
+    {
+      id: 'arogya-04',
+      title: 'पावन गिलोय (अमृता): रोग-प्रतिरोधक क्षमता का महा-वरदान',
+      cat: 'herbs',
+      badge: '🌱 पावन औषधियां',
+      icon: '🌿',
+      desc: 'आयुर्वेद में इसे अमृता कहा गया है। समस्त प्रकार के ज्वर, यकृत (लिवर) शुद्धि, प्लेटलेट्स वृद्धि और त्रिदोष नाशक दिव्य वनस्पति।',
+      tag: 'अमृता गिलोय'
+    },
+    {
+      id: 'arogya-05',
+      title: 'अश्वगंधा एवं शतावरी: सनातन रसायन व बल-संवर्धन',
+      cat: 'herbs',
+      badge: '🌱 पावन औषधियां',
+      icon: '💪',
+      desc: 'शारीरिक दुर्बलता, मानसिक तनाव, अनिद्रा और ओज-वृद्धि का सर्वश्रेष्ठ आयुर्वेदिक रसायन। स्नायु तंत्र को सबल बनाने का अचूक सूत्र।',
+      tag: 'रसायन व ओज'
+    },
+    {
+      id: 'arogya-06',
+      title: 'त्रिफला महात्म्य: हरड़, बहेड़ा व आंवला का अमृत योग',
+      cat: 'herbs',
+      badge: '🌱 पावन औषधियां',
+      icon: '🏺',
+      desc: '१:२:४ के शास्त्रीय अनुपात में त्रिफला सेवन का विधान। रात्रि में गुनगुने जल से आमाशय शुद्धि और प्रातः शहद/गुड़ के साथ कायाकल्प।',
+      tag: 'त्रिफला रसायन'
+    },
+    {
+      id: 'arogya-07',
+      title: 'सूर्य नमस्कार विधान: १२ पावन मुद्राओं में सर्वांगीण स्वास्थ्य',
+      cat: 'yoga',
+      badge: '🧘 योग व साधना',
+      icon: '☀️',
+      desc: 'प्रत्येक मंत्र और श्वास-प्रश्वास के साथ १२ आसनों का समन्वय — मेरुरज्जु लचीलापन, रक्त संचार एवं आंतरिक अंगों की कार्यक्षमता का विकास।',
+      tag: 'सूर्य नमस्कार'
+    },
+    {
+      id: 'arogya-08',
+      title: 'अनुलोम-विलोम एवं भ्रामरी प्राणायाम: नाड़ी शोधन रहस्य',
+      cat: 'yoga',
+      badge: '🧘 योग व साधना',
+      icon: '🪔',
+      desc: '७२ हजार नाड़ियों का शोधन, मानसिक शांति, उच्च रक्तचाप सन्तुलन और एकाग्रता के लिए दैनिक प्राणायाम की प्रामाणिक शास्त्रीय विधि।',
+      tag: 'नाड़ी शोधन'
+    }
+  ];
+
+  function renderArogyaCards(category = 'all', searchQuery = '') {
+    if (!DOM.arogyaCardsGrid) return;
+    const q = (searchQuery || '').trim().toLowerCase();
+
+    const filtered = arogyaList.filter(item => {
+      if (category !== 'all' && item.cat !== category) return false;
+      if (!q) return true;
+      return item.title.toLowerCase().includes(q) ||
+             (item.desc && item.desc.toLowerCase().includes(q)) ||
+             (item.tag && item.tag.toLowerCase().includes(q));
+    });
+
+    if (DOM.arogyaCountIndicator) {
+      DOM.arogyaCountIndicator.textContent = q || category !== 'all'
+        ? `${toDevanagari(filtered.length)} सूत्र प्राप्त`
+        : `अमृत आरोग्य सूत्र`;
+    }
+
+    if (filtered.length === 0) {
+      DOM.arogyaCardsGrid.innerHTML = `
+        <div class="empty-purana-search" style="grid-column: 1 / -1; padding: 2.5rem 1rem;">
+          🌿 "<strong>${escapeHtml(searchQuery)}</strong>" से मेल खाता कोई आरोग्य सूत्र प्राप्त नहीं हुआ।<br>
+          <span style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; display: block;">
+            अन्य शब्द से खोजें अथवा ऊपर दिए गए वर्गों का चयन करें।
+          </span>
+        </div>
+      `;
+      return;
+    }
+
+    DOM.arogyaCardsGrid.innerHTML = filtered.map(item => `
+      <div class="pillar-card-item arogya-card" data-arogya-id="${item.id}" tabindex="0" role="button">
+        <div>
+          <div class="pillar-card-header">
+            <span class="pillar-card-icon">${item.icon || '🌿'}</span>
+            <span class="pillar-card-badge">${item.badge}</span>
+          </div>
+          <h4 class="pillar-card-title">${item.title}</h4>
+          <p class="pillar-card-desc">${item.desc}</p>
+        </div>
+        <div class="pillar-card-footer">
+          <span>${item.tag}</span>
+          <span class="pillar-card-cta">आयुर्वेद सूत्र पढ़ें →</span>
+        </div>
+      </div>
+    `).join('');
   }
   function closeVedPuranModal() {}
 
