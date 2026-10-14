@@ -18,6 +18,12 @@ cp index.html styles.css app.js dist/
 # 3. Copy content folders
 cp -r data dist/
 cp -r stuti_ganga dist/
+cp -r kavya dist/
+cp -r vrat_pujanam dist/
+cp -r itihas dist/
+cp -r bachpan dist/
+cp -r hasya dist/
+cp -r aarogyam dist/
 cp -r vedant_darshanam dist/
 cp -r ved_puraanam dist/
 

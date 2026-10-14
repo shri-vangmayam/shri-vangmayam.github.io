@@ -99,7 +99,7 @@
         <div class="sub-nav-sidebar-col" id="sub-nav-sidebar-col">
           <button class="sub-nav-index-btn" id="sub-nav-index-btn" title="अनुक्रमणिका (Sidebar) खोलें / बंद करें">
             <span class="sub-nav-index-icon">📜</span>
-            <span class="sub-nav-index-title">स्तुति-गंगा अनुक्रमणिका : २६२ रचनाएं</span>
+            <span class="sub-nav-index-title" id="sub-nav-index-title">स्तुति-गंगा अनुक्रमणिका : २६२ रचनाएं</span>
           </button>
         </div>
 
@@ -136,6 +136,18 @@
       <!-- Left Sidebar: Table of Contents & Filters -->
       <aside class="app-sidebar" id="app-sidebar">
         <div class="sidebar-header">
+          <!-- Sidebar Corpus Title & Count Header Row -->
+          <div class="sidebar-top-title-row" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; padding: 2px 2px;">
+            <span class="sidebar-corpus-title" id="sidebar-corpus-title" style="font-weight: 600; font-size: 0.88rem; color: var(--accent-gold); display: flex; align-items: center; gap: 6px;">🌊 स्तुति-गंगा</span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span class="sidebar-count-badge" id="sidebar-count-badge" style="font-size: 0.75rem; background: var(--bg-tertiary); color: var(--text-muted); padding: 2px 8px; border-radius: 12px; border: 1px solid var(--border-subtle);">२६२ रचनाएं</span>
+              <button id="sidebar-close-btn" class="sidebar-close-btn" title="अनुक्रमणिका बंद करें" style="background: none; border: none; color: var(--text-muted); font-size: 1.1rem; cursor: pointer; padding: 0 4px; display: inline-flex; align-items: center; line-height: 1;">✕</button>
+            </div>
+          </div>
+          <!-- Real-Time Sidebar Search Box -->
+          <div class="sidebar-search-wrap" style="margin-bottom: 8px;">
+            <input type="text" id="sidebar-search-input" class="sidebar-search-box" placeholder="अनुक्रमणिका में खोजें..." aria-label="अनुक्रमणिका खोजें" style="width: 100%; padding: 6px 12px; border-radius: var(--radius-sm, 8px); border: 1px solid var(--border-subtle); background: var(--bg-primary); color: var(--text-primary); font-size: 0.82rem; outline: none; box-sizing: border-box;">
+          </div>
           <!-- Deity / Category Filter Pills -->
           <div class="category-filter-pills" id="category-pills">
             <button class="pill-btn active" data-cat="all">सभी (२६२)</button>
@@ -716,16 +728,21 @@
           </div>
 
           <div class="stuti-page-pills-bar" id="kavya-page-pills">
-            <button class="pill-btn active" data-kavya-cat="all">सभी रचनाएं (२००)</button>
-            <button class="pill-btn" data-kavya-cat="khanda1">🚩 १. राष्ट्र-आह्वान (२५)</button>
-            <button class="pill-btn" data-kavya-cat="khanda2">⚔️ २. मध्यकालीन शौर्य (३०)</button>
-            <button class="pill-btn" data-kavya-cat="khanda3">🔥 ३. अमर क्रांतिवीर (३०)</button>
-            <button class="pill-btn" data-kavya-cat="khanda4">🏔️ ४. भूगोल व तीर्थ (३०)</button>
-            <button class="pill-btn" data-kavya-cat="khanda5">🌾 ५. कर्मवीर युवा (३०)</button>
-            <button class="pill-btn" data-kavya-cat="khanda6">🪔 ६. सनातन ज्ञान (२५)</button>
-            <button class="pill-btn" data-kavya-cat="khanda7">🛡️ ७. रीतिकालीन वीर-रस (१५)</button>
-            <button class="pill-btn" data-kavya-cat="khanda8">🇮🇳 ८. परमवीर विजय (१५)</button>
-            <button class="pill-btn" data-kavya-cat="bhakti">🪈 ९. अमर संत-पद</button>
+            <button class="pill-btn active" data-kavya-cat="all">सभी रचनाएं (२०१)</button>
+            <button class="pill-btn" data-kavya-cat="दिनकर">दिनकर</button>
+            <button class="pill-btn" data-kavya-cat="गुप्त">मैथिलीशरण गुप्त</button>
+            <button class="pill-btn" data-kavya-cat="चतुर्वेदी">माखनलाल चतुर्वेदी</button>
+            <button class="pill-btn" data-kavya-cat="सुभद्रा">सुभद्राकुमारी चौहान</button>
+            <button class="pill-btn" data-kavya-cat="भूषण">महाकवि भूषण</button>
+            <button class="pill-btn" data-kavya-cat="प्रसाद">जयशंकर प्रसाद</button>
+            <button class="pill-btn" data-kavya-cat="निराला">निराला</button>
+            <button class="pill-btn" data-kavya-cat="पाण्डेय">श्यामनारायण पाण्डेय</button>
+            <button class="pill-btn" data-kavya-cat="प्रयाण">प्रयाण गीत</button>
+            <button class="pill-btn" data-kavya-cat="संत">संत कवि</button>
+            <button class="pill-btn" data-kavya-cat="चारण">चारण व रीतिकाल</button>
+            <button class="pill-btn" data-kavya-cat="क्रांति">क्रांति व परमवीर</button>
+            <button class="pill-btn" data-kavya-cat="वैदिक">वैदिक ऋषि</button>
+            <button class="pill-btn" data-kavya-cat="चेतना">राष्ट्रीय चेतना</button>
           </div>
 
           <div class="kavya-cards-grid" id="kavya-cards-grid"></div>
@@ -1037,7 +1054,7 @@
     </button>
   </div>
 
-  <script src="data/stotras_data.js"></script>
+  <script src="data/corpus_all_data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

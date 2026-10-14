@@ -9,6 +9,8 @@
   // State Management
   const state = {
     stotras: [],
+    corporaData: (typeof window !== 'undefined' && window.CORPUS_ALL_DATA) ? window.CORPUS_ALL_DATA : {},
+    activeCorpus: 'stuti_ganga',
     currentStotra: null,
     activeCategory: 'all',
     searchQuery: '',
@@ -29,7 +31,10 @@
     appContainer: document.getElementById('app-container'),
     sidebar: document.getElementById('app-sidebar'),
     sidebarToggleBtn: document.getElementById('sidebar-toggle-btn'),
+    sidebarCloseBtn: document.getElementById('sidebar-close-btn'),
     sidebarBackdrop: document.getElementById('sidebar-backdrop'),
+    sidebarCorpusTitle: document.getElementById('sidebar-corpus-title'),
+    sidebarSearchInput: document.getElementById('sidebar-search-input'),
     stotraList: document.getElementById('stotra-list'),
     sidebarCountBadge: document.getElementById('sidebar-count-badge'),
     categoryPills: document.getElementById('category-pills'),
@@ -490,6 +495,8 @@
   // Show Home View (मुख्य द्वार)
   function showHomeView() {
     state.currentStotra = null;
+    state.activeCorpus = 'stuti_ganga';
+    renderSidebarForCorpus('stuti_ganga');
     document.title = 'श्री सनातन वाङ्मयम् — मुख्य द्वार (अखण्ड डिजिटल ग्रन्थालय)';
 
     hideAllCorpusViews();
@@ -525,6 +532,8 @@
   // Show Stuti-Ganga View (स्तुति-गंगा समर्पित पृष्ठ)
   function showStutiGangaView() {
     state.currentStotra = null;
+    state.activeCorpus = 'stuti_ganga';
+    renderSidebarForCorpus('stuti_ganga');
     document.title = 'श्री स्तुति-गंगा — १६ शास्त्रीय देव-खण्ड एवं २६२ पावन रचनाएं | श्री सनातन वाङ्मयम्';
 
     hideAllCorpusViews();
@@ -559,6 +568,8 @@
   // Show Ved-Puranam View (वेद-पुराणम् समर्पित पृष्ठ)
   function showVedPuranamView() {
     state.currentStotra = null;
+    state.activeCorpus = 'ved_puranam';
+    renderSidebarForCorpus('ved_puranam');
     document.title = 'श्री वेद-पुराणम् — चतुर्वेद एवं २६ पुराण, उपपुराण व इतिहास ग्रन्थालय | श्री सनातन वाङ्मयम्';
 
     hideAllCorpusViews();
@@ -583,6 +594,8 @@
   // Show Vedant-Darshanam View (वेदान्त-दर्शनम् समर्पित पृष्ठ)
   function showVedantDarshanamView() {
     state.currentStotra = null;
+    state.activeCorpus = 'vedant_darshanam';
+    renderSidebarForCorpus('vedant_darshanam');
     document.title = 'श्री वेदान्त-दर्शनम् — प्रस्थानत्रयी, उपनिषद एवं षड्दर्शन | श्री सनातन वाङ्मयम्';
 
     hideAllCorpusViews();
@@ -607,6 +620,8 @@
   // Show Vrat-Pujanam View (श्री व्रत-पूजनम् समर्पित पृष्ठ)
   function showVratPujanamView() {
     state.currentStotra = null;
+    state.activeCorpus = 'vrat_pujanam';
+    renderSidebarForCorpus('vrat_pujanam');
     document.title = 'श्री व्रत-पूजनम् — नवरात्र, एकादशी, प्रदोष एवं महापर्व पूजन-विधि व पावन कथाएं | श्री सनातन वाङ्मयम्';
 
     hideAllCorpusViews();
@@ -636,6 +651,8 @@
   // Show Kavya View (श्री काव्य-मंजूषा समर्पित पृष्ठ)
   function showKavyaView() {
     state.currentStotra = null;
+    state.activeCorpus = 'kavya';
+    renderSidebarForCorpus('kavya');
     document.title = 'श्री काव्य-मंजूषा — कालजयी राष्ट्रकाव्य, वीर-रस एवं अमर पद | श्री सनातन वाङ्मयम्';
 
     hideAllCorpusViews();
@@ -662,6 +679,8 @@
   // Show Itihas View (इतिहास एवं गौरव समर्पित पृष्ठ)
   function showItihasView() {
     state.currentStotra = null;
+    state.activeCorpus = 'itihas';
+    renderSidebarForCorpus('itihas');
     document.title = 'श्री इतिहास एवं गौरव — भारतीय शौर्य, महापुरुष व गौरव गाथाएं | श्री सनातन वाङ्मयम्';
 
     hideAllCorpusViews();
@@ -688,6 +707,8 @@
   // Show Bachpan View (बचपन - बाल संस्कार व कहानियां)
   function showBachpanView() {
     state.currentStotra = null;
+    state.activeCorpus = 'bachpan';
+    renderSidebarForCorpus('bachpan');
     document.title = 'बचपन — संस्कार, प्रेरक कहानियां व बाल-साहित्य | श्री सनातन वाङ्मयम्';
 
     hideAllCorpusViews();
@@ -714,6 +735,8 @@
   // Show Hasya View (श्री विदूषक - हास्य-विनोद)
   function showHasyaView() {
     state.currentStotra = null;
+    state.activeCorpus = 'hasya';
+    renderSidebarForCorpus('hasya');
     document.title = 'श्री विदूषक (हास्य) — सुरुचिपूर्ण व्यंग्य, विनोद व प्रहसन | श्री सनातन वाङ्मयम्';
 
     hideAllCorpusViews();
@@ -740,6 +763,8 @@
   // Show Arogya View (आरोग्य - आयुर्वेद)
   function showArogyaView() {
     state.currentStotra = null;
+    state.activeCorpus = 'aarogyam';
+    renderSidebarForCorpus('aarogyam');
     document.title = 'आरोग्य — सनातन आयुर्वेद, त्रिदोष एवं प्राकृतिक स्वास्थ्य | श्री सनातन वाङ्मयम्';
 
     hideAllCorpusViews();
@@ -784,12 +809,26 @@
       showBachpanView();
     } else if (hash === '#hasya') {
       showHasyaView();
-    } else if (hash === '#arogya') {
+    } else if (hash === '#arogya' || hash === '#aarogyam') {
       showArogyaView();
-    } else if (hash.startsWith('#vrat-')) {
-      const vratId = hash.replace('#vrat-', '');
-      showVratPujanamView();
-      openVratModal(vratId);
+    } else if (hash.startsWith('#vrat-') || hash.startsWith('#vrat_pujanam-')) {
+      const id = hash.replace('#vrat_pujanam-', '').replace('#vrat-', '');
+      loadArticle('vrat_pujanam', id, false);
+    } else if (hash.startsWith('#kavya-')) {
+      const id = hash.replace('#kavya-', '');
+      loadArticle('kavya', id, false);
+    } else if (hash.startsWith('#itihas-')) {
+      const id = hash.replace('#itihas-', '');
+      loadArticle('itihas', id, false);
+    } else if (hash.startsWith('#bachpan-')) {
+      const id = hash.replace('#bachpan-', '');
+      loadArticle('bachpan', id, false);
+    } else if (hash.startsWith('#hasya-')) {
+      const id = hash.replace('#hasya-', '');
+      loadArticle('hasya', id, false);
+    } else if (hash.startsWith('#arogya-') || hash.startsWith('#aarogyam-')) {
+      const id = hash.replace('#arogya-', '').replace('#aarogyam-', '');
+      loadArticle('aarogyam', id, false);
     } else if (hash.startsWith('#stotra-')) {
       const id = hash.replace('#stotra-', '');
       let target = state.stotras.find(s => s.id === id || s.legacy_id === id || s.legacy_id === id.padStart(3, '0'));
@@ -816,7 +855,12 @@
     applyLineWrap(state.lineWrap);
 
     try {
-      if (window.STOTRAS_DATA && Array.isArray(window.STOTRAS_DATA) && window.STOTRAS_DATA.length > 0) {
+      if (window.CORPUS_ALL_DATA && typeof window.CORPUS_ALL_DATA === 'object') {
+        state.corporaData = window.CORPUS_ALL_DATA;
+        if (state.corporaData.stuti_ganga) {
+          state.stotras = state.corporaData.stuti_ganga;
+        }
+      } else if (window.STOTRAS_DATA && Array.isArray(window.STOTRAS_DATA) && window.STOTRAS_DATA.length > 0) {
         state.stotras = window.STOTRAS_DATA;
       } else {
         const resp = await fetch('data/stotras.json');
@@ -861,37 +905,220 @@
   // Devanagari Number Helper
   const DEVANAGARI_DIGITS = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
   function toDevanagari(n, pad = 1) {
+    if (n === null || n === undefined) return '';
     const s = String(n).padStart(pad, '0');
     return s.split('').map(c => DEVANAGARI_DIGITS[parseInt(c, 10)] || c).join('');
   }
 
-  // Render Sidebar List
-  function renderSidebarList() {
-    const list = DOM.stotraList;
-    list.innerHTML = '';
+  // Corpora Metadata (९ पावन स्तम्भ)
+  const CORPORA_META = {
+    stuti_ganga: {
+      name: 'श्री सनातन वाङ्मयम् — स्तुति-गंगा',
+      shortName: 'स्तुति-गंगा',
+      icon: '🌊',
+      totalCount: 262,
+      hash: 'stuti-ganga',
+      articleHashPrefix: 'stotra'
+    },
+    ved_puranam: {
+      name: 'श्री सनातन वाङ्मयम् — वेद-पुराणम्',
+      shortName: 'वेद-पुराणम्',
+      icon: '🏛️',
+      totalCount: 30,
+      hash: 'ved-puranam',
+      articleHashPrefix: 'purana'
+    },
+    vedant_darshanam: {
+      name: 'श्री सनातन वाङ्मयम् — वेदान्त-दर्शनम्',
+      shortName: 'वेदान्त-दर्शनम्',
+      icon: '🪔',
+      totalCount: 15,
+      hash: 'vedant-darshanam',
+      articleHashPrefix: 'darshan'
+    },
+    vrat_pujanam: {
+      name: 'श्री सनातन वाङ्मयम् — व्रत-पूजनम्',
+      shortName: 'व्रत-पूजनम्',
+      icon: '🌸',
+      totalCount: 44,
+      hash: 'vrat-pujanam',
+      articleHashPrefix: 'vrat'
+    },
+    kavya: {
+      name: 'श्री सनातन वाङ्मयम् — काव्य-मंजूषा',
+      shortName: 'काव्य',
+      icon: '📜',
+      totalCount: 201,
+      hash: 'kavya',
+      articleHashPrefix: 'kavya'
+    },
+    itihas: {
+      name: 'श्री सनातन वाङ्मयम् — इतिहास एवं गौरव',
+      shortName: 'इतिहास',
+      icon: '⚔️',
+      totalCount: 23,
+      hash: 'itihas',
+      articleHashPrefix: 'itihas'
+    },
+    bachpan: {
+      name: 'श्री सनातन वाङ्मयम् — बचपन (बाल-साहित्य)',
+      shortName: 'बचपन',
+      icon: '🌱',
+      totalCount: 29,
+      hash: 'bachpan',
+      articleHashPrefix: 'bachpan'
+    },
+    hasya: {
+      name: 'श्री सनातन वाङ्मयम् — विदूषक (हास्य-विनोद)',
+      shortName: 'हास्य',
+      icon: '🎭',
+      totalCount: 14,
+      hash: 'hasya',
+      articleHashPrefix: 'hasya'
+    },
+    aarogyam: {
+      name: 'श्री सनातन वाङ्मयम् — आरोग्य (आयुर्वेद)',
+      shortName: 'आरोग्य',
+      icon: '🌿',
+      totalCount: 25,
+      hash: 'arogya',
+      articleHashPrefix: 'arogya'
+    },
+    arogya: {
+      name: 'श्री सनातन वाङ्मयम् — आरोग्य (आयुर्वेद)',
+      shortName: 'आरोग्य',
+      icon: '🌿',
+      totalCount: 25,
+      hash: 'arogya',
+      articleHashPrefix: 'arogya'
+    }
+  };
 
-    const query = state.searchQuery.toLowerCase().trim();
-    const filtered = state.stotras.filter(s => {
+  // Helper to fetch list of items for active corpus
+  function getCorpusList(corpusKey = state.activeCorpus || 'stuti_ganga') {
+    if (corpusKey === 'arogya') corpusKey = 'aarogyam';
+    if (corpusKey === 'stuti_ganga') return state.stotras || [];
+    if (state.corporaData && state.corporaData[corpusKey]) return state.corporaData[corpusKey];
+    if (typeof window !== 'undefined' && window.CORPUS_ALL_DATA && window.CORPUS_ALL_DATA[corpusKey]) {
+      return window.CORPUS_ALL_DATA[corpusKey];
+    }
+    return [];
+  }
+
+  // Prose HTML Formatter for narrative articles (Itihas, Aarogyam, Bachpan, Vrat)
+  function formatProseHtml(text) {
+    if (!text) return '';
+    const paragraphs = text.split(/\n\s*\n/);
+    return paragraphs.map(p => {
+      const clean = p.trim();
+      if (!clean) return '';
+      if (clean.startsWith('<')) return clean;
+      return `<p class="prose-paragraph" style="margin-bottom: 1.15rem; line-height: 1.85; font-size: 1.05rem; text-align: justify;">${parseSimpleMarkdown(clean)}</p>`;
+    }).join('\n');
+  }
+
+  // Render Sidebar Filter Pills Dynamically for Active Corpus
+  function renderSidebarPills(corpusKey, list) {
+    if (!DOM.categoryPills) return;
+
+    const pillSpecs = [];
+    pillSpecs.push({ id: 'all', label: `सभी (${toDevanagari(list.length)})` });
+
+    if (corpusKey === 'stuti_ganga') {
+      const deities = [
+        { id: 'श्री शिव', label: '🔱 शिव' },
+        { id: 'श्री विष्णु', label: '🪷 विष्णु' },
+        { id: 'श्री कृष्ण', label: '🪈 कृष्ण' },
+        { id: 'श्री राम', label: '🏹 राम' },
+        { id: 'श्री हनुमान', label: '🚩 हनुमान' },
+        { id: 'श्री गणेश', label: '🐘 गणेश' },
+        { id: 'श्री देवी / शक्ति', label: '🌸 देवी' },
+        { id: 'श्री सूर्य', label: '☀️ सूर्य' },
+        { id: 'श्री नृसिंह', label: '🦁 नृसिंह' },
+        { id: 'श्री कार्तिकेय', label: '🦚 कार्तिकेय' },
+        { id: 'श्री दत्तात्रेय', label: '🕉️ दत्तात्रेय' },
+        { id: 'श्री भैरव', label: '⚔️ भैरव' },
+        { id: 'नवग्रह', label: '🪐 नवग्रह' },
+        { id: 'वैदिक सूक्त', label: '📜 सूक्त' },
+        { id: 'श्री गुरु', label: '🪔 गुरु' },
+        { id: 'कुबेर', label: '💰 कुबेर' }
+      ];
+      deities.forEach(d => {
+        const count = list.filter(x => x.deity === d.id || x.category === d.id).length;
+        if (count > 0) pillSpecs.push({ id: d.id, label: `${d.label} (${toDevanagari(count)})` });
+      });
+    } else if (corpusKey === 'kavya') {
+      const authors = ['दिनकर', 'गुप्त', 'चतुर्वेदी', 'सुभद्रा', 'भूषण', 'प्रसाद', 'निराला', 'पाण्डेय', 'प्रयाण', 'संत', 'चारण', 'क्रांति', 'वैदिक', 'चेतना'];
+      authors.forEach(auth => {
+        const count = list.filter(x => (x.author && x.author.includes(auth)) || (x.section_name && x.section_name.includes(auth))).length;
+        if (count > 0) pillSpecs.push({ id: auth, label: `${auth} (${toDevanagari(count)})` });
+      });
+    } else {
+      const secMap = new Map();
+      list.forEach(item => {
+        const sName = item.section_name || item.category || 'विविध';
+        secMap.set(sName, (secMap.get(sName) || 0) + 1);
+      });
+      secMap.forEach((count, sName) => {
+        const shortName = sName.length > 14 ? sName.substring(0, 12) + '...' : sName;
+        pillSpecs.push({ id: sName, label: `${shortName} (${toDevanagari(count)})` });
+      });
+    }
+
+    pillSpecs.push({ id: 'fav', label: '⭐ पसंदीदा' });
+
+    DOM.categoryPills.innerHTML = pillSpecs.map(p => `
+      <button class="pill-btn ${state.activeCategory === p.id ? 'active' : ''}" data-cat="${escapeHtml(p.id)}">${escapeHtml(p.label)}</button>
+    `).join('');
+  }
+
+  // Render Sidebar Items for Given Corpus
+  function renderSidebarItems(corpusKey, list) {
+    const container = DOM.stotraList;
+    if (!container) return;
+    container.innerHTML = '';
+
+    const query = (state.searchQuery || '').toLowerCase().trim();
+    const filtered = list.filter(item => {
       // Category / Deity filter
-      if (state.activeCategory === 'fav' && !state.favorites.has(s.id)) return false;
-      if (state.activeCategory !== 'all' && state.activeCategory !== 'fav') {
-        if (s.category !== state.activeCategory && s.deity !== state.activeCategory) return false;
+      if (state.activeCategory === 'fav') {
+        return isItemFav(item, corpusKey);
+      }
+      if (state.activeCategory !== 'all') {
+        const cat = state.activeCategory.toLowerCase();
+        const m = (item.section_name && item.section_name.toLowerCase().includes(cat)) ||
+                  (item.category && item.category.toLowerCase().includes(cat)) ||
+                  (item.author && item.author.toLowerCase().includes(cat)) ||
+                  (item.deity && item.deity.toLowerCase().includes(cat)) ||
+                  (item.cat && item.cat.toLowerCase().includes(cat));
+        if (!m) return false;
       }
 
       // Search Query
       if (query) {
-        const titleMatch = s.title.toLowerCase().includes(query);
-        const deityMatch = s.deity && s.deity.toLowerCase().includes(query);
-        const idMatch = s.id.includes(query) || s.devanagari_num.includes(query) || (s.legacy_id && s.legacy_id.includes(query));
-        const sanskritMatch = s.full_sanskrit && s.full_sanskrit.toLowerCase().includes(query);
-        const meaningMatch = s.verses && s.verses.some(v => v.meaning && v.meaning.toLowerCase().includes(query));
-        return titleMatch || deityMatch || idMatch || sanskritMatch || meaningMatch;
+        const titleMatch = item.title && item.title.toLowerCase().includes(query);
+        const authMatch = (item.author && item.author.toLowerCase().includes(query)) || (item.deity && item.deity.toLowerCase().includes(query));
+        const idMatch = (item.id && item.id.includes(query)) || (item.devanagari_num && item.devanagari_num.includes(query)) || (item.legacy_id && item.legacy_id.includes(query));
+        const descMatch = (item.desc && item.desc.toLowerCase().includes(query)) || (item.intro && item.intro.toLowerCase().includes(query));
+        const textMatch = (item.full_text && item.full_text.toLowerCase().includes(query)) || (item.full_sanskrit && item.full_sanskrit.toLowerCase().includes(query));
+        const meaningMatch = item.verses && item.verses.some(v => v.meaning && v.meaning.toLowerCase().includes(query));
+        return titleMatch || authMatch || idMatch || descMatch || textMatch || meaningMatch;
       }
       return true;
     });
 
     if (DOM.sidebarCountBadge) {
-      DOM.sidebarCountBadge.textContent = `${filtered.length} रचनाएं`;
+      DOM.sidebarCountBadge.textContent = `${toDevanagari(filtered.length)} रचनाएं`;
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div style="padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.88rem;">
+          🔍 कोई रचना प्राप्त नहीं हुई।<br>
+          <span style="font-size: 0.78rem;">अन्य शब्द से खोजें अथवा 'सभी' पर क्लिक करें।</span>
+        </div>
+      `;
+      return;
     }
 
     let lastSection = null;
@@ -915,65 +1142,131 @@
       'कुबेर': '💰'
     };
 
-    filtered.forEach(s => {
-      if (showSections && s.section_num && s.section_num !== lastSection) {
-        lastSection = s.section_num;
-        const icon = deityIcons[s.deity] || '🕉️';
-        const sectionStotras = state.stotras.filter(x => x.section_num === s.section_num);
-        const count = sectionStotras.length;
+    filtered.forEach(item => {
+      const secIdentifier = item.section_name || item.section_num || item.deity || item.category;
+      if (showSections && secIdentifier && secIdentifier !== lastSection) {
+        lastSection = secIdentifier;
         const divider = document.createElement('div');
         divider.className = 'sidebar-section-divider';
-        divider.innerHTML = `<span class="section-icon">${icon}</span> <span class="section-title">खण्ड ${toDevanagari(s.section_num)}: ${s.deity} (${toDevanagari(count)} रचनाएं)</span>`;
-        list.appendChild(divider);
+        const secItems = list.filter(x => (x.section_name || x.section_num || x.deity || x.category) === secIdentifier);
+        const icon = (item.deity && deityIcons[item.deity]) || item.icon || '📜';
+        const titleText = item.section_name
+          ? (item.section_num ? `खण्ड ${toDevanagari(item.section_num)}: ${item.section_name}` : item.section_name)
+          : (item.deity ? `खण्ड ${toDevanagari(item.section_num || 1)}: ${item.deity}` : `खण्ड ${toDevanagari(item.section_num || 1)}`);
+
+        divider.innerHTML = `
+          <span class="section-icon">${icon}</span>
+          <span class="section-title">${escapeHtml(titleText)} (${toDevanagari(secItems.length)} रचनाएं)</span>
+        `;
+        container.appendChild(divider);
       }
 
-      const item = document.createElement('a');
-      item.className = `stotra-nav-item ${state.currentStotra && state.currentStotra.id === s.id ? 'active' : ''}`;
-      item.href = `#stotra-${s.id}`;
-      item.dataset.id = s.id;
+      const navEl = document.createElement('a');
+      const isActive = state.currentStotra && state.currentStotra.id === item.id;
+      navEl.className = `stotra-nav-item ${isActive ? 'active' : ''}`;
+      const hashPrefix = corpusKey === 'stuti_ganga' ? 'stotra' : (corpusKey === 'aarogyam' ? 'arogya' : corpusKey);
+      navEl.href = `#${hashPrefix}-${item.id}`;
+      navEl.dataset.id = item.id;
+      navEl.dataset.corpus = corpusKey;
 
-      const hasYoutube = Boolean(s.youtube_url);
-      const isFav = state.favorites.has(s.id);
+      const hasYoutube = Boolean(item.youtube_url);
+      const isFav = isItemFav(item, corpusKey);
 
-      const countLabel = String(s.shloka_count).includes('श्लोक') || String(s.shloka_count).includes('अनुवाक') || String(s.shloka_count).includes('मार्गदर्शक')
-        ? s.shloka_count
-        : `कुल ${s.shloka_count} श्लोक`;
+      let badgeText = '';
+      if (item.shloka_count && item.shloka_count !== '0') {
+        badgeText = String(item.shloka_count).includes('श्लोक') || String(item.shloka_count).includes('अनुवाक') || String(item.shloka_count).includes('मार्गदर्शक')
+          ? item.shloka_count
+          : `कुल ${item.shloka_count} श्लोक`;
+      } else if (item.author) {
+        badgeText = item.author;
+      } else if (item.badge) {
+        badgeText = item.badge;
+      }
 
-      item.innerHTML = `
+      navEl.innerHTML = `
         <div class="nav-item-left">
-          <span class="nav-item-num">${s.devanagari_num}</span>
-          <span class="nav-item-title">${s.title}</span>
+          <span class="nav-item-num">${item.devanagari_num || item.id}</span>
+          <span class="nav-item-title">${escapeHtml(item.title)}</span>
         </div>
         <div class="nav-item-right">
           ${hasYoutube ? '<span class="nav-item-youtube-dot" title="यूट्यूब पाठ उपलब्ध">▶️</span>' : ''}
           ${isFav ? '<span style="color: var(--accent-gold); font-size: 0.8rem;">⭐</span>' : ''}
-          <span class="nav-item-badge">${countLabel}</span>
+          ${badgeText ? `<span class="nav-item-badge">${escapeHtml(badgeText)}</span>` : ''}
         </div>
       `;
 
-      item.addEventListener('click', (e) => {
+      navEl.addEventListener('click', (e) => {
         e.preventDefault();
-        loadStotra(s.id, true);
+        loadArticle(corpusKey, item.id, true);
         if (window.innerWidth <= 1200) {
           closeSidebar();
         }
       });
 
-      list.appendChild(item);
+      container.appendChild(navEl);
     });
   }
 
-  // Load and Render Stotra
-  function loadStotra(id, updateHistory = true) {
-    let stotra = state.stotras.find(s => s.id === id || s.legacy_id === id);
-    if (!stotra) {
-      if (id === '038' || id === '039' || id === '040') {
-        stotra = state.stotras.find(s => s.id === '1.038');
-      } else if (id === '041') {
-        stotra = state.stotras.find(s => s.id === '1.039');
-      }
+  // Highlight Active Item in Sidebar
+  function highlightSidebarItem(id) {
+    document.querySelectorAll('.stotra-nav-item').forEach(el => {
+      el.classList.toggle('active', el.dataset.id === id);
+    });
+  }
+
+  // Render Sidebar for Corpus
+  function renderSidebarForCorpus(corpusKey) {
+    if (corpusKey === 'arogya') corpusKey = 'aarogyam';
+    state.activeCorpus = corpusKey || 'stuti_ganga';
+
+    const meta = CORPORA_META[corpusKey] || CORPORA_META.stuti_ganga;
+    const list = getCorpusList(corpusKey);
+
+    // Update Sidebar Corpus Title & Count
+    const sidebarTitle = document.getElementById('sidebar-corpus-title');
+    if (sidebarTitle) {
+      sidebarTitle.innerHTML = `<span style="font-size: 1.1rem;">${meta.icon}</span> <span>${meta.shortName}</span>`;
     }
-    if (!stotra) return;
+    if (DOM.sidebarCountBadge) {
+      DOM.sidebarCountBadge.textContent = `${toDevanagari(list.length)} रचनाएं`;
+    }
+
+    // Update Sub-nav index title
+    const subNavIndexTitle = document.getElementById('sub-nav-index-title');
+    if (subNavIndexTitle) {
+      subNavIndexTitle.textContent = `${meta.shortName} अनुक्रमणिका : ${toDevanagari(list.length)} रचनाएं`;
+    }
+
+    // Update Sidebar Filter Pills
+    renderSidebarPills(corpusKey, list);
+
+    // Render the item list
+    renderSidebarItems(corpusKey, list);
+  }
+
+  // Render Sidebar List (Universal Dispatcher)
+  function renderSidebarList() {
+    renderSidebarForCorpus(state.activeCorpus || 'stuti_ganga');
+  }
+
+  // Universal Article & Stotra Loader
+  function loadArticle(corpusKey, id, updateHistory = true) {
+    if (corpusKey === 'arogya') corpusKey = 'aarogyam';
+    const list = getCorpusList(corpusKey);
+
+    let item = list.find(s => s.id === id || s.legacy_id === id || s.slug === id || String(s.sub_num) === String(id) || String(s.number) === String(id));
+    if (!item && corpusKey === 'stuti_ganga') {
+      if (id === '038' || id === '039' || id === '040') item = list.find(s => s.id === '1.038');
+      else if (id === '041') item = list.find(s => s.id === '1.039');
+    }
+
+    if (!item) {
+      console.warn(`Article not found in ${corpusKey}: ${id}`);
+      return;
+    }
+
+    state.activeCorpus = corpusKey;
+    state.currentStotra = item;
 
     hideAllCorpusViews();
     if (DOM.stotraArticle) DOM.stotraArticle.style.display = 'block';
@@ -988,173 +1281,249 @@
     if (subPrintBtn) subPrintBtn.style.display = 'inline-flex';
 
     // Active tab in corpus navigation
+    const tabKey = corpusKey === 'aarogyam' ? 'arogya' : corpusKey;
     DOM.corpusTabs.forEach(t => {
-      t.classList.toggle('active', t.dataset.corpus === 'stuti_ganga');
+      t.classList.toggle('active', t.dataset.corpus === tabKey);
     });
 
-    state.currentStotra = stotra;
+    // Update Browser History URL Hash
     if (updateHistory) {
-      history.pushState(null, '', `#stotra-${stotra.id}`);
+      const hashPrefix = corpusKey === 'stuti_ganga' ? 'stotra' : tabKey;
+      history.pushState(null, '', `#${hashPrefix}-${item.id}`);
     }
 
-    // Update Document Title
-    document.title = `${stotra.devanagari_num}. ${stotra.title} — श्री वाङ्मयम्`;
+    // Document Title
+    const meta = CORPORA_META[corpusKey] || { name: 'श्री वाङ्मयम्', shortName: corpusKey, totalCount: list.length, icon: '📜' };
+    document.title = `${item.devanagari_num || item.id}. ${item.title} — ${meta.name}`;
 
-    // Highlight in sidebar
-    document.querySelectorAll('.stotra-nav-item').forEach(el => {
-      el.classList.toggle('active', el.dataset.id === stotra.id);
-    });
-
-    // Format Display Title for Sub-Navbar (e.g. "१.००१ श्री शिव नमामि स्तोत्रम् (कुल 12 श्लोक)")
+    // Format Display Title for Sub-Navbar
     let countStr = '';
-    if (stotra.shloka_count && stotra.shloka_count !== '0') {
-      const isCustomText = String(stotra.shloka_count).includes('श्लोक') || String(stotra.shloka_count).includes('अनुवाक') || String(stotra.shloka_count).includes('मार्गदर्शक');
-      countStr = ` (कुल ${stotra.shloka_count}${isCustomText ? '' : ' श्लोक'})`;
+    if (item.shloka_count && item.shloka_count !== '0') {
+      const isCustomText = String(item.shloka_count).includes('श्लोक') || String(item.shloka_count).includes('अनुवाक') || String(item.shloka_count).includes('मार्गदर्शक');
+      countStr = ` (कुल ${item.shloka_count}${isCustomText ? '' : ' श्लोक'})`;
     }
-    const displayTitle = `${stotra.devanagari_num} ${stotra.title}${countStr}`;
+    const displayTitle = `${item.devanagari_num || item.id} ${item.title}${countStr}`;
 
-    // Sub-Navbar Title (Directly above the reading content)
+    // Sub-Navbar Title
     if (DOM.subNavTitle) {
       DOM.subNavTitle.textContent = displayTitle;
       DOM.subNavTitle.title = displayTitle;
     }
 
-    // Stotra Recitation Header (Directly above the stotra recitation text)
+    // Sub-Navbar Index Button Title
+    const subNavIndexTitle = document.getElementById('sub-nav-index-title');
+    if (subNavIndexTitle) {
+      subNavIndexTitle.textContent = `${meta.shortName} अनुक्रमणिका : ${toDevanagari(list.length)} रचनाएं`;
+    }
+
+    // Recitation Header Title
     if (DOM.mukhyaPathTitle) {
       DOM.mukhyaPathTitle.textContent = displayTitle;
       DOM.mukhyaPathTitle.title = displayTitle;
     }
 
-    // Sub-Navbar YouTube Link
+    // Recitation Subtitle
+    const mukhyaSub = document.querySelector('.mukhya-path-subtitle');
+    if (mukhyaSub) {
+      if (corpusKey === 'stuti_ganga') {
+        mukhyaSub.textContent = 'अविरल मूल संस्कृत पाठ (नित्य पारायण)';
+      } else if (corpusKey === 'kavya') {
+        mukhyaSub.textContent = `रचनाकार: ${item.author || item.deity || 'सनातन कवि'} | ${item.category || item.section_name || 'काव्य'}`;
+      } else if (corpusKey === 'vrat_pujanam') {
+        mukhyaSub.textContent = `पावन व्रत-विधान एवं कथा | ${item.section_name || item.category || ''}`;
+      } else if (corpusKey === 'itihas') {
+        mukhyaSub.textContent = `ऐतिहासिक गाथा एवं शौर्य चरित | ${item.section_name || ''}`;
+      } else if (corpusKey === 'bachpan') {
+        mukhyaSub.textContent = `बाल-संस्कार एवं प्रेरक रचना | ${item.section_name || ''}`;
+      } else if (corpusKey === 'hasya') {
+        mukhyaSub.textContent = `हास्य-विनोद एवं व्यंग्य | ${item.section_name || ''}`;
+      } else if (corpusKey === 'aarogyam' || corpusKey === 'arogya') {
+        mukhyaSub.textContent = `आयुर्वेद एवं प्राकृतिक स्वास्थ्य | ${item.section_name || ''}`;
+      } else {
+        mukhyaSub.textContent = 'सम्पूर्ण पाठ विवरण';
+      }
+    }
+
+    // YouTube Button
     if (DOM.subYoutubeBtn) {
-      if (stotra.youtube_url) {
-        DOM.subYoutubeBtn.href = stotra.youtube_url;
+      if (item.youtube_url) {
+        DOM.subYoutubeBtn.href = item.youtube_url;
         DOM.subYoutubeBtn.style.display = 'inline-flex';
       } else {
         DOM.subYoutubeBtn.style.display = 'none';
       }
     }
 
-    const formattedShlokaCount = String(stotra.shloka_count).includes('श्लोक') || String(stotra.shloka_count).includes('अनुवाक') || String(stotra.shloka_count).includes('मार्गदर्शक')
-      ? stotra.shloka_count
-      : `कुल ${stotra.shloka_count} श्लोक`;
-
-    // Safe fallbacks for legacy hero (if present)
-    if (DOM.heroNumber) DOM.heroNumber.textContent = stotra.devanagari_num;
-    if (DOM.heroDeity) DOM.heroDeity.textContent = stotra.deity || 'सनातन';
-    if (DOM.heroCategory) DOM.heroCategory.textContent = stotra.category;
-    if (DOM.heroShlokaCount) DOM.heroShlokaCount.textContent = formattedShlokaCount;
-    if (DOM.stotraTitle) DOM.stotraTitle.textContent = stotra.title;
-    if (DOM.heroSourceLink) {
-      if (stotra.source_url) {
-        DOM.heroSourceLink.innerHTML = `<a href="${stotra.source_url}" target="_blank" rel="noopener">मूल संदर्भ ↗</a>`;
-        DOM.heroSourceLink.style.display = 'inline-block';
-      } else {
-        DOM.heroSourceLink.style.display = 'none';
-      }
-    }
-
-    if (DOM.youtubeBtn) {
-      if (stotra.youtube_url) {
-        DOM.youtubeBtn.href = stotra.youtube_url;
-        DOM.youtubeBtn.style.display = 'inline-flex';
-      } else {
-        DOM.youtubeBtn.style.display = 'none';
-      }
-    }
-
-    // Favorite Button state
+    // Update Favorite Button
     updateFavButton();
 
     // Intro Section
-    if (stotra.intro) {
-      DOM.introContent.innerHTML = `<p>${parseSimpleMarkdown(stotra.intro)}</p>`;
+    if (item.intro && item.intro.trim()) {
+      DOM.introContent.innerHTML = `<p>${parseSimpleMarkdown(item.intro)}</p>`;
       DOM.introSection.style.display = 'block';
     } else {
       DOM.introSection.style.display = 'none';
     }
 
-    // Parayan / Mukhya Path Section
-    if (stotra.full_sanskrit && stotra.full_sanskrit.trim()) {
-      DOM.parayanText.innerHTML = formatUnbrokenSanskritHtml(stotra.full_sanskrit);
-    } else if (stotra.verses && stotra.verses.length > 0) {
-      DOM.parayanText.innerHTML = formatUnbrokenSanskritHtml(stotra.verses.map(v => v.sanskrit).join('\n\n'));
+    // Main Parayan / Article Text Section
+    const parayanCard = document.getElementById('parayan-section');
+    const rawText = item.full_text || item.full_sanskrit || '';
+    if (rawText && rawText.trim()) {
+      DOM.parayanText.innerHTML = (corpusKey === 'kavya' || corpusKey === 'stuti_ganga')
+        ? formatUnbrokenSanskritHtml(rawText)
+        : formatProseHtml(rawText);
+      if (parayanCard) parayanCard.style.display = 'block';
     } else {
-      DOM.parayanText.innerHTML = '<p class="mukhya-path-notice">मुख्य पाठ उपलब्ध नहीं है।</p>';
+      if (item.sections && item.sections.length > 0) {
+        if (parayanCard) parayanCard.style.display = 'none';
+      } else {
+        DOM.parayanText.innerHTML = '<p class="mukhya-path-notice">सम्पूर्ण पाठ विवरण नीचे अनुभागों में प्रस्तुत है।</p>';
+        if (parayanCard) parayanCard.style.display = 'block';
+      }
     }
 
-    // Verses Section (Study Mode)
+    // Sections (for Vrat, Itihas, Arogyam, etc. having structured sections)
+    const versesHeaderBar = document.getElementById('verses-header-bar');
+    const versesTotalBadge = document.getElementById('verses-total-badge');
     DOM.versesSection.innerHTML = '';
-    if (stotra.verses && stotra.verses.length > 0) {
-      stotra.verses.forEach(v => {
+
+    if (item.sections && item.sections.length > 0) {
+      if (versesHeaderBar) {
+        versesHeaderBar.style.display = 'flex';
+        const vHeading = versesHeaderBar.querySelector('.verses-heading');
+        const vSub = versesHeaderBar.querySelector('.verses-subheading');
+        if (vHeading) vHeading.textContent = 'शास्त्रीय अनुभाग एवं सम्पूर्ण विवरण';
+        if (vSub) vSub.textContent = `${toDevanagari(item.sections.length)} क्रमबद्ध विषय-खण्ड`;
+      }
+      if (versesTotalBadge) versesTotalBadge.textContent = `${toDevanagari(item.sections.length)} अनुभाग`;
+
+      item.sections.forEach((sec) => {
+        const card = document.createElement('div');
+        card.className = 'verse-card section-detail-card';
+        card.innerHTML = `
+          <div class="verse-top-bar">
+            <span class="verse-number-tag">${escapeHtml(sec.heading)}</span>
+            <button class="verse-copy-btn" title="यह अनुभाग कॉपी करें">📋 कॉपी</button>
+          </div>
+          <div class="section-body-box" style="padding: 1rem 1.25rem; font-size: 1.05rem; line-height: 1.85; color: var(--text-primary);">
+            ${sec.body || ''}
+          </div>
+        `;
+        card.querySelector('.verse-copy-btn').addEventListener('click', () => {
+          const cleanText = (sec.body || '').replace(/<[^>]+>/g, '').trim();
+          navigator.clipboard.writeText(`${sec.heading}\n\n${cleanText}\n— ${item.title}`).then(() => {
+            showToast('अनुभाग कॉपी हो गया!');
+          });
+        });
+        DOM.versesSection.appendChild(card);
+      });
+    } else if (item.verses && item.verses.length > 0) {
+      if (versesHeaderBar) {
+        versesHeaderBar.style.display = 'flex';
+        const vHeading = versesHeaderBar.querySelector('.verses-heading');
+        const vSub = versesHeaderBar.querySelector('.verses-subheading');
+        if (vHeading) vHeading.textContent = 'पदच्छेद, अन्वय एवं सरल भावार्थ';
+        if (vSub) vSub.textContent = 'प्रत्येक श्लोक/पद का मूल पाठ एवं व्याख्या';
+      }
+      if (versesTotalBadge) versesTotalBadge.textContent = `${toDevanagari(item.verses.length)} पद / श्लोक`;
+
+      item.verses.forEach(v => {
         const card = document.createElement('div');
         card.className = 'verse-card';
         card.innerHTML = `
           <div class="verse-top-bar">
-            <span class="verse-number-tag">${v.label.startsWith('श्लोक') || v.label.startsWith('पद') || v.label.startsWith('अनुवाक') || v.label.startsWith('चौपाई') || v.label.startsWith('दोहा') || v.label.startsWith('प्रारम्भिक') || v.label.startsWith('समापन') ? v.label : `श्लोक ${v.label}`}</span>
-            <button class="verse-copy-btn" title="यह श्लोक कॉपी करें">📋 कॉपी</button>
+            <span class="verse-number-tag">${escapeHtml(v.label)}</span>
+            <button class="verse-copy-btn" title="यह पद कॉपी करें">📋 कॉपी</button>
           </div>
           <div class="verse-sanskrit-box">${formatUnbrokenSanskritHtml(v.sanskrit)}</div>
           ${v.meaning ? `<div class="verse-meaning-box"><span class="meaning-lead">भावार्थ:</span> ${escapeHtml(v.meaning)}</div>` : ''}
         `;
-
         card.querySelector('.verse-copy-btn').addEventListener('click', () => {
-          const copyText = `${v.sanskrit}\n\nभावार्थ: ${v.meaning || ''}\n— ${stotra.title}`;
+          const copyText = `${v.sanskrit}\n\nभावार्थ: ${v.meaning || ''}\n— ${item.title}`;
           navigator.clipboard.writeText(copyText).then(() => {
-            showToast('श्लोक कॉपी हो गया!');
+            showToast('पद कॉपी हो गया!');
           });
         });
-
         DOM.versesSection.appendChild(card);
       });
+    } else {
+      if (versesHeaderBar) versesHeaderBar.style.display = 'none';
     }
 
-    // Notes / Variants
-    if (stotra.variants) {
-      DOM.notesContent.innerHTML = `<p>${parseSimpleMarkdown(stotra.variants)}</p>`;
+    // Notes / Variants / Bhavartha
+    if (item.variants || item.bhavartha) {
+      const extraContent = item.variants || item.bhavartha;
+      DOM.notesContent.innerHTML = `<p>${parseSimpleMarkdown(extraContent)}</p>`;
       DOM.notesSection.style.display = 'block';
     } else {
       DOM.notesSection.style.display = 'none';
     }
 
-    // Bottom Navigation (Prev / Next)
-    const currentIndex = state.stotras.findIndex(s => s.id === stotra.id);
-    if (currentIndex > 0) {
-      const prev = state.stotras[currentIndex - 1];
-      DOM.prevStotraTitle.textContent = `${prev.devanagari_num}. ${prev.title}`;
-      DOM.prevStotraCard.style.visibility = 'visible';
-      DOM.prevStotraCard.onclick = () => loadStotra(prev.id);
-    } else {
-      DOM.prevStotraCard.style.visibility = 'hidden';
+    // Bottom Navigation (Prev / Next within that corpus)
+    const curIdx = list.findIndex(x => x.id === item.id);
+    const prev = curIdx > 0 ? list[curIdx - 1] : null;
+    const next = curIdx >= 0 && curIdx < list.length - 1 ? list[curIdx + 1] : null;
+
+    if (DOM.prevStotraCard) {
+      if (prev) {
+        DOM.prevStotraCard.style.visibility = 'visible';
+        if (DOM.prevStotraTitle) DOM.prevStotraTitle.textContent = `${prev.devanagari_num || prev.id} ${prev.title}`;
+        DOM.prevStotraCard.onclick = () => loadArticle(corpusKey, prev.id, true);
+      } else {
+        DOM.prevStotraCard.style.visibility = 'hidden';
+      }
     }
 
-    if (currentIndex < state.stotras.length - 1) {
-      const next = state.stotras[currentIndex + 1];
-      DOM.nextStotraTitle.textContent = `${next.devanagari_num}. ${next.title}`;
-      DOM.nextStotraCard.style.visibility = 'visible';
-      DOM.nextStotraCard.onclick = () => loadStotra(next.id);
-    } else {
-      DOM.nextStotraCard.style.visibility = 'hidden';
+    if (DOM.nextStotraCard) {
+      if (next) {
+        DOM.nextStotraCard.style.visibility = 'visible';
+        if (DOM.nextStotraTitle) DOM.nextStotraTitle.textContent = `${next.devanagari_num || next.id} ${next.title}`;
+        DOM.nextStotraCard.onclick = () => loadArticle(corpusKey, next.id, true);
+      } else {
+        DOM.nextStotraCard.style.visibility = 'hidden';
+      }
     }
 
     // Ensure sections match current viewMode (All, Parayan, Study)
     applyViewMode(state.viewMode);
 
-    // Auto-fit font size to container width so shlokas never break
+    // Auto-fit font size to container width so lines never break
     autoFitShlokaLines();
 
     // Enable drag-to-scroll on parayan text and verse boxes
     if (DOM.parayanText) enableDragToScroll(DOM.parayanText);
     document.querySelectorAll('.verse-sanskrit-box').forEach(enableDragToScroll);
 
+    // Refresh Sidebar to match this corpus & highlight active item
+    renderSidebarForCorpus(corpusKey);
+    highlightSidebarItem(item.id);
+
     // Scroll to Top smoothly
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Load and Render Stotra (Backwards Compatible Helper)
+  function loadStotra(id, updateHistory = true) {
+    return loadArticle('stuti_ganga', id, updateHistory);
+  }
+
+  // Favorite Helpers
+  function getFavKey(item, corpusKey = state.activeCorpus || 'stuti_ganga') {
+    if (!item) return '';
+    const id = item.id || item;
+    return corpusKey === 'stuti_ganga' ? id : `${corpusKey}:${id}`;
+  }
+
+  function isItemFav(item, corpusKey = state.activeCorpus || 'stuti_ganga') {
+    if (!item) return false;
+    const id = item.id || item;
+    return state.favorites.has(`${corpusKey}:${id}`) || state.favorites.has(id);
   }
 
   // Favorite Button
   function updateFavButton() {
     if (!state.currentStotra) return;
-    const isFav = state.favorites.has(state.currentStotra.id);
+    const isFav = isItemFav(state.currentStotra, state.activeCorpus || 'stuti_ganga');
     if (DOM.subFavBtn) {
       DOM.subFavBtn.textContent = isFav ? '⭐' : '☆';
       DOM.subFavBtn.title = isFav ? 'पसंदीदा से हटाएं' : 'पसंदीदा में जोड़ें';
@@ -1173,6 +1542,15 @@
     // Sidebar Toggle
     if (DOM.sidebarToggleBtn) DOM.sidebarToggleBtn.addEventListener('click', toggleSidebar);
     if (DOM.sidebarBackdrop) DOM.sidebarBackdrop.addEventListener('click', closeSidebar);
+    if (DOM.sidebarCloseBtn) DOM.sidebarCloseBtn.addEventListener('click', closeSidebar);
+
+    // Sidebar Live Search Input
+    if (DOM.sidebarSearchInput) {
+      DOM.sidebarSearchInput.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value;
+        renderSidebarList();
+      });
+    }
 
     // Global Search (if element exists)
     if (DOM.globalSearchInput) {
@@ -1254,7 +1632,7 @@
       });
     }
 
-    // Copy Full Stotra (Sub-Navbar & Legacy)
+    // Copy Full Stotra / Article (Sub-Navbar & Legacy)
     const copyFullStotraAction = () => {
       if (!state.currentStotra) return;
       const s = state.currentStotra;
@@ -1262,11 +1640,17 @@
       if (s.full_sanskrit) {
         text += s.full_sanskrit + '\n\n';
       }
+      if (s.full_text) {
+        text += s.full_text + '\n\n';
+      }
+      if (s.sections && s.sections.length > 0) {
+        text += s.sections.map(sec => `## ${sec.title}\n${sec.content}`).join('\n\n') + '\n\n';
+      }
       if (s.verses && s.verses.length > 0) {
-        text += s.verses.map(v => `${v.sanskrit}\nभावार्थ: ${v.meaning || ''}`).join('\n\n');
+        text += s.verses.map(v => `${v.sanskrit || v.verse || ''}\nभावार्थ: ${v.meaning || ''}`).join('\n\n');
       }
       navigator.clipboard.writeText(text).then(() => {
-        showToast('सम्पूर्ण स्तोत्र कॉपी हो गया!');
+        showToast('सम्पूर्ण पाठ कॉपी हो गया!');
       });
     };
 
@@ -1278,10 +1662,10 @@
       DOM.copyMukhyaBtn.addEventListener('click', () => {
         if (!state.currentStotra) return;
         const s = state.currentStotra;
-        const text = s.full_sanskrit || (s.verses || []).map(v => v.sanskrit).join('\n\n');
+        const text = s.full_sanskrit || s.full_text || (s.verses || []).map(v => v.sanskrit || v.verse || '').join('\n\n');
         if (text) {
           navigator.clipboard.writeText(text).then(() => {
-            showToast('मुख्य स्तोत्र पाठ कॉपी हो गया!');
+            showToast('मुख्य पाठ कॉपी हो गया!');
           });
         }
       });
@@ -1331,12 +1715,16 @@
     // Favorite Toggle (Sub-Navbar & Legacy)
     const toggleFavAction = () => {
       if (!state.currentStotra) return;
-      const id = state.currentStotra.id;
-      if (state.favorites.has(id)) {
-        state.favorites.delete(id);
+      const corpusKey = state.activeCorpus || 'stuti_ganga';
+      const key = corpusKey === 'stuti_ganga' ? state.currentStotra.id : `${corpusKey}:${state.currentStotra.id}`;
+      const plainId = state.currentStotra.id;
+
+      if (state.favorites.has(key) || state.favorites.has(plainId)) {
+        state.favorites.delete(key);
+        state.favorites.delete(plainId);
         showToast('पसंदीदा से हटाया गया');
       } else {
-        state.favorites.add(id);
+        state.favorites.add(key);
         showToast('पसंदीदा में जोड़ा गया!');
       }
       localStorage.setItem('shri_favorites', JSON.stringify([...state.favorites]));
@@ -2778,22 +3166,35 @@
     if (!DOM.vratCardsGrid) return;
     const q = (searchQuery || '').trim().toLowerCase();
 
-    const filtered = vratList.filter(item => {
+    const sourceList = (state.corporaData && state.corporaData.vrat_pujanam && state.corporaData.vrat_pujanam.length > 0)
+      ? state.corporaData.vrat_pujanam
+      : vratList;
+
+    const filtered = sourceList.filter(item => {
       // Category filter
-      if (category !== 'all' && item.cat !== category) return false;
+      if (category !== 'all') {
+        const cat = category.toLowerCase();
+        const match = (item.cat && item.cat === category) ||
+                      (item.category && item.category.toLowerCase().includes(cat)) ||
+                      (item.section_name && item.section_name.toLowerCase().includes(cat)) ||
+                      (item.badge && item.badge.toLowerCase().includes(cat));
+        if (!match) return false;
+      }
       // Search filter
       if (!q) return true;
-      return item.title.toLowerCase().includes(q) ||
+      return (item.title && item.title.toLowerCase().includes(q)) ||
              (item.subtitle && item.subtitle.toLowerCase().includes(q)) ||
              (item.badge && item.badge.toLowerCase().includes(q)) ||
              (item.desc && item.desc.toLowerCase().includes(q)) ||
+             (item.intro && item.intro.toLowerCase().includes(q)) ||
+             (item.section_name && item.section_name.toLowerCase().includes(q)) ||
              (item.mantra && item.mantra.toLowerCase().includes(q));
     });
 
     if (DOM.vratCountIndicator) {
       DOM.vratCountIndicator.textContent = q || category !== 'all'
         ? `${toDevanagari(filtered.length)} व्रत प्राप्त`
-        : `${toDevanagari(vratList.length)} प्रमुख पावन व्रत`;
+        : `${toDevanagari(sourceList.length)} प्रमुख पावन व्रत`;
     }
 
     if (filtered.length === 0) {
@@ -2810,19 +3211,22 @@
 
     DOM.vratCardsGrid.innerHTML = filtered.map(item => {
       let tagClass = 'tag-navratri';
-      if (item.cat === 'ekadashi') tagClass = 'tag-ekadashi';
-      else if (item.cat === 'shiv') tagClass = 'tag-shiv';
-      else if (item.cat === 'parva') tagClass = 'tag-parva';
+      if (item.cat === 'ekadashi' || (item.section_name && item.section_name.includes('एकादशी'))) tagClass = 'tag-ekadashi';
+      else if (item.cat === 'shiv' || (item.section_name && item.section_name.includes('शिव'))) tagClass = 'tag-shiv';
+      else if (item.cat === 'parva' || (item.section_name && item.section_name.includes('पर्व'))) tagClass = 'tag-parva';
+
+      const badge = item.badge || item.section_name || '🌸 पावन व्रत';
+      const desc = item.desc || (item.intro ? item.intro.substring(0, 160) + '...' : '') || (item.full_text ? item.full_text.substring(0, 120) + '...' : '');
 
       return `
-        <div class="vrat-card-item" data-vrat-id="${item.id}" tabindex="0" role="button" aria-label="${item.title} विवरण पढ़ें">
+        <div class="vrat-card-item" data-vrat-id="${item.id}" tabindex="0" role="button" aria-label="${escapeHtml(item.title)} विवरण पढ़ें">
           <div class="vrat-card-top">
-            <span class="vrat-card-tag ${tagClass}">${item.badge}</span>
-            <span class="vrat-card-time">${item.subtitle || ''}</span>
+            <span class="vrat-card-tag ${tagClass}">${escapeHtml(badge)}</span>
+            <span class="vrat-card-time">${escapeHtml(item.subtitle || item.section_name || '')}</span>
           </div>
-          <h4 class="vrat-card-title">${item.title}</h4>
+          <h4 class="vrat-card-title">${escapeHtml(item.title)}</h4>
           ${item.mantra ? `<div class="vrat-card-mantra">${escapeHtml(item.mantra)}</div>` : ''}
-          <p class="vrat-card-desc">${item.desc}</p>
+          <p class="vrat-card-desc">${escapeHtml(desc)}</p>
           <div class="vrat-card-action">
             <span>सम्पूर्ण विधि व कथा पढ़ें</span>
             <span>→</span>
@@ -2835,13 +3239,13 @@
     DOM.vratCardsGrid.querySelectorAll('.vrat-card-item').forEach(card => {
       card.addEventListener('click', () => {
         const id = card.dataset.vratId;
-        openVratModal(id);
+        loadArticle('vrat_pujanam', id, true);
       });
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           const id = card.dataset.vratId;
-          openVratModal(id);
+          loadArticle('vrat_pujanam', id, true);
         }
       });
     });
@@ -3142,19 +3546,34 @@
     if (!DOM.kavyaCardsGrid) return;
     const q = (searchQuery || '').trim().toLowerCase();
 
-    const filtered = kavyaList.filter(item => {
-      if (category !== 'all' && item.cat !== category) return false;
+    const sourceList = (state.corporaData && state.corporaData.kavya && state.corporaData.kavya.length > 0)
+      ? state.corporaData.kavya
+      : kavyaList;
+
+    const filtered = sourceList.filter(item => {
+      if (category !== 'all') {
+        const cat = category.toLowerCase();
+        const match = (item.cat && item.cat === category) ||
+                      (item.category && item.category.toLowerCase().includes(cat)) ||
+                      (item.section_name && item.section_name.toLowerCase().includes(cat)) ||
+                      (item.author && item.author.toLowerCase().includes(cat)) ||
+                      (item.deity && item.deity.toLowerCase().includes(cat));
+        if (!match) return false;
+      }
       if (!q) return true;
-      return item.title.toLowerCase().includes(q) ||
+      return (item.title && item.title.toLowerCase().includes(q)) ||
              (item.author && item.author.toLowerCase().includes(q)) ||
+             (item.deity && item.deity.toLowerCase().includes(q)) ||
              (item.desc && item.desc.toLowerCase().includes(q)) ||
-             (item.tag && item.tag.toLowerCase().includes(q));
+             (item.intro && item.intro.toLowerCase().includes(q)) ||
+             (item.tag && item.tag.toLowerCase().includes(q)) ||
+             (item.section_name && item.section_name.toLowerCase().includes(q));
     });
 
     if (DOM.kavyaCountIndicator) {
       DOM.kavyaCountIndicator.textContent = q || category !== 'all'
         ? `${toDevanagari(filtered.length)} रचनाएं प्राप्त`
-        : `२०० कालजयी रचनाएं`;
+        : `${toDevanagari(sourceList.length)} कालजयी रचनाएं`;
     }
 
     if (filtered.length === 0) {
@@ -3169,23 +3588,43 @@
       return;
     }
 
-    DOM.kavyaCardsGrid.innerHTML = filtered.map(item => `
-      <div class="pillar-card-item kavya-card" data-kavya-id="${item.id}" tabindex="0" role="button">
-        <div>
-          <div class="pillar-card-header">
-            <span class="pillar-card-icon">${item.icon || '📜'}</span>
-            <span class="pillar-card-badge">${item.badge}</span>
+    DOM.kavyaCardsGrid.innerHTML = filtered.map(item => {
+      const badge = item.badge || item.section_name || '📜 काव्य';
+      const author = item.author || item.deity || 'रचनाकार';
+      const desc = item.desc || (item.intro ? item.intro.substring(0, 160) + '...' : '') || (item.full_text ? item.full_text.substring(0, 120) + '...' : '');
+      const tag = item.tag || item.section_name || 'काव्य';
+      const icon = item.icon || '📜';
+
+      return `
+        <div class="pillar-card-item kavya-card" data-kavya-id="${item.id}" tabindex="0" role="button">
+          <div>
+            <div class="pillar-card-header">
+              <span class="pillar-card-icon">${icon}</span>
+              <span class="pillar-card-badge">${badge}</span>
+            </div>
+            <h4 class="pillar-card-title">${item.title}</h4>
+            <div class="pillar-card-author">रचनाकार: ${author}</div>
+            <p class="pillar-card-desc">${desc}</p>
           </div>
-          <h4 class="pillar-card-title">${item.title}</h4>
-          <div class="pillar-card-author">रचनाकार: ${item.author}</div>
-          <p class="pillar-card-desc">${item.desc}</p>
+          <div class="pillar-card-footer">
+            <span>${tag}</span>
+            <span class="pillar-card-cta">सम्पूर्ण पाठ पढ़ें →</span>
+          </div>
         </div>
-        <div class="pillar-card-footer">
-          <span>${item.tag}</span>
-          <span class="pillar-card-cta">सम्पूर्ण पाठ पढ़ें →</span>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
+
+    DOM.kavyaCardsGrid.querySelectorAll('.kavya-card').forEach(card => {
+      card.addEventListener('click', () => {
+        loadArticle('kavya', card.dataset.kavyaId, true);
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          loadArticle('kavya', card.dataset.kavyaId, true);
+        }
+      });
+    });
   }
 
   // २. इतिहास संकलन (Itihas List)
@@ -3268,18 +3707,30 @@
     if (!DOM.itihasCardsGrid) return;
     const q = (searchQuery || '').trim().toLowerCase();
 
-    const filtered = itihasList.filter(item => {
-      if (category !== 'all' && item.cat !== category) return false;
+    const sourceList = (state.corporaData && state.corporaData.itihas && state.corporaData.itihas.length > 0)
+      ? state.corporaData.itihas
+      : itihasList;
+
+    const filtered = sourceList.filter(item => {
+      if (category !== 'all') {
+        const cat = category.toLowerCase();
+        const match = (item.cat && item.cat === category) ||
+                      (item.category && item.category.toLowerCase().includes(cat)) ||
+                      (item.section_name && item.section_name.toLowerCase().includes(cat));
+        if (!match) return false;
+      }
       if (!q) return true;
-      return item.title.toLowerCase().includes(q) ||
+      return (item.title && item.title.toLowerCase().includes(q)) ||
              (item.desc && item.desc.toLowerCase().includes(q)) ||
-             (item.tag && item.tag.toLowerCase().includes(q));
+             (item.intro && item.intro.toLowerCase().includes(q)) ||
+             (item.tag && item.tag.toLowerCase().includes(q)) ||
+             (item.section_name && item.section_name.toLowerCase().includes(q));
     });
 
     if (DOM.itihasCountIndicator) {
       DOM.itihasCountIndicator.textContent = q || category !== 'all'
         ? `${toDevanagari(filtered.length)} अध्याय प्राप्त`
-        : `गौरवशाली अध्याय`;
+        : `${toDevanagari(sourceList.length)} गौरवशाली अध्याय`;
     }
 
     if (filtered.length === 0) {
@@ -3294,22 +3745,41 @@
       return;
     }
 
-    DOM.itihasCardsGrid.innerHTML = filtered.map(item => `
-      <div class="pillar-card-item itihas-card" data-itihas-id="${item.id}" tabindex="0" role="button">
-        <div>
-          <div class="pillar-card-header">
-            <span class="pillar-card-icon">${item.icon || '⚔️'}</span>
-            <span class="pillar-card-badge">${item.badge}</span>
+    DOM.itihasCardsGrid.innerHTML = filtered.map(item => {
+      const badge = item.badge || item.section_name || '⚔️ इतिहास';
+      const desc = item.desc || (item.intro ? item.intro.substring(0, 160) + '...' : '') || (item.full_text ? item.full_text.substring(0, 120) + '...' : '');
+      const tag = item.tag || item.section_name || 'इतिहास';
+      const icon = item.icon || '⚔️';
+
+      return `
+        <div class="pillar-card-item itihas-card" data-itihas-id="${item.id}" tabindex="0" role="button">
+          <div>
+            <div class="pillar-card-header">
+              <span class="pillar-card-icon">${icon}</span>
+              <span class="pillar-card-badge">${badge}</span>
+            </div>
+            <h4 class="pillar-card-title">${item.title}</h4>
+            <p class="pillar-card-desc">${desc}</p>
           </div>
-          <h4 class="pillar-card-title">${item.title}</h4>
-          <p class="pillar-card-desc">${item.desc}</p>
+          <div class="pillar-card-footer">
+            <span>${tag}</span>
+            <span class="pillar-card-cta">विस्तृत गाथा पढ़ें →</span>
+          </div>
         </div>
-        <div class="pillar-card-footer">
-          <span>${item.tag}</span>
-          <span class="pillar-card-cta">विस्तृत गाथा पढ़ें →</span>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
+
+    DOM.itihasCardsGrid.querySelectorAll('.itihas-card').forEach(card => {
+      card.addEventListener('click', () => {
+        loadArticle('itihas', card.dataset.itihasId, true);
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          loadArticle('itihas', card.dataset.itihasId, true);
+        }
+      });
+    });
   }
 
   // ३. बचपन संकलन (Bachpan List)
@@ -3392,18 +3862,30 @@
     if (!DOM.bachpanCardsGrid) return;
     const q = (searchQuery || '').trim().toLowerCase();
 
-    const filtered = bachpanList.filter(item => {
-      if (category !== 'all' && item.cat !== category) return false;
+    const sourceList = (state.corporaData && state.corporaData.bachpan && state.corporaData.bachpan.length > 0)
+      ? state.corporaData.bachpan
+      : bachpanList;
+
+    const filtered = sourceList.filter(item => {
+      if (category !== 'all') {
+        const cat = category.toLowerCase();
+        const match = (item.cat && item.cat === category) ||
+                      (item.category && item.category.toLowerCase().includes(cat)) ||
+                      (item.section_name && item.section_name.toLowerCase().includes(cat));
+        if (!match) return false;
+      }
       if (!q) return true;
-      return item.title.toLowerCase().includes(q) ||
+      return (item.title && item.title.toLowerCase().includes(q)) ||
              (item.desc && item.desc.toLowerCase().includes(q)) ||
-             (item.tag && item.tag.toLowerCase().includes(q));
+             (item.intro && item.intro.toLowerCase().includes(q)) ||
+             (item.tag && item.tag.toLowerCase().includes(q)) ||
+             (item.section_name && item.section_name.toLowerCase().includes(q));
     });
 
     if (DOM.bachpanCountIndicator) {
       DOM.bachpanCountIndicator.textContent = q || category !== 'all'
         ? `${toDevanagari(filtered.length)} बाल रचनाएं प्राप्त`
-        : `बाल संस्कार वाटिका`;
+        : `${toDevanagari(sourceList.length)} बाल संस्कार वाटिका`;
     }
 
     if (filtered.length === 0) {
@@ -3418,22 +3900,41 @@
       return;
     }
 
-    DOM.bachpanCardsGrid.innerHTML = filtered.map(item => `
-      <div class="pillar-card-item bachpan-card" data-bachpan-id="${item.id}" tabindex="0" role="button">
-        <div>
-          <div class="pillar-card-header">
-            <span class="pillar-card-icon">${item.icon || '🌱'}</span>
-            <span class="pillar-card-badge">${item.badge}</span>
+    DOM.bachpanCardsGrid.innerHTML = filtered.map(item => {
+      const badge = item.badge || item.section_name || '🌱 बाल संस्कार';
+      const desc = item.desc || (item.intro ? item.intro.substring(0, 160) + '...' : '') || (item.full_text ? item.full_text.substring(0, 120) + '...' : '');
+      const tag = item.tag || item.section_name || 'बचपन';
+      const icon = item.icon || '🌱';
+
+      return `
+        <div class="pillar-card-item bachpan-card" data-bachpan-id="${item.id}" tabindex="0" role="button">
+          <div>
+            <div class="pillar-card-header">
+              <span class="pillar-card-icon">${icon}</span>
+              <span class="pillar-card-badge">${badge}</span>
+            </div>
+            <h4 class="pillar-card-title">${item.title}</h4>
+            <p class="pillar-card-desc">${desc}</p>
           </div>
-          <h4 class="pillar-card-title">${item.title}</h4>
-          <p class="pillar-card-desc">${item.desc}</p>
+          <div class="pillar-card-footer">
+            <span>${tag}</span>
+            <span class="pillar-card-cta">पढ़ें व सुनाएं →</span>
+          </div>
         </div>
-        <div class="pillar-card-footer">
-          <span>${item.tag}</span>
-          <span class="pillar-card-cta">पढ़ें व सुनाएं →</span>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
+
+    DOM.bachpanCardsGrid.querySelectorAll('.bachpan-card').forEach(card => {
+      card.addEventListener('click', () => {
+        loadArticle('bachpan', card.dataset.bachpanId, true);
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          loadArticle('bachpan', card.dataset.bachpanId, true);
+        }
+      });
+    });
   }
 
   // ४. हास्य संकलन (Hasya List)
@@ -3498,18 +3999,30 @@
     if (!DOM.hasyaCardsGrid) return;
     const q = (searchQuery || '').trim().toLowerCase();
 
-    const filtered = hasyaList.filter(item => {
-      if (category !== 'all' && item.cat !== category) return false;
+    const sourceList = (state.corporaData && state.corporaData.hasya && state.corporaData.hasya.length > 0)
+      ? state.corporaData.hasya
+      : hasyaList;
+
+    const filtered = sourceList.filter(item => {
+      if (category !== 'all') {
+        const cat = category.toLowerCase();
+        const match = (item.cat && item.cat === category) ||
+                      (item.category && item.category.toLowerCase().includes(cat)) ||
+                      (item.section_name && item.section_name.toLowerCase().includes(cat));
+        if (!match) return false;
+      }
       if (!q) return true;
-      return item.title.toLowerCase().includes(q) ||
+      return (item.title && item.title.toLowerCase().includes(q)) ||
              (item.desc && item.desc.toLowerCase().includes(q)) ||
-             (item.tag && item.tag.toLowerCase().includes(q));
+             (item.intro && item.intro.toLowerCase().includes(q)) ||
+             (item.tag && item.tag.toLowerCase().includes(q)) ||
+             (item.section_name && item.section_name.toLowerCase().includes(q));
     });
 
     if (DOM.hasyaCountIndicator) {
       DOM.hasyaCountIndicator.textContent = q || category !== 'all'
         ? `${toDevanagari(filtered.length)} व्यंग्य प्राप्त`
-        : `विशुद्ध विनोद`;
+        : `${toDevanagari(sourceList.length)} विशुद्ध विनोद`;
     }
 
     if (filtered.length === 0) {
@@ -3524,22 +4037,41 @@
       return;
     }
 
-    DOM.hasyaCardsGrid.innerHTML = filtered.map(item => `
-      <div class="pillar-card-item hasya-card" data-hasya-id="${item.id}" tabindex="0" role="button">
-        <div>
-          <div class="pillar-card-header">
-            <span class="pillar-card-icon">${item.icon || '🎭'}</span>
-            <span class="pillar-card-badge">${item.badge}</span>
+    DOM.hasyaCardsGrid.innerHTML = filtered.map(item => {
+      const badge = item.badge || item.section_name || '🎭 हास्य-व्यंग्य';
+      const desc = item.desc || (item.intro ? item.intro.substring(0, 160) + '...' : '') || (item.full_text ? item.full_text.substring(0, 120) + '...' : '');
+      const tag = item.tag || item.section_name || 'हास्य';
+      const icon = item.icon || '🎭';
+
+      return `
+        <div class="pillar-card-item hasya-card" data-hasya-id="${item.id}" tabindex="0" role="button">
+          <div>
+            <div class="pillar-card-header">
+              <span class="pillar-card-icon">${icon}</span>
+              <span class="pillar-card-badge">${badge}</span>
+            </div>
+            <h4 class="pillar-card-title">${item.title}</h4>
+            <p class="pillar-card-desc">${desc}</p>
           </div>
-          <h4 class="pillar-card-title">${item.title}</h4>
-          <p class="pillar-card-desc">${item.desc}</p>
+          <div class="pillar-card-footer">
+            <span>${tag}</span>
+            <span class="pillar-card-cta">आनंद लें →</span>
+          </div>
         </div>
-        <div class="pillar-card-footer">
-          <span>${item.tag}</span>
-          <span class="pillar-card-cta">आनंद लें →</span>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
+
+    DOM.hasyaCardsGrid.querySelectorAll('.hasya-card').forEach(card => {
+      card.addEventListener('click', () => {
+        loadArticle('hasya', card.dataset.hasyaId, true);
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          loadArticle('hasya', card.dataset.hasyaId, true);
+        }
+      });
+    });
   }
 
   // ५. आरोग्य संकलन (Arogya List)
@@ -3622,18 +4154,30 @@
     if (!DOM.arogyaCardsGrid) return;
     const q = (searchQuery || '').trim().toLowerCase();
 
-    const filtered = arogyaList.filter(item => {
-      if (category !== 'all' && item.cat !== category) return false;
+    const sourceList = (state.corporaData && state.corporaData.aarogyam && state.corporaData.aarogyam.length > 0)
+      ? state.corporaData.aarogyam
+      : arogyaList;
+
+    const filtered = sourceList.filter(item => {
+      if (category !== 'all') {
+        const cat = category.toLowerCase();
+        const match = (item.cat && item.cat === category) ||
+                      (item.category && item.category.toLowerCase().includes(cat)) ||
+                      (item.section_name && item.section_name.toLowerCase().includes(cat));
+        if (!match) return false;
+      }
       if (!q) return true;
-      return item.title.toLowerCase().includes(q) ||
+      return (item.title && item.title.toLowerCase().includes(q)) ||
              (item.desc && item.desc.toLowerCase().includes(q)) ||
-             (item.tag && item.tag.toLowerCase().includes(q));
+             (item.intro && item.intro.toLowerCase().includes(q)) ||
+             (item.tag && item.tag.toLowerCase().includes(q)) ||
+             (item.section_name && item.section_name.toLowerCase().includes(q));
     });
 
     if (DOM.arogyaCountIndicator) {
       DOM.arogyaCountIndicator.textContent = q || category !== 'all'
         ? `${toDevanagari(filtered.length)} सूत्र प्राप्त`
-        : `अमृत आरोग्य सूत्र`;
+        : `${toDevanagari(sourceList.length)} अमृत आरोग्य सूत्र`;
     }
 
     if (filtered.length === 0) {
@@ -3648,22 +4192,41 @@
       return;
     }
 
-    DOM.arogyaCardsGrid.innerHTML = filtered.map(item => `
-      <div class="pillar-card-item arogya-card" data-arogya-id="${item.id}" tabindex="0" role="button">
-        <div>
-          <div class="pillar-card-header">
-            <span class="pillar-card-icon">${item.icon || '🌿'}</span>
-            <span class="pillar-card-badge">${item.badge}</span>
+    DOM.arogyaCardsGrid.innerHTML = filtered.map(item => {
+      const badge = item.badge || item.section_name || '🌿 आरोग्य सूत्र';
+      const desc = item.desc || (item.intro ? item.intro.substring(0, 160) + '...' : '') || (item.full_text ? item.full_text.substring(0, 120) + '...' : '');
+      const tag = item.tag || item.section_name || 'आरोग्य';
+      const icon = item.icon || '🌿';
+
+      return `
+        <div class="pillar-card-item arogya-card" data-arogya-id="${item.id}" tabindex="0" role="button">
+          <div>
+            <div class="pillar-card-header">
+              <span class="pillar-card-icon">${icon}</span>
+              <span class="pillar-card-badge">${badge}</span>
+            </div>
+            <h4 class="pillar-card-title">${item.title}</h4>
+            <p class="pillar-card-desc">${desc}</p>
           </div>
-          <h4 class="pillar-card-title">${item.title}</h4>
-          <p class="pillar-card-desc">${item.desc}</p>
+          <div class="pillar-card-footer">
+            <span>${tag}</span>
+            <span class="pillar-card-cta">आयुर्वेद सूत्र पढ़ें →</span>
+          </div>
         </div>
-        <div class="pillar-card-footer">
-          <span>${item.tag}</span>
-          <span class="pillar-card-cta">आयुर्वेद सूत्र पढ़ें →</span>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
+
+    DOM.arogyaCardsGrid.querySelectorAll('.arogya-card').forEach(card => {
+      card.addEventListener('click', () => {
+        loadArticle('aarogyam', card.dataset.arogyaId, true);
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          loadArticle('aarogyam', card.dataset.arogyaId, true);
+        }
+      });
+    });
   }
   function closeVedPuranModal() {}
 

@@ -3,6 +3,85 @@
 यह लॉगबुक परियोजना के अंतर्गत की गई प्रत्येक गतिविधि, संशोधन, निर्माण एवं प्रगति का कालक्रमानुसार प्रामाणिक विवरण है।  
 **नियम:** प्रत्येक सत्र में हुए कार्यों को यहाँ तिथि व समय सहित अंकित किया जाना अनिवार्य है।
 
+## 📅 [2026-10-15 03:55 IST] — श्री वाङ्मयम् वेबसाइट प्रबंधन: सार्वभौमिक साइडबार एकीकरण, रूटिंग एवं सम्पूर्ण ९-स्तम्भ रीडर मोड
+
+### 🎯 प्रयोक्ता निर्देश (User Directive):
+- *"ShriVangmayam Website Management"*
+- समस्त ९ पावन स्तम्भों में सार्वभौमिक अनुक्रमणिका-साइडबार, लाइव सर्च, श्रेणी पिल्स, श्लोक स्केलिंग व लाइन-रैप एवं अखंड रीडर मोड का सुगम संचालन सुनिश्चित करना।
+
+### 🛠️ की गई गतिविधियाँ एवं तकनीकी क्रियान्वयन:
+1. **समर्पित व्यू फ़ंक्शन्स एवं सक्रिय कॉर्पस सिंकिंग (`app.js`):**
+   - `showHomeView`, `showStutiGangaView`, `showVedPuranamView`, `showVedantDarshanamView`, `showVratPujanamView`, `showKavyaView`, `showItihasView`, `showBachpanView`, `showHasyaView`, `showArogyaView` में `state.activeCorpus = '<key>'` तथा `renderSidebarForCorpus('<key>')` का एकीकरण सम्पन्न।
+   - किसी भी स्तम्भ में जाने पर साइडबार उस स्तम्भ की विषय-सूचियों, श्रेणियों (रचनाकारों, देवताओं, पर्वों, आयुर्वेद सूत्रों) और लाइव सर्च से स्वतः सज्जित रहता है।
+2. **व्रत-पूजनम् (४४ पावन रचनाएं) का पूर्ण रीडर मोड:**
+   - `renderVratPujanam` को ४४ प्रामाणिक रचनाओं (`state.corporaData.vrat_pujanam`) से जोड़ा गया।
+   - कार्ड क्लिक तथा एंटर की-प्रेस पर सीधे `loadArticle('vrat_pujanam', id, true)` ट्रिगर होकर पूर्ण पूजा-विधि, संकल्प मन्त्र, कथा एवं सावधानियों को सुन्दर प्रारूप में खोलता है।
+3. **सार्वभौमिक हैश रूटिंग (`handleRoute`):**
+   - `#kavya-`, `#vrat-`, `#itihas-`, `#bachpan-`, `#hasya-`, `#arogya-`, `#aarogyam-` तथा पूर्ववत `#stotra-` (विरासत क्रमांक ००१..२६२ सहित) के सीधे यूआरएल एक्सेस का पूर्ण क्रियान्वयन।
+4. **साइडबार एवं प्रतिलिपि सुधार:**
+   - शीर्ष साइडबार क्लोज़ बटन (`#sidebar-close-btn`) का इवेंट लिसनर जोड़ा गया।
+   - `copyFullStotraAction` एवं `copyMukhyaBtn` में `full_text` तथा बहु-खंडीय अनुच्छेदों (`sections`) का समावेश किया गया जिससे गद्य व पद्य दोनों रचनाएं शत-प्रतिशत शुद्धता से क्लिपबोर्ड में कॉपी होती हैं।
+5. **सत्यापन एवं बिल्ड:**
+   - `node -c app.js` शून्य त्रुटि।
+   - `python3 build_data.py` द्वारा ५९८ रचनाओं का सफल संकलन।
+   - `bash build_pages.sh` द्वारा Cloudflare `dist/` डिस्ट्रीब्यूशन का निर्माण एवं सत्यापन।
+
+---
+
+## 📅 [2026-10-15 03:30 IST] — समस्त वाङ्मयम् स्तम्भों का फोल्डर पुनर्गठन, रचनाकार उप-खण्ड एवं सार्वभौमिक अनुक्रमणिका-साइडबार का सफल क्रियान्वयन
+
+### 🎯 प्रयोक्ता निर्देश (User Directive):
+- *"iske andar saare folders banaiye "vrat-pujanam", "kavya", "itihas", "bachpan", "hasya", "aarogyam" aadi aur uske ander content ko move kijiye.*
+- *jaise hamne stuti ganga ke andar sabhi bhagwano ke liye folders banaye hain waise hi kavya ke andar bhi rachnakaron ke adhar pe folders banaiye.*
+- *jis prakar stuti ganga ke liye sidebar aur anukramika khulti hai waisi ki anukramanika sidebar bujhe sabhi ke liye chahiye kyuki content sabme badhne hi wale hain kam nahi honge to uski taiyari aaj se hi karni chahiye"*
+- *"is agent / chat ka naam "Folder Organization And Navigation Setup" se badalkar "ShriVagmayam" kijiye"*
+
+### 🛠️ की गई गतिविधियाँ एवं तकनीकी क्रियान्वयन:
+1. **भौतिक फोल्डर संरचना एवं सामग्री वर्गीकरण (कुल ५९८ प्रामाणिक रचनाएं):**
+   - **`kavya/` (काव्य संकलन - १४ रचनाकार उप-खण्ड, २०१ रचनाएं):**
+     - `01_ramdhari_singh_dinkar/` (दिनकर)
+     - `02_maithilisharan_gupt/` (मैथिलीशरण गुप्त)
+     - `03_makhanlal_chaturvedi/` (माखनलाल चतुर्वेदी)
+     - `04_subhadra_kumari_chauhan/` (सुभद्रा कुमारी चौहान)
+     - `05_mahakavi_bhushan/` (महाकवि भूषण)
+     - `06_jaishankar_prasad/` (जयशंकर प्रसाद)
+     - `07_suryakant_tripathi_nirala/` (सूर्यकान्त त्रिपाठी निराला)
+     - `08_shyam_narayan_pandey/` (श्यामनारायण पाण्डेय)
+     - `09_prayan_geet_sangh/` (प्रयाण गीत व संघ गीत)
+     - `10_sant_kavi_parampara/` (संत कवि - कबीर, तुलसी, सूर, मीरा, रसखान)
+     - `11_charan_reetikal_veergatha/` (चारण व रीतिकाल वीरगाथा)
+     - `12_kranti_veer_kavya/` (क्रांति-वीर काव्य - बिस्मिल, सावरकर, भारती)
+     - `13_vaidik_rishi_kavya/` (वैदिक ऋषि काव्य)
+     - `14_rashtriya_chetana_kavi/` (राष्ट्रीय चेतना कवि - सोहनलाल, बालकृष्ण, दिनकर)
+     - साथ ही `000_kavya_anukramanika.md` मास्टर अनुक्रमणिका जोड़ी गई।
+   - **`vrat_pujanam/` (व्रत व पूजन विधि - ४ उप-खण्ड, ४४ रचनाएं):**
+     - `01_navratri/` (शारदीय व चैत्र नवरात्र, घटस्थापना, नौ दुर्गा)
+     - `02_ekadashi/` (२६ पावन एकादशियां, तुलसी विवाह)
+     - `03_shiv_shakti/` (प्रदोष, महाशिवरात्रि, हरतालिका तीज, करवा चौथ)
+     - `04_parva_pujan/` (दीपावली, श्रीगणेश चतुर्थी, होली, रक्षाबन्धन)
+   - **`itihas/` (इतिहास संकलन - ४ उप-खण्ड, २३ गाथाएं):**
+     - `01_prachin_bharat/`, `02_madhyakaleen_shaurya/`, `03_swatantrya_kranti/`, `04_rashtra_gatha/`
+   - **`bachpan/` (बाल वाटिका - ५ उप-खण्ड, २९ रचनाएं):**
+     - `01_panchatantra_neeti/`, `02_dainik_sanskar/`, `03_bal_kavita/`, `04_bal_charitra/`, `05_tarang_vatika/`
+   - **`hasya/` (विशुद्ध विनोद व व्यंग्य - ४ उप-खण्ड, १४ रचनाएं):**
+     - `01_kaljayee_vyangya/`, `02_samajik_kataraksha/`, `03_prahasan_skits/`, `04_vyangya_dohe/`
+   - **`aarogyam/` (आयुर्वेद व आरोग्य सूत्र - ५ उप-खण्ड, २५ सूत्र):**
+     - `01_tridosha_vigyan/`, `02_dincharya/`, `03_ritucharya/`, `04_aushadhi_herbs/`, `05_yoga_pranayama/`
+   - **`stuti_ganga/` (स्तुति गंगा):** १६ देव-खण्डों के २६२ स्तोत्र शत-प्रतिशत अक्षुण्ण।
+2. **डेटा इंजन व पार्सर अद्यतन (`build_data.py`):**
+   - `CORPUS_SECTIONS` मैपिंग से सभी ७ ग्रंथ-स्तम्भों की स्वतः पहचान और श्रेणीकरण।
+   - `data/kavya.json`, `data/vrat_pujanam.json`, `data/itihas.json`, `data/bachpan.json`, `data/hasya.json`, `data/aarogyam.json`, `data/stuti_ganga.json`, `data/stotras.json`, `data/stotras_data.js` तथा सम्मिलित `data/corpus_all_data.js` (`window.CORPUS_ALL_DATA`) का उत्पादन (५९८/५९८ रचनाएं पार्स हुईं)।
+3. **सार्वभौमिक साइडबार व सब-नेवबार आर्किटेक्चर (`index.html` एवं `app.js`):**
+   - प्रत्येक स्तम्भ (काव्य, व्रत-पूजन, इतिहास, बचपन, हास्य, आरोग्य, स्तुति-गंगा) हेतु डायनामिक सब-नेवबार इंडेक्स बटन।
+   - साइडबार में लाइव सर्च बॉक्स (`#sidebar-search-input`) एवं विषय-वर्ग पिल्स (`#category-pills`) का गतिशील रेंडरिंग।
+   - एक्टिव कॉर्पस के अनुसार साइडबार लिस्ट का सेक्शन-वार समूहन, देवनागरी संख्यांकन एवं पसंदीदा (⭐) व्यवस्था।
+   - किसी भी कार्ड या साइडबार लिंक पर क्लिक करते ही पूर्ण रीडिंग व्यू (`#stotra-article`) खुलना (मूल पाठ, रचनाकार/देवता बैनर, अर्थ/भावार्थ, अंतर्वस्तु, प्रतिलिपि, पसंदीदा, फॉन्ट आकार एवं पूर्व/अगला नेविगेशन)।
+4. **बिल्ड एवं डिप्लॉयमेंट सत्यापन:**
+   - `node -c app.js` द्वारा शून्य त्रुटि सत्यापन।
+   - `bash build_pages.sh` द्वारा स्वच्छ `dist/` डिस्ट्रीब्यूशन सफलतापूर्वक निर्मित।
+
+---
+
 ## 📅 [2026-10-14 00:20 IST] — 'श्री वाङ्मयम्' का 'श्री प्रजापति उद्यम' के अंतर्गत एकीकरण
 
 ### 🎯 प्रयोक्ता निर्देश (User Directive):

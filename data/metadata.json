@@ -1,7 +1,15 @@
 {
-  "collection_title": "श्री सनातन वाङ्मयम् — स्तुति-गंगा",
-  "sub_title": "सनातन धर्म के समस्त २६२ पावन स्तोत्र, स्तुति, अष्टक, कवच, सहस्रनाम एवं चालीसा संग्रह",
-  "total_stotras": 262,
+  "collection_title": "श्री सनातन वाङ्मयम् — समग्र पावन ग्रन्थालय",
+  "corpora": {
+    "stuti_ganga": 262,
+    "kavya": 201,
+    "vrat_pujanam": 44,
+    "itihas": 23,
+    "bachpan": 29,
+    "hasya": 14,
+    "aarogyam": 25
+  },
+  "total_works": 598,
   "deities": {
     "श्री शिव": 40,
     "श्री विष्णु": 37,
